@@ -18,7 +18,7 @@
 				header('location: '.base_url().'/dashboard');
 			}
 			$data['page_tag'] = "Usuarios";
-			$data['page_title'] = "USUARIOS <small> Ferretería</small>";
+			$data['page_title'] = "Usuarios";
 			$data['page_name'] = "usuarios";
 			$data['page_functions_js'] = "functions_usuarios.js";
 			$this->views->getView($this,"usuarios",$data);
