@@ -21,7 +21,7 @@
 			$data['page_id'] = 11;
 			$data['page_tag'] = "Cliente";
 			$data['page_name'] = "cliente";
-			$data['page_title'] = "Cliente <small> Ferretería</small>";
+			$data['page_title'] = "Cliente";
 			$data['page_functions_js'] = "functions_cliente.js";
 			$this->views->getView($this,"cliente",$data);
 		}

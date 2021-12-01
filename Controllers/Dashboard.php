@@ -16,8 +16,8 @@
 		public function dashboard()
 		{
 			$data['page_id'] = 2;
-			$data['page_tag'] = "Inicio - Ferreteria";
-			$data['page_title'] = "Inicio - Ferreteria Granadeño";
+			$data['page_tag'] = "Inicio";
+			$data['page_title'] = "Inicio";
 			$data['page_name'] = "dashboard";
 			$data['page_functions_js'] = "functions_dashboard.js";
 			$this->views->getView($this,"dashboard",$data);

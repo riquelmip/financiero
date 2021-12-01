@@ -13,7 +13,7 @@
 		public function login()
 		{
 			$data['page_tag'] = "Login";
-			$data['page_title'] = "Ferreteria";
+			$data['page_title'] = "";
 			$data['page_name'] = "login";
 			$data['page_functions_js'] = "functions_login.js";
 			$this->views->getView($this,"login",$data);
@@ -22,7 +22,7 @@
 		public function ResetPassV()
 		{
 			$data['page_tag'] = "Resetear Contraseña";
-			$data['page_title'] = "Ferreteria";
+			$data['page_title'] = "";
 			$data['page_name'] = "login";
 			$data['page_functions_js'] = "functions_login.js";
 			$this->views->getView($this,"cambiar_password",$data);
