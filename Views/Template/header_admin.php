@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="UES FMP">
     <meta name="theme-color" content="#4961e9">
-    <link rel="shortcut icon" href="<?= media(); ?>/images/Logo.png">
+    <link rel="shortcut icon" href="<?= media(); ?>/images/pruebita.png">
     <title><?= $data['page_tag'] ?></title>
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main.css">
@@ -17,7 +17,7 @@
   <body class="app sidebar-mini">
     <div id="divLoading" >
       <div>
-        <img src="<?= media(); ?>/images/loading.svg" alt="Loading">
+        <img src="<?= media(); ?>/images/pruebita.svg" alt="Loading">
       </div>
     </div>
     <!-- Navbar-->

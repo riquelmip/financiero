@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Riquelmi Palacios">
   <meta name="theme-color" content="#009688">
-  <link rel="shortcut icon" href="<?= media(); ?>/images/Logo.png">
+  <link rel="shortcut icon" href="<?= media(); ?>/images/pruebita.png">
 	<title><?= $data['page_tag'] ?></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -28,7 +28,7 @@
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container">
-						<img src="<?= media(); ?>/images/Logo.png" style="width: 150px; " class="brand_logo" alt="Logo">
+						<img src="<?= media(); ?>/images/pruebita.png" style="width: 150px; " class="brand_logo" alt="Logo">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
