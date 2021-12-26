@@ -47,11 +47,11 @@
 			
 					//si tiene permiso de editar se agrega el botn
 					if ($_SESSION['permisosMod']['actualizar']) {
-						$btnEdit = '<button class="btn btn-primary btn-sm btnEditCliente" onClick="fntEditCliente('.$arrData[$i]['idcliente'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+						$btnEdit = '<button class="btn btn-primary btn-sm btnEditCliente" onClick="fntEditCliente('.$arrData[$i]['codigo_cliente_natural'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					//si tiene permiso de eliminar se agrega el boton
 					if ($_SESSION['permisosMod']['eliminar']) {
-						$btnDelete = '<button class="btn btn-danger btn-sm btnDelCliente" onClick="fntDelCliente('.$arrData[$i]['idcliente'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+						$btnDelete = '<button class="btn btn-danger btn-sm btnDelCliente" onClick="fntDelCliente('.$arrData[$i]['codigo_cliente_natural'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
 					}
 					//agregamos los botones
 					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' ' .$btnDelete.'</div>';
@@ -65,13 +65,13 @@
 		}
 
 		//Obtener un registro Cliente
-		public function getCliente(int $idcliente)
+		public function getCliente(int $codigo_cliente_natural)
 		{
 			if ($_SESSION['permisosMod']['leer']) {
-				$intIdcliente = intval(strClean($idcliente));
-				if($intIdcliente > 0){
+				$intcodigo_cliente_natural = intval(strClean($codigo_cliente_natural));
+				if($intcodigo_cliente_natural > 0){
 
-					$arrData = $this->model->selectCliente($intIdcliente);
+					$arrData = $this->model->selectCliente($intcodigo_cliente_natural);
 					if(empty($arrData)){
 						$arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
 					}else{
@@ -85,14 +85,14 @@
 
 		public function setCliente(){
 			
-			$intIdcliente = intval($_POST['idcliente']);
+			$intcodigo_cliente_natural = intval($_POST['codigo_cliente_natural']);
 			$strDui =  strClean($_POST['txtDui']);
 			$strNombre =  strClean($_POST['txtNombre']);
 			$strApellido =  strClean($_POST['txtApellido']);
 			$strTelefono =  strClean($_POST['txtTelefono']);
            	$intEstado = intval($_POST['intEstado']);
 
-			if($intIdcliente == 0){
+			if($intcodigo_cliente_natural == 0){
 				$option = 1;
 				if ($_SESSION['permisosMod']['escribir']) {
 					//Crear
@@ -102,7 +102,7 @@
 				$option = 2;
 				if ($_SESSION['permisosMod']['actualizar']) {
 				//Actualizar
-				 $request_cliente= $this->model->updateCliente($intIdcliente,$strDui,$strNombre,$strApellido,$strTelefono,$intEstado);
+				 $request_cliente= $this->model->updateCliente($intcodigo_cliente_natural,$strDui,$strNombre,$strApellido,$strTelefono,$intEstado);
 				}
 			}
 
@@ -128,8 +128,8 @@
 		public function delCliente(){
 			if($_POST){
 				if ($_SESSION['permisosMod']['eliminar']) {
-					$intIdcliente = intval($_POST['idcliente']);
-					$requestDelete = $this->model->deleteCliente($intIdcliente);
+					$intcodigo_cliente_natural = intval($_POST['codigo_cliente_natural']);
+					$requestDelete = $this->model->deleteCliente($intcodigo_cliente_natural);
 					if($requestDelete == 'ok')
 					{
 						$arrResponse = array('estado' => true, 'msg' => 'Se ha eliminado el Registro Cliente');

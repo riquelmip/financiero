@@ -2,7 +2,7 @@
 
 	class ClienteModel extends Mysql
 	{
-		public $intIdcliente;
+		public $intcodigo_cliente_natural;
 		public $strDui;
 		public $strNombre;
 		public $strApellido;
@@ -17,16 +17,16 @@
 		public function selectClientes(){
 			
 			//EXTRAE CLIENTES
-			$sql = "SELECT c.idcliente, c.dui, CONCAT(c.nombre,' ',c.apellido) as `nombre`,c.telefono FROM cliente as c WHERE estado = 1";
+			$sql = "SELECT c.codigo_cliente_natural, c.dui, CONCAT(c.nombre,' ',c.apellido) as `nombre`,c.telefono FROM cliente as c WHERE estado = 1";
 			$request = $this->select_all($sql);
 			return $request;
 		}
 
-		public function selectCliente(int $idcliente)
+		public function selectCliente(int $codigo_cliente_natural)
 		{
 			//BUSCAR CLIENTE
-			$this->intIdcliente = $idcliente;
-			$sql = "SELECT * FROM cliente WHERE idcliente = $this->intIdcliente";
+			$this->intcodigo_cliente_natural = $codigo_cliente_natural;
+			$sql = "SELECT * FROM cliente WHERE codigo_cliente_natural = $this->intcodigo_cliente_natural";
 			$request = $this->select($sql);
 			return $request;
 		}
@@ -55,19 +55,19 @@
 			return $return;
 		}	
 
-		public function updateCliente(int $idcliente, string $dui, string $nombre, string $apellido,string $telefono, int $estado){
-			$this->intIdcliente = $idcliente;
+		public function updateCliente(int $codigo_cliente_natural, string $dui, string $nombre, string $apellido,string $telefono, int $estado){
+			$this->intcodigo_cliente_natural = $codigo_cliente_natural;
 			$this->strDui = $dui;
 			$this->strNombre = $nombre;
 			$this->strApellido = $apellido;
 			$this->strTelefono = $telefono;
 			$this->intEstado = $estado;
 
-			$sql = "SELECT * FROM cliente WHERE dui = '{$this->strDui}' and idcliente!=$this->intIdcliente";
+			$sql = "SELECT * FROM cliente WHERE dui = '{$this->strDui}' and codigo_cliente_natural!=$this->intcodigo_cliente_natural";
 			$request = $this->select_all($sql);
 
 			if(empty($request)){
-				$sql = "UPDATE cliente SET dui = ?, nombre = ?, apellido = ?,telefono = ?, estado = ? WHERE idcliente = $this->intIdcliente ";
+				$sql = "UPDATE cliente SET dui = ?, nombre = ?, apellido = ?,telefono = ?, estado = ? WHERE codigo_cliente_natural = $this->intcodigo_cliente_natural ";
 				$arrData = array($this->strDui,$this->strNombre,$this->strApellido,$this->strTelefono,$this->intEstado);
 				$request = $this->update($sql,$arrData);
 			}else{
@@ -76,16 +76,16 @@
 		    return $request;			
 		}
 
-		public function deleteCliente(int $idcliente){
+		public function deleteCliente(int $codigo_cliente_natural){
 			
-			$this->intIdcliente = $idcliente;
+			$this->intcodigo_cliente_natural = $codigo_cliente_natural;
 
-			$sql = "SELECT * FROM venta WHERE idcliente = $this->intIdcliente";
+			$sql = "SELECT * FROM venta WHERE codigo_cliente_natural = $this->intcodigo_cliente_natural";
 			$request = $this->select_all($sql);
 
 			if(empty($request)){
 
-				$sql = "UPDATE cliente SET estado = ? WHERE idcliente = $this->intIdcliente ";
+				$sql = "UPDATE cliente SET estado = ? WHERE codigo_cliente_natural = $this->intcodigo_cliente_natural ";
 				$arrData = array(0);
 				$request = $this->update($sql,$arrData);
 				if($request)

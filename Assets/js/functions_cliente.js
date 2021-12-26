@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function(){
     formCliente.onsubmit = function(e) {
         e.preventDefault();
 
-        var intIdcliente = document.querySelector('#idcliente').value;
+        var intcodigo_cliente_natural = document.querySelector('#codigo_cliente_natural').value;
         var strDui = document.querySelector('#txtDui').value;
         var strNombre = document.querySelector('#txtNombre').value;
         var strApellido = document.querySelector('#txtApellido').value;
@@ -110,7 +110,7 @@ function openModal(){
    //static mask
     $("#msje2").text("");
     $("#msje1").text("");
-    document.querySelector('#idcliente').value ="";
+    document.querySelector('#codigo_cliente_natural').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
@@ -121,15 +121,15 @@ function openModal(){
    
 }
 
-function fntEditCliente(idcliente){
+function fntEditCliente(codigo_cliente_natural){
     document.querySelector('#titleModal').innerHTML ="Actualizar Cliente";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
 
-    var idcliente = idcliente;
+    var codigo_cliente_natural = codigo_cliente_natural;
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    var ajaxUrl  = base_url+'/Cliente/getCliente/'+idcliente;
+    var ajaxUrl  = base_url+'/Cliente/getCliente/'+codigo_cliente_natural;
     request.open("GET",ajaxUrl ,true);
     request.send();
     request.onreadystatechange = function(){
@@ -138,7 +138,7 @@ function fntEditCliente(idcliente){
             var objData = JSON.parse(request.responseText);
             if(objData.estado){
 
-                document.querySelector("#idcliente").value = objData.data.idcliente;
+                document.querySelector("#codigo_cliente_natural").value = objData.data.codigo_cliente_natural;
                 document.querySelector("#txtDui").value = objData.data.dui;
                 document.querySelector("#txtNombre").value = objData.data.nombre;
                 document.querySelector("#txtApellido").value = objData.data.apellido;
@@ -192,8 +192,8 @@ $(function(){
 
 });
 
-function fntDelCliente(idcliente){
-    var idcliente = idcliente;
+function fntDelCliente(codigo_cliente_natural){
+    var codigo_cliente_natural = codigo_cliente_natural;
     swal({
         title: "Eliminar Cliente",
         text: "¿Realmente quiere eliminar el Registro?",
@@ -209,7 +209,7 @@ function fntDelCliente(idcliente){
         {
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Cliente/delCliente/';
-            var strData = "idcliente="+idcliente;
+            var strData = "codigo_cliente_natural="+codigo_cliente_natural;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
