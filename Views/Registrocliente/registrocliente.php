@@ -12,7 +12,7 @@ headerAdmin($data);
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body"> 
-          <form id="formregistrocliente" name="formregistrocliente" class="form-horizontal">
+          <form method="post" id="formregistrocliente" name="formregistrocliente" class="form-horizontal">
             <div class="form-row">
               <div class="form-group col-md-3">
                 <label for="codigocliente" style="font-size: medium;  font-family: Arial, Helvetica, sans-serif">Tipo de Registro de Cliente</label>
