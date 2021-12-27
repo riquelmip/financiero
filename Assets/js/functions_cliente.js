@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     //NUEVO REGISTRO CLIENTE
-    var formCliente = document.querySelector("formregistrocliente");
+    var formCliente = document.querySelector("#formCliente");
     formCliente.onsubmit = function(e) {
         e.preventDefault();
 

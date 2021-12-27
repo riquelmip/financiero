@@ -1,13 +1,13 @@
-let tableProducto;
-let rowTable = "";
-let divLoading = document.querySelector('#divLoading');
+// let tableProducto;
+// let rowTable = "";
+var divLoading = document.querySelector('#divLoading');
 document.addEventListener('DOMContentLoaded', function(){
 
-    if (document.querySelector("#formregistroclientente")) {
-        let formregistroclientente = document.querySelector("#formregistroclientente");
+    // if (document.querySelector("#formregistroclientente")) {
+        var formregistroclientente = document.querySelector("#formregistrocliente");
     formregistroclientente.onsubmit = function(e) {
         e.preventDefault();
-        console.log("1");
+        console.log('ENTRA');
 
     
 
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
- }
+ // }
    });
 
 
