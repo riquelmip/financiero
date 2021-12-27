@@ -28,11 +28,10 @@
 
 
 
-		public function setCliente(){
+		public function setRegistroCliente(){
 			
-			$intcodigo_cliente_natural = intval($_POST['codigocliente']);
+			$intcodigo_cliente_natural = strClean($_POST['codigocliente']);
 
-			
 			$strNombre =  strClean($_POST['nombrecliente']);
 			$strApellido =  strClean($_POST['apellidocliente']);
 			$strDireccion =  strClean($_POST['direccioncliente']);
@@ -84,41 +83,14 @@
 
 			
 
-		public function getProductos()
-		{
-			if ($_SESSION['permisosMod']['leer']) {
-				$arrData = $this->model->selectProducto();
-				$htmlDatosTabla = "";
-				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-						$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['idproducto'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					
-				
-					//agregamos los botones
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
-					$htmlDatosTabla.='<tr>
-			                            <td>'.$arrData[$i]['codigobarra'].'</td>
-			                            <td>'.$arrData[$i]['descripcion'].'</td>
-										<td>'.$arrData[$i]['stock'].'</td>
-			                            <td>'.$arrData[$i]['options'].'</td>
-			                         </tr>';
-				
-				}
-				$htmlProvee = "";
-				$arrDataProvee = $this->model->selectProveedores();
-				if(count($arrDataProvee) > 0 ){
-					for ($i=0; $i < count($arrDataProvee); $i++) { 
-						if($arrDataProvee[$i]['estado'] == 1 ){
-						$htmlProvee .= '<option value="'.$arrDataProvee[$i]['idproveedor'].'">'.$arrDataProvee[$i]['nombre'].'</option>';
-						
-					}
-					}
-				}
+		public function getCodigoPN(){
+		
+				$arrData = $this->model->setCodigoPN();
 
-				$arrayDatos = array('datosIndividuales' => $arrData,'htmlDatosTabla' => $htmlDatosTabla, 'listaprov' => $htmlProvee);
+
+				$arrayDatos = array('datosIndividuales' => $arrData);
 				echo json_encode($arrayDatos,JSON_UNESCAPED_UNICODE);
-			}
+		
 			die();
 		}
 

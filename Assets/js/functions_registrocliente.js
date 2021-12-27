@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
     formregistroclientente.onsubmit = function(e) {
         e.preventDefault();
         console.log('ENTRA');
-
+        console.log(document.querySelector('#codigocliente').value);
     
 
 
@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 
                 var objData = JSON.parse(request.responseText);
                 if(objData.estado){
-
-
                     swal("Datos Cliente", objData.msg ,"success");
                  
                 }else{
@@ -44,7 +42,28 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-
+   window.addEventListener('load', function() {
+    $.ajax({
+        dataType: "json",
+        method: "POST",
+        url: base_url+"/Registrocliente/getCodigoPN",
+      
+    }).done(function(json) {
+        console.log("EL consultar",json);
+        if (json.datosIndividuales>9 && json.datosIndividuales<=99 ) {
+            document.querySelector('#codigocliente').value = 'PN-0'+json.datosIndividuales;
+        } else if (json.datosIndividuales>99) {
+            document.querySelector('#codigocliente').value = 'PN-'+json.datosIndividuales;
+        }else{
+            document.querySelector('#codigocliente').value = 'PN-00'+json.datosIndividuales;
+        }
+        
+    }).fail(function(){
+    
+    }).always(function(){
+    
+    });
+}, false);
 
 
 
@@ -53,23 +72,21 @@ document.addEventListener('DOMContentLoaded', function(){
 $(document).on("change","#radio1",function(e){
     var radio1 = $("#radio1").val();
     document.querySelector('#bandera').value = 1;
-     /*$.ajax({
+     $.ajax({
        dataType: "json",
        method: "POST",
-       url: base_url+"/Consultas/clientemayorcomprasfiltradaporfecha/"+fecha_fin,
+       url: base_url+"/Registrocliente/getCodigoPN",
      
    }).done(function(json) {
        console.log("EL consultar",json);
-       
-       $("#datos_tabla").empty().html(json.htmlDatosTabla);
-      
-       inicializar_tabla("tableConsul");
+       document.querySelector('#codigocliente').value = json;
+
    
    }).fail(function(){
    
    }).always(function(){
    
-   });*/
+   });
     
    
    

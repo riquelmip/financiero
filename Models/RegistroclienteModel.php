@@ -31,6 +31,25 @@
 			return $request;
 		}
 
+		public function setCodigoPN(){
+
+
+			$sql = "SELECT codigo_persona_natural from tbl_persona_natural ORDER BY codigo_persona_natural DESC LIMIT 1";
+			$request = $this->select_all($sql);
+
+			if(empty($request))
+			{
+	        	$return = "PN001";
+			}else{
+				
+				$valor = ($request[0]['codigo_persona_natural']);
+				$valorsinletras = explode('-',$valor);
+				$valor2 = intval($valorsinletras[1])+1;
+				$return = $valor2;
+			}
+			return $return;
+		}	
+
 		public function insertCliente(string $intcodigo_cliente_natural, string $nombre, string $apellido, string $strDireccion, string $strTelefono, string $strDui, string $strEstadocivil, string $strLugartrabajo, string $stringreso, string $strEgresos ){
 
 
@@ -39,7 +58,7 @@
 
 		//	if(empty($request))
 	//		{
-				$query_insert  = "INSERT INTO tbl_persona_persona_natural(codigo_persona_natural,nombre_persona_natural,apellido_persona_natural,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural) VALUES(?,?,?,?,?,?,?,?,?,?)";
+				$query_insert  = "INSERT INTO tbl_persona_natural(codigo_persona_natural,nombre_persona_natural,apellido_persona_natural,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	        	$arrData = array($intcodigo_cliente_natural,$nombre,$apellido,$strDireccion,$strTelefono,$strDui,$strEstadocivil,$strLugartrabajo,$stringreso,$strEgresos);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
@@ -48,6 +67,7 @@
 	//		}
 			return $return;
 		}	
+
 
 		public function updateCliente(int $codigo_cliente_natural, string $dui, string $nombre, string $apellido,string $telefono, int $estado){
 			$this->intcodigo_cliente_natural = $codigo_cliente_natural;
