@@ -53,16 +53,16 @@
 		public function permisosModulo(int $idrol){
 			$this->intRolid = $idrol;
 			$sql = "SELECT p.rolid,
-						   p.moduloid,
-						   m.titulo as modulo,
-						   p.leer,
-						   p.escribir,
-						   p.actualizar,
-						   p.eliminar
-					FROM permisos p
-					INNER JOIN modulo m
-					ON p.moduloid = m.idmodulo
-					WHERE p.rolid = $this->intRolid";
+			p.moduloid,
+			m.titulo as modulo,
+			p.leer,
+			p.escribir,
+			p.actualizar, p.eliminar
+	 FROM permisos p
+		   
+	 INNER JOIN modulo m
+	 ON p.moduloid = m.idmodulo
+	 WHERE p.rolid = $this->intRolid";
 			$request = $this->select_all($sql);
 			$arrPermisos = array();
 			for ($i=0; $i < count($request); $i++) { 

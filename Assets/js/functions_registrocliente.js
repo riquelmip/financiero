@@ -2,10 +2,41 @@ let tableProducto;
 let rowTable = "";
 let divLoading = document.querySelector('#divLoading');
 document.addEventListener('DOMContentLoaded', function(){
-    cargar_datos();
+
+    if (document.querySelector("#formregistroclientente")) {
+        let formregistroclientente = document.querySelector("#formregistroclientente");
+    formregistroclientente.onsubmit = function(e) {
+        e.preventDefault();
+        console.log("1");
+
+    
 
 
-   
+        divLoading.style.display = "flex";
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/Registrocliente/setRegistroCliente'; 
+        var formData = new FormData(formregistroclientente);
+        request.open("POST",ajaxUrl,true);
+        request.send(formData);
+        request.onreadystatechange = function(){
+           if(request.readyState == 4 && request.status == 200){
+                
+                var objData = JSON.parse(request.responseText);
+                if(objData.estado){
+
+
+                    swal("Datos Cliente", objData.msg ,"success");
+                 
+                }else{
+                    swal("Error", objData.msg , "error");
+                }              
+            } 
+            divLoading.style.display = "none";
+            return false;
+        }
+    }
+
+ }
    });
 
 
@@ -17,111 +48,58 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-function cargar_datos(){
-    divLoading.style.display = "flex";
-    var datos = {"consultar_info":"si_consultala"}
-    $.ajax({
-        dataType: "json",
-        method: "POST",
-        url: base_url+"/Nuevacompra/getProductos",
-        data : datos,
-    }).done(function(json) {
-        console.log("EL consultar",json);
-        $("#datos_tabla").empty().html(json.htmlDatosTabla);
-        inicializar_tabla("tableProducto");
 
 
-    }).fail(function(){
+$(document).on("change","#radio1",function(e){
+    var radio1 = $("#radio1").val();
+    document.querySelector('#bandera').value = 1;
+     /*$.ajax({
+       dataType: "json",
+       method: "POST",
+       url: base_url+"/Consultas/clientemayorcomprasfiltradaporfecha/"+fecha_fin,
+     
+   }).done(function(json) {
+       console.log("EL consultar",json);
+       
+       $("#datos_tabla").empty().html(json.htmlDatosTabla);
+      
+       inicializar_tabla("tableConsul");
+   
+   }).fail(function(){
+   
+   }).always(function(){
+   
+   });*/
+    
+   
+   
+   });
 
-    }).always(function(){
-        divLoading.style.display = "none";
-    });
-}
+   $(document).on("change","#radio2",function(e){
+    var radio2 = $("#radio2").val();
+    document.querySelector('#bandera').value = 2;
 
-function alerta_recargartabla(titulo, mensaje, tipo){
-    swal({
-        title: titulo,
-        text: mensaje,
-        type: tipo,
-        //timer: 3000
-    }, 
-    function(){
-            cargar_datos();
-    });
-
-}
-
-function inicializar_tabla(tabla){
-    $('#'+tabla).dataTable( {
-        "responsive": true,
-        "aServerSide": true,
-        "autoWidth": false,
-        "deferRender": true,
-        "retrieve": true,
-        "processing": true,
-        "paging": true,
-        "language": {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            }
-        },
-        "columns":[
-            {"data":"codigobarra"},
-            {"data":"descripcion"},
-            {"data":"stock"},
-            {"data":"options"}
-        ],
-       'dom': 'lBfrtip',
-        'buttons': [
-            {
-                "extend": "copyHtml5",
-                "text": "<i class='far fa-copy'></i> Copiar",
-                "titleAttr":"Copiar",
-                "className": "btn btn-primary"
-            },{
-                "extend": "excelHtml5",
-                "text": "<i class='fas fa-file-excel'></i> Excel",
-                "titleAttr":"Exportar a Excel",
-                "className": "btn btn-primary"
-            },{
-                "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i> PDF",
-                "titleAttr":"Exportar a PDF",
-                "className": "btn btn-primary"
-            },{
-                "extend": "csvHtml5",
-                "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Exportar a CSV",
-                "className": "btn btn-primary"
-            }
-        ],
-        "bDestroy": true,
-        "iDisplayLength": 10,
-        "order":[[0,"asc"]]  
-    });
-}
-
-
-
-
-
-
-
+     /*$.ajax({
+       dataType: "json",
+       method: "POST",
+       url: base_url+"/Consultas/clientemayorcomprasfiltradaporfecha/"+fecha_fin,
+     
+   }).done(function(json) {
+       console.log("EL consultar",json);
+       
+       $("#datos_tabla").empty().html(json.htmlDatosTabla);
+      
+       inicializar_tabla("tableConsul");
+   
+   }).fail(function(){
+   
+   }).always(function(){
+   
+   });*/
+    
+   
+   
+   });
 
 
 

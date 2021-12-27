@@ -5,11 +5,11 @@
 		{
 			parent::__construct();
 			session_start();
-			session_regenerate_id(true); //para seguridad de sesiones, el id anterior se eliminara y creara uno nuevo
+			session_regenerate_id(true); 
 			if (empty($_SESSION['login'])) {
 				header('location: '.base_url().'/login');
 			}
-			getPermisos(13); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
+			getPermisos(13); 
 		}
 
 		public function Registrocliente()
@@ -26,99 +26,60 @@
 		}
 
 
-		public function getSelects() 
-		{
-			$htmlProvee = "";
-			$arrDataProvee = $this->model->selectProveedores();
-			if(count($arrDataProvee) > 0 ){
-				for ($i=0; $i < count($arrDataProvee); $i++) { 
-					if($arrDataProvee[$i]['estado'] == 1 ){
-					$htmlProvee .= '<option value="'.$arrDataProvee[$i]['idproveedor'].'">'.$arrDataProvee[$i]['nombre'].'</option>';
-					
-				}
-				}
+
+
+		public function setCliente(){
+			
+			$intcodigo_cliente_natural = intval($_POST['codigocliente']);
+
+			
+			$strNombre =  strClean($_POST['nombrecliente']);
+			$strApellido =  strClean($_POST['apellidocliente']);
+			$strDireccion =  strClean($_POST['direccioncliente']);
+
+			$strTelefono =  strClean($_POST['telefonocliente']);
+			$strDui =  strClean($_POST['duicliente']);
+			$strEstadocivil =  strClean($_POST['estadocivilcliente']);
+			$strLugartrabajo =  strClean($_POST['lugardetrabajocliente']);
+
+			$stringreso =  strClean($_POST['ingresoscliente']);
+			$strEgresos =  strClean($_POST['egresoscliente']);
+
+           	$intEstado = intval($_POST['bandera']);
+
+			if($intEstado == 1){
+				$option = 1;
+		//		if ($_SESSION['permisosMod']['escribir']) {
+					//Crear
+					$request_cliente = $this->model->insertCliente($intcodigo_cliente_natural,$strNombre,$strApellido,$strDireccion,$strTelefono,$strDui,$strEstadocivil,$strLugartrabajo,$stringreso,$strEgresos);
+		//		}
+		//	}else{
+		//		$option = 2;
+		//		if ($_SESSION['permisosMod']['actualizar']) {
+				//Actualizar
+		//		 $request_cliente= $this->model->updateCliente($intcodigo_cliente_natural,$strDui,$strNombre,$strApellido,$strTelefono,$intEstado);
+		//		}
 			}
 
-
-			$arrResponse = array('proveedores' => $htmlProvee);
+			if($request_cliente > 0 )
+			{
+				if($option == 1)
+			{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.');
+				}else{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos Actualizados correctamente.');
+				}
+			}else if($request_cliente == 'exist'){
+				
+				$arrResponse = array('estado' => false, 'msg' => '¡Atención! ya existe Un registro con esos datos.');
+			}else{
+				$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
+			}
 			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			die();		
-		}
-
-
-		public function setCompra(){
-			//dep($_POST);
-			//die();
-
-			if($_POST){
-
-					//$intIdCadena = intval($_POST['idCadena']);//id compra
-	                 
-					$strArrayCoros = json_decode($_POST["listaProducto"], true);//detalles
-					$subtotalll = json_decode($_POST["listsub"], true);
-					$sum = 0;
-					foreach ($subtotalll as $key => $value2) {
-						$idproducto = $value2["subtotal"];
-						$sum += floatval($idproducto);
-					}
-					$date = strClean($_POST['fechacredito']);
-					
-					$pruee =  floatval(strClean($_POST['credito']));
-					$intProve =  intval(strClean($_POST['listProve']));
-
-						$request_rol = $this->model->insertarCompra($intProve,$sum,$pruee,$date);//Insertar la compra 1 
-					
-					//obtenemos el id de la cadena que se inserto
-					
-						
-					if($request_rol > 0 )
-					{
-						foreach ($strArrayCoros as $key => $value) {
-
-							
-
-							$idcompra = $request_rol;//El id de compra
-							$idproducto = $value["id"];// El idproducto de la tabla detallecompra
-							$cantidad = $value["cantidad"];
-							$preciocompra = $value["preciocompra"];
-							$precioventa = $value["precioventa"];
-			
-							if ($_SESSION['permisosMod']['escribir']) {
-								$request_rol1 = $this->model->insertDetalleCadena($idcompra, $idproducto,$cantidad,$preciocompra,$precioventa);
-								
-							}
-						}
-						$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.');
-					
-					}else if($request_rol == 'exist'){
-						
-						$arrResponse = array('estado' => false, 'msg' => '¡Atención! La Cadena ya existe.');
-					}else{
-						$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
-					}
-				
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				
-			}
-			die();
-			
-		}
-
-		public function getProducto($id){
-		
-				$id = intval($id);
-				if($id > 0)
-				{
-
-					$arrData = $this->model->selectProductod($id);
-					for ($i=0; $i < count($arrData); $i++) { 
-						$arrResponse = array( 'datadescripcion' => $arrData[$i]['descripcion'] ,'dataidproducto' => $arrData[$i]['idproducto'],'status' => true);
-					}
-					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				}
 			
 			die();
 		}
+
 
 
 			
