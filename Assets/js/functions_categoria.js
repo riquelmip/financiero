@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function(){
         "columns":[
             
             {"data":"nombre"},
+            {"data":"tasainteres"},
             {"data":"opciones"}
         ],
         "resonsieve":"true",

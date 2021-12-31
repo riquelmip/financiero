@@ -78,19 +78,20 @@
 			
 			$intId = intval($_POST['idCategoria']);
 			$strCat =  strClean($_POST['txtNombre']);
+			$tasa =  strClean($_POST['txttasa']);
 
 			if($intId == 0)
 			{
 				$option = 1;
 				if ($_SESSION['permisosMod']['escribir']) {
 				//Crear
-				$request_cat = $this->model->insertCategoria($strCat);
+				$request_cat = $this->model->insertCategoria($strCat, $tasa);
 				}
 			}else{
 				$option = 2;
 				if ($_SESSION['permisosMod']['actualizar']) {
 				//Actualizar
-				$request_cat = $this->model->updateCategoria($intId, $strCat);
+				$request_cat = $this->model->updateCategoria($intId, $strCat, $tasa);
 				}
 			}
 

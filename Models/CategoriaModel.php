@@ -29,15 +29,15 @@
 
 
 
-		public function insertCategoria(string $nombre){ //Inserta la categoria nueva a la base de datos
+		public function insertCategoria(string $nombre, string $tasa){ //Inserta la categoria nueva a la base de datos
 			$return = "";
 			$sql = "SELECT * FROM categoria WHERE nombre = '$nombre'";
 			$request = $this->select_all($sql);
 
 			if(empty($request)) //hace una comprobacion si la categoria a ingresar ya existe en la base de datos 
 			{
-				$query_insert  = "INSERT INTO categoria(nombre) VALUES(?)";
-	        	$arrData = array($nombre);
+				$query_insert  = "INSERT INTO categoria(nombre, tasainteres) VALUES(?,?)";
+	        	$arrData = array($nombre, $tasa);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 			}
@@ -48,17 +48,17 @@
 			return $return;
 		}	
 
-		public function updateCategoria(int $idcat,string $nombre){ //Actualiza la categoria seleccionada
+		public function updateCategoria(int $idcat,string $nombre, string $tasa){ //Actualiza la categoria seleccionada
 			$this->intIdcat = $idcat;
 			$this->strNombre = $nombre;
 
-			$sql = "SELECT * FROM categoria WHERE nombre = '$this->strNombre'";
+			$sql = "SELECT * FROM categoria WHERE nombre = '$this->strNombre' AND idcategoria != $this->intIdcat";
 			$request = $this->select_all($sql);
 
 			if(empty($request)) //Busca si es el mismo nombre a actualizar
 			{
-				$sql = "UPDATE categoria SET nombre = ? WHERE idcategoria = $this->intIdcat ";
-				$arrData = array($this->strNombre);
+				$sql = "UPDATE categoria SET nombre = ?, tasainteres = ? WHERE idcategoria = $this->intIdcat ";
+				$arrData = array($this->strNombre, $tasa);
 				$request = $this->update($sql,$arrData);
 			}
 			else
