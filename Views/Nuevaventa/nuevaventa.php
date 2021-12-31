@@ -25,6 +25,7 @@
                     <input type="hidden" id="inputiva" name="inputiva"  value="">
                     <input type="hidden" id="inputtotal" name="inputtotal"  value="">
                     <input type="hidden"  id="listaDetalles" name="listaDetalles">
+                    <input type="hidden"  id="tasaoculta" name="tasaoculta">
                       
                     <div class="text-right">
                       <a onmouseover="mostrarAyuda();"><i class="fa fa-question fa-lg"></i></a>
@@ -91,6 +92,8 @@
                                 <th class="text-center">Cantidad</th>
                                 <th class="text-center">Precio $</th>
                                 <th class="text-center">Total $</th>
+                                <th class="text-center">Venta</th>
+                                <th class="text-center">Cuota $</th>
                                 <th class="text-center">Acción</th>
                               </tr>
                             </thead>
@@ -120,31 +123,8 @@
                           </div>
                             
                           <input type="hidden"  id="listsub" name="listsub">
-                          
-                             <div class="form-row col-lg-12">
-                                <div class="form-group">
-                                    <label>Forma de pago:</label>
-                                    <select class="form-control" id="formadepago" name="formadepago"  data-live-search="true" required="">
-                                      <option value="1">Contado</option>
-                                      <option value="2">Crédito</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-1">
-                                </div>
-                                <div class="form-group">
-                                    <label>Meses:</label>
-                                    <input type="number" class="form-control" disabled="" id="meses" name="meses"  min="1" max="5000">
-                                </div>
-                                <div class="form-group col-md-1">
-                                </div>
-                                <div class="form-group">
-                                    <label>Cuota $:</label>
-                                    <input type="text" class="form-control" disabled="" id="cuota" name="cuota">
-                                </div>
-                              </div>
-
                
-              </div>
+                      
                          
 
                           <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;

@@ -86,6 +86,7 @@
 					p.precio,
 					p.idcategoria,
 					c.nombre AS categoria,
+					c.tasainteres AS tasa,
 					p.idmarca,
 					m.nombre AS marca,
 					p.idunidadmedida,

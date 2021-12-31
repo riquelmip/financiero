@@ -85,3 +85,52 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalFormaPago" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="titleModal">Forma de pago</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                     
+
+              <form id="formFormaPago" name="formFormaPago">
+                <div class="row">
+                  <div class="form-group col-md-3">
+                    <label class="control-label">Forma de pago</label>
+                    <select class="form-control" id="listFormaPago" name="listFormaPago"  data-live-search="true" required="">
+                      <option value="1">Contado</option>
+                      <option value="2">Crédito</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label class="control-label">Meses</label>
+                    <input type="number" min="1" max="50" class="form-control" id="txtmeses" name="txtmeses" type="text" disabled="" required="">
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label class="control-label">Tasa anual</label>
+                    <input type="text" class="form-control" id="txttasa" name="txttasa" type="text" disabled="" required="">
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label class="control-label">Cuota $</label>
+                    <input type="text" class="form-control" id="txtcuota" name="txtcuota" type="text" disabled="" required="">
+                  </div>
+                </div>
+                
+               
+                <div class="tile-footer">
+                  <button id="btnActionForm" class="btn btn-secondary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span>Aceptar</span></button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#" data-dismiss="modal" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</a>
+                </div>
+              </form>
+            
+          
+      </div>
+    </div>
+  </div>
+</div>

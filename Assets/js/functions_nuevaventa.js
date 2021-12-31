@@ -2,6 +2,7 @@ let tableProducto;
 let rowTable = "";
 let divLoading = document.querySelector('#divLoading');
 var arrayIdProductos = [];
+var contadordet = 0;
 document.addEventListener('DOMContentLoaded', function(){
     
     fntSelects();
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }).done(function(json) {
                 if (json.data.estado == true) {
                     $("#idproducto").val(json.data.idproducto);
+                    $("#tasaoculta").val(json.data.tasa);
                     $("#descripcion").html(json.data.descripcion);
                     $("#stock").html(json.data.stock);
                     var precio = parseFloat(json.data.precio).toFixed(2);
@@ -141,141 +143,8 @@ document.addEventListener('DOMContentLoaded', function(){
 // AL DAR CLIC EN EL BOTON DE AGREGAR SE AGREGA AL ARRAY DE DETALLES
     $("#btnAgregarDetalle").click(function(e) {
         e.preventDefault();
-        let idproducto = document.querySelector('#idproducto').value;
-        let codigo = document.querySelector('#codigobarra').value;
-        let cantidad = document.querySelector('#cantidad').value;
-        let precio = document.querySelector('#precio').innerHTML;
-        let preciot = document.querySelector('#preciot').innerHTML;
-        let descripcion = document.querySelector('#descripcion').innerHTML;
-        let stock = document.querySelector('#stock').innerHTML;
-
-        if (parseInt(stock) == 0) {
-            swal({
-                title: "No hay existencias de este producto",
-                type: "warning",
-                confirmButtonText: "¡Cerrar!"
-              });
-              
-            
-        }
-
-        if(arrayIdProductos.length === 0){
-           
-           if (parseInt(cantidad) > parseInt(stock)) {
-                swal({
-                    title: "Las existencias no alcanzan!",
-                    type: "warning",
-                    confirmButtonText: "¡Cerrar!"
-                  });
-           }else{
-                $("#tableProductosDet>tbody").append(
-                    '<tr id="tr-'+idproducto+'">'+
-                        '<td class="col-md-2 text-center" id="codigobarra-'+idproducto+'">'+codigo+'</td>'+
-                        '<td class="text-center" id="descripcion-'+idproducto+'">'+descripcion+'</td>'+
-                        '<td class="col-md-1 text-center" id="stock-'+idproducto+'">'+stock+'</td>'+
-                        '<td class="col-md-1 text-center" id="cantidad-'+idproducto+'">'+cantidad+'</td>'+
-                        '<td class="col-md-1 text-center" id="precio-'+idproducto+'">'+precio+'</td>'+
-                        '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot+'</td>'+
-                        '<td class="col-md-1 text-center"><button onClick="fntDel('+idproducto+')" class="btn btn-danger btnEliminarDet" type="button"><i class="fas fa-trash-alt"></i></button></td>'+
-                    '</tr>'
-                );
-                
-                $("#codigobarra").val("");
-                $("#descripcion").empty();
-                $("#stock").empty();
-                $("#precio").empty();
-                $("#preciot").empty();
-                $("#cantidad").val("");
-                $("#cantidad").prop('disabled', true);
-                $("#btnAgregarDetalle").prop('disabled', true);
-                arrayIdProductos.push({ 
-                                "id" : idproducto,
-                                "codigobarra": codigo,
-                                "descripcion" : descripcion,
-                                "stock" : stock,
-                                "cantidad": cantidad,
-                                "precio": parseFloat(precio).toFixed(2),
-                                "preciototal":parseFloat(preciot).toFixed(2)
-                                });
-           } //fin else
-            
-
-        }else{
-           
-            var existe=0;
-            for (var i = 0; i < arrayIdProductos.length; i++) {
-                if (arrayIdProductos[i].id == idproducto) {
-
-                      existe=1;
-                      //Calculando y agregando nueva cantidad
-                      let nuevacantidad = parseInt(arrayIdProductos[i].cantidad) + parseInt(cantidad);
-                      if (parseInt(nuevacantidad) > parseInt(stock)) {
-                            swal({
-                                title: "Las existencias no alcanzan!",
-                                type: "warning",
-                                confirmButtonText: "¡Cerrar!"
-                              });
-                       }else{
-                            arrayIdProductos[i].cantidad = nuevacantidad;
-                            $("#cantidad-"+arrayIdProductos[i].id).empty().html(nuevacantidad);
-
-                            $("#codigobarra").val("");
-                            $("#descripcion").empty();
-                            $("#stock").empty();
-                            $("#precio").empty();
-                            $("#preciot").empty();
-                            $("#cantidad").val("");
-                            $("#cantidad").prop('disabled', true);
-                            $("#btnAgregarDetalle").prop('disabled', true); 
-                       }
-                      
-
-                      //Calculando y agregando nuevo precio total
-                      let nuevopreciot = parseInt(nuevacantidad)*parseFloat(arrayIdProductos[i].precio);
-                      arrayIdProductos[i].preciototal = nuevopreciot.toFixed(2);
-                      $("#preciot-"+arrayIdProductos[i].id).empty().html(nuevopreciot.toFixed(2));
-
-                  break;
-                }
-              } //for
-
-            if(existe==0){ 
-                $("#tableProductosDet>tbody").append(
-                    '<tr id="tr-'+idproducto+'">'+
-                        '<td class="col-md-2 text-center" id="codigobarra-'+idproducto+'">'+codigo+'</td>'+
-                        '<td class="text-center" id="descripcion-'+idproducto+'">'+descripcion+'</td>'+
-                        '<td class="col-md-1 text-center" id="stock-'+idproducto+'">'+stock+'</td>'+
-                        '<td class="col-md-1 text-center" id="cantidad-'+idproducto+'">'+cantidad+'</td>'+
-                        '<td class="col-md-1 text-center" id="precio-'+idproducto+'">'+precio+'</td>'+
-                        '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot+'</td>'+
-                        '<td class="col-md-1 text-center"><button onClick="fntDel('+idproducto+')" class="btn btn-danger btnEliminarDet" type="button"><i class="fas fa-trash-alt"></i></button></td>'+
-                    '</tr>'
-                );
-                $("#codigobarra").val("");
-                $("#descripcion").empty();
-                $("#stock").empty();
-                $("#precio").empty();
-                $("#preciot").empty();
-                $("#cantidad").val("");
-                $("#cantidad").prop('disabled', true);
-                $("#btnAgregarDetalle").prop('disabled', true); 
-
-                arrayIdProductos.push({ 
-                            "id" : idproducto,
-                            "codigobarra": codigo,
-                            "descripcion" : descripcion,
-                            "stock" : stock,
-                            "cantidad": cantidad,
-                            "precio": parseFloat(precio).toFixed(2),
-                            "preciototal":parseFloat(preciot).toFixed(2)
-                            });
-                
-            } //if existe
-           
-        } //fin else
-        calcularTotal();
-
-         console.log(arrayIdProductos);
+        $('#modalFormaPago').modal('show');
+        
     });
 
 
@@ -344,19 +213,150 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
 
-        $("#formadepago").on("change",function(){
+        $("#listFormaPago").on("change",function(){
 
-            let forma = document.querySelector('#formadepago').value;
+            let forma = document.querySelector('#listFormaPago').value;
+
+            
             
             if (forma == 1) {
-                $("#meses").prop('disabled', true); 
+                $("#txttasa").prop('disabled', true); 
+                $("#txtcuota").prop('disabled', true); 
+                $("#txtmeses").prop('disabled', true); 
+                document.querySelector('#txtmeses').value = "";
+                document.querySelector('#txttasa').value = "";
+                document.querySelector('#txtcuota').value = "";
+
             }else{
-                $("#meses").prop('disabled', false); 
+                $("#txttasa").prop('disabled', true); 
+                $("#txtcuota").prop('disabled', true); 
+                $("#txtmeses").prop('disabled', false);
+
+                document.querySelector('#txtmeses').value = 1;
+
+                document.querySelector('#txttasa').value = document.querySelector('#tasaoculta').value;
+
+                let montop = parseFloat(document.querySelector('#preciot').innerHTML);
+                let tasap = parseFloat(document.querySelector('#txttasa').value);
+                let duracionp = parseInt(document.querySelector('#txtmeses').value);
+                let cuotap = calcularCuotaModal(montop, tasap, duracionp); 
+                document.querySelector('#txtcuota').value = cuotap;
             }
             
             
           
         });
+
+        
+        $("#txtmeses").on("change",function(){
+            document.querySelector('#txttasa').value = document.querySelector('#tasaoculta').value;
+
+            let montop = parseFloat(document.querySelector('#preciot').innerHTML);
+            let tasap = parseFloat(document.querySelector('#txttasa').value);
+            let duracionp = parseInt(document.querySelector('#txtmeses').value);
+            let cuotap = calcularCuotaModal(montop, tasap, duracionp); 
+            document.querySelector('#txtcuota').value = cuotap;
+            
+           
+          
+        });
+
+        if (document.querySelector("#formFormaPago")) {
+            let formFormaPago = document.querySelector("#formFormaPago");
+            formFormaPago.onsubmit = function(e) {
+                e.preventDefault();
+                let idproducto = document.querySelector('#idproducto').value;
+                let codigo = document.querySelector('#codigobarra').value;
+                let cantidad = document.querySelector('#cantidad').value;
+                let precio = document.querySelector('#precio').innerHTML;
+                let preciot = document.querySelector('#preciot').innerHTML;
+                let descripcion = document.querySelector('#descripcion').innerHTML;
+                let stock = document.querySelector('#stock').innerHTML;
+
+                if (parseInt(stock) == 0) {
+                    swal({
+                        title: "No hay existencias de este producto",
+                        type: "warning",
+                        confirmButtonText: "¡Cerrar!"
+                      });
+                      
+                    
+                }
+
+               
+                   
+                   if (parseInt(cantidad) > parseInt(stock)) {
+                        swal({
+                            title: "Las existencias no alcanzan!",
+                            type: "warning",
+                            confirmButtonText: "¡Cerrar!"
+                          });
+                   }else{
+                        let cuota;
+                        let forma = parseInt(document.querySelector('#listFormaPago').value);
+                        let tipoventa;
+                        if (forma == 1) {
+                            cuota = parseFloat(0.00);
+                            tipoventa = "Contado";
+                        }else{
+                            cuota = parseFloat(document.querySelector('#txtcuota').value);
+                            tipoventa = "Crédito";
+                        }
+
+                        contadordet++;
+                        $("#tableProductosDet>tbody").append(
+                                '<tr id="tr-'+idproducto+'-'+contadordet+'">'+
+                                    '<td class="col-md-2 text-center" id="codigobarra-'+idproducto+'">'+codigo+'</td>'+
+                                    '<td class="text-center" id="descripcion-'+idproducto+'">'+descripcion+'</td>'+
+                                    '<td class="col-md-1 text-center" id="stock-'+idproducto+'">'+stock+'</td>'+
+                                    '<td class="col-md-1 text-center" id="cantidad-'+idproducto+'">'+cantidad+'</td>'+
+                                    '<td class="col-md-1 text-center" id="precio-'+idproducto+'">'+precio+'</td>'+
+                                    '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot+'</td>'+
+                                    '<td class="col-md-1 text-center" id="tipoventa-'+idproducto+'">'+tipoventa+'</td>'+
+                                    '<td class="col-md-1 text-center" id="cuota-'+idproducto+'">'+cuota.toFixed(2)+'</td>'+
+                                    '<td class="col-md-1 text-center"><button onClick="fntDel(\'' +idproducto+'-'+contadordet+ '\')" class="btn btn-danger btnEliminarDet" type="button"><i class="fas fa-trash-alt"></i></button></td>'+
+                                '</tr>'
+                            );
+                        
+                        
+                        $("#codigobarra").val("");
+                        $("#descripcion").empty();
+                        $("#stock").empty();
+                        $("#precio").empty();
+                        $("#preciot").empty();
+                        $("#cantidad").val("");
+                        $("#cantidad").prop('disabled', true);
+                        $("#btnAgregarDetalle").prop('disabled', true);
+                        arrayIdProductos.push({ 
+                                        "identificador" : idproducto+'-'+contadordet,
+                                        "id" : idproducto,
+                                        "codigobarra": codigo,
+                                        "descripcion" : descripcion,
+                                        "stock" : stock,
+                                        "cantidad": cantidad,
+                                        "precio": parseFloat(precio).toFixed(2),
+                                        "preciototal":parseFloat(preciot).toFixed(2),
+                                        "cuota": parseFloat(cuota).toFixed(2),
+                                        "tipoventa": parseInt(forma)
+                                        });
+                   } //fin else
+                    
+
+                
+                calcularTotal();
+
+                 console.log(arrayIdProductos);
+
+
+                $('#modalFormaPago').modal('hide');
+                formFormaPago.reset();
+                $("#txttasa").prop('disabled', true); 
+                $("#txtcuota").prop('disabled', true); 
+                $("#txtmeses").prop('disabled', true); 
+            }
+        }
+
+
     
     }, false);
 
@@ -423,13 +423,13 @@ $(function(){
 });
 
 
-function fntDel(idproducto){
+function fntDel(identi){
 
-    let idProducto = parseInt(idproducto);
-    $("#tr-"+idproducto).remove();
-    console.log(idproducto);
+    let identifi = identi;
+    $("#tr-"+identifi).remove();
+    console.log(identifi);
     for (var i = 0; i < arrayIdProductos.length; i++) {
-        if (arrayIdProductos[i].id == idproducto) {
+        if (arrayIdProductos[i].identificador == identifi) {
           arrayIdProductos.splice(i, 1);
           break;
         }
@@ -458,6 +458,37 @@ function calcularTotal(){
       $("#inputiva").val(iva.toFixed(2));
       $("#total").empty().html(total.toFixed(2));
       $("#inputtotal").val(total.toFixed(2));
+}
+
+function calcularCuotaModal(monto, tasa, duracion){
+
+    //calculamos la couta mediante la formula R = P[(i(1+i)^n)/((1+i)^n–1)]
+    //Donde:
+    //R = renta (cuota)
+    //P = principal (préstamo adquirido)
+    //i = tasa de interés mensual
+    //n = número de periodos (meses)
+
+    let P = parseFloat(monto); 
+    let i = parseFloat(tasa); 
+    let n = parseInt(duracion); 
+
+    //convertimos la tasa a un portentaje
+    let ipor = parseFloat(i/100); 
+    //convertirmos la tasa que es anual, a mensual
+    let im = parseFloat(ipor/12); 
+
+
+    //$pot=pow((1+$im),$n);
+    //$R = $P*(($im*($pot)/($pot-1)));
+    let R = parseFloat(P*((im*(Math.pow((1+im), n)))/((Math.pow((1+im), n)) - 1))); 
+    //$R = $P*(($im*(pow((1+$im), $n)))/((pow((1+$im), $n)) - 1));
+    //pow((1+$i), $im);
+    //$cuota=round($R, 2);
+    let cuota = R.toFixed(2);
+
+  
+    return cuota;
 }
 
 
