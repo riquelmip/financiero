@@ -88,7 +88,7 @@
 
         <?php if (!empty($_SESSION['permisos'][8]['leer'])) { ?>
             <li>
-                <a class="app-menu__item" href="<?= base_url(); ?>/cliente">
+                <a class="app-menu__item" href="<?= base_url(); ?>/Registrocliente">
                     <i class="app-menu__icon fa fa-user-o" aria-hidden="true"></i>
                     <span class="app-menu__label">Clientes</span>
                 </a>
