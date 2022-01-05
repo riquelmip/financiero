@@ -39,7 +39,7 @@
         public function getActivoFijos()
         {
             if ($_SESSION['permisosMod']['leer']) {
-                $arrData = $this->model->selectActivoFijos();
+                $arrData = $this->model->mselectActivoFijos();
                 $htmlDatosTabla = "";
                 for ($i=0; $i < count($arrData); $i++) {
                     $btnView = "";
@@ -125,34 +125,35 @@
 
         public function setActivoFijo(){
             
-            $intIdActivoFijo = intval($_POST['idActivoFijo']);
-            $strDui =  strClean($_POST['txtDui']);
-            $strNit =  strClean($_POST['txtNit']);
-            $strNombre =  strClean($_POST['txtNombre']);
-            $strApellido =  strClean($_POST['txtApellido']);
-            $strDireccion = strClean($_POST['txtDireccion']);
-            $telefono = strClean($_POST['txtTelefono']);
-            $fecha = strClean( $_POST['txtFecha']);
-            $porciones = explode("-", $fecha);
-            $anio = intval($porciones[0]);
-            $mes = intval($porciones[1]);
-            $dia = intval($porciones[2]);
-            $intestado=intval($_POST['listaEstado']);
-            $intCargo = intval($_POST['listCargo']);
+            $bandera =  strClean($_POST['bandera']);
+            $codigo =  strClean($_POST['codigo']);
+            $nombre =  strClean($_POST['nombre']);
+            $descripcion =  strClean($_POST['descripcion']);
+            $tipo =  intval($_POST['tipo']);
+            $proveedor = strClean($_POST['proveedor']);
+            $fecha = strClean($_POST['fechaadqui']);
+            // $porciones = explode("-", $fecha);
+            // $anio = intval($porciones[0]);
+            // $mes = intval($porciones[1]);
+            // $dia = intval($porciones[2]);
+            $garantia=intval($_POST['garantia']);
+            $costo=strClean($_POST['costo']);
+            $cantidad=strClean($_POST['cantidad']);
+            $estado=intval($_POST['estado']);
+            // $img=intval($_POST['img']);
 
-
-            if($intIdActivoFijo == 0)
+            if($bandera == 0)
             {
                 $option = 1;
                 if ($_SESSION['permisosMod']['escribir']) {
-                //Crear
-                $request_ActivoFijo = $this->model->insertActivoFijo($strDui,$strNit,$strNombre,$strApellido,$strDireccion,$telefono,$dia,$mes,$anio,$intestado,$intCargo);
+                $estado=1;
+                $request_ActivoFijo = $this->model->insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado);
                 }
             }else{
                 $option = 2;
                 if ($_SESSION['permisosMod']['actualizar']) {
                 //Actualizar
-                $request_ActivoFijo = $this->model->updateActivoFijo($intIdActivoFijo, $strDui,$strNit,$strNombre,$strApellido,$strDireccion,$telefono,$dia,$mes,$anio,$intestado,$intCargo);
+                $request_ActivoFijo = $this->model->updateActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado);
                 }
             }
             
@@ -164,15 +165,10 @@
                 }else{
                     $arrResponse = array('estado' => true, 'msg' => 'Datos Actualizados correctamente.');
                 }
-            }else if($request_ActivoFijo == 'exist'){
+            }else if($request_ActivoFijo == 'exist'){//si fallo
                 
                 $arrResponse = array('estado' => false, 'msg' => '¡Atención! El Dui ya existe.');
-            }else if($request_ActivoFijo == 'exist2'){
-                
-                $arrResponse = array('estado' => false, 'msg' => '¡Atención! El Nit ya existe.');
-            }else if($request_ActivoFijo == 'exist3'){
-                
-                $arrResponse = array('estado' => false, 'msg' => '¡Atención! El Telefono ya existe.');
+        
             }else{
                 $arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
             }

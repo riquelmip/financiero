@@ -22,7 +22,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="tableEmpleado">
+                    <table class="table table-hover table-bordered" id="tableActivoFijo">
                       <thead>
                         <tr>
                           <th>Imagen</th>

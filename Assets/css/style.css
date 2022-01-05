@@ -127,3 +127,15 @@
 	width: 150px;
 	margin: 10px;
 }
+
+
+.minerva {
+    height: 40px;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    vertical-align: middle;
+    border: 0;
+}
