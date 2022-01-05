@@ -70,11 +70,25 @@
                 </ul>
             </li>
         <?php } ?>
-
+        <?php if (!empty($_SESSION['permisos'][7]['leer'])) { ?>
+            <li class="treeview">
+                <a class="app-menu__item" href="#" data-toggle="treeview">
+                    <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="app-menu__label">Ventas</span>
+                    <i class="treeview-indicator fa fa-angle-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                <?php if (!empty($_SESSION['permisos'][7]['leer'])) { ?>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Nuevaventa"><i class="icon fa fa-circle-o"></i> Nueva Venta</a></li>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Ventas"><i class="icon fa fa-circle-o"></i> Gestionar Ventas</a></li>
+                <?php  } ?>
+                </ul>
+            </li>
+        <?php } ?>
 
         <?php if (!empty($_SESSION['permisos'][8]['leer'])) { ?>
             <li>
-                <a class="app-menu__item" href="<?= base_url(); ?>/cliente">
+                <a class="app-menu__item" href="<?= base_url(); ?>/Registrocliente">
                     <i class="app-menu__icon fa fa-user-o" aria-hidden="true"></i>
                     <span class="app-menu__label">Clientes</span>
                 </a>
