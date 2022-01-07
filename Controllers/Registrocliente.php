@@ -88,11 +88,17 @@ class Registrocliente extends Controllers
 
 		$intEstado = intval($_POST['bandera']);
 
+
+		if(isset($_FILES['documento']) && $_FILES['documento']['type']=='application/pdf'){
+			$userfile_extn = explode(".", strtolower($_FILES['documento']['name']));
+			move_uploaded_file ($_FILES['documento']['tmp_name'] , $_SERVER['DOCUMENT_ROOT'] .'/financiero/Assets/images/pdf/'. strClean($intcodigo_cliente_natural) . '.' . $userfile_extn[1]);
+		}
+		$url = $_FILES['documento']['name'];
 		if ($intEstado == 2) {
 			$option = 1;
 			//		if ($_SESSION['permisosMod']['escribir']) {
 			//Crear
-			$request_cliente = $this->model->insertClienteJuridico($intcodigo_cliente_natural, $strNombreempresa,$strTelefono, $strDireccion, $stringreso, $strEgresos);
+			$request_cliente = $this->model->insertClienteJuridico($intcodigo_cliente_natural, $strNombreempresa,$strTelefono, $strDireccion, $url, $strEgresos);
 			//		}
 			//	}else{
 			//		$option = 2;
