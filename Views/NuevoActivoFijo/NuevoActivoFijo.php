@@ -21,43 +21,37 @@
            
 
 <form>
+  <input type="hidden" name="bandera" id="bandera" value=0>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="nombre">Nombre (*)</label>
-      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+      <label for="nombre">Nombre<span style="color: red;"> (*)</span></label>
+      <input type="text" class="form-control" id="nombre" placeholder="Nombre" autocomplete="off">
     </div>
     <div class="form-group col-md-6">
-      <label for="codigo">Código Generado(*)</label>
+      <label for="codigo">Código Generado<span style="color: red;"> (*)</span></label>
       <input type="text" class="form-control" id="codigo" placeholder="EJEM: SILLA-2021-2912-1">
     </div>
   </div>
 
     <div class="form-row">
-  <div class="form-group col-md-6">
-    <label for="categoria">Categoría(*)</label>
-      <select id="categoria" class="form-control">
-        <option selected>Categoría</option>
-        <option>...</option>
-      </select>
-  </div>
-   <div class="form-group col-md-6">
-    <label for="codigo">Descripción(*)</label>
-    <textarea class="form-control" id="codigo" rows="3"></textarea>
+   <div class="form-group col-md-12">
+    <label for="descripcion">Descripción<span style="color: red;"> (*)</span></label>
+    <textarea class="form-control" id="descripcion" rows="3" autocomplete="off"></textarea>
   </div>
 
    </div>
 
   <div class="form-row">
     <div class="form-group col-md-6">
-    <label for="categoria">Clasificación(*)</label>
-      <select id="categoria" class="form-control">
+    <label for="tipo">Clasificación<span style="color: red;"> (*)</span></label>
+      <select id="tipo" class="form-control">
         <option selected>Clasificación</option>
         <option>...</option>
       </select>
   </div>
 
     <div class="form-group col-md-6">
-    <label for="proveedor">Proveedor(*)</label>
+    <label for="proveedor">Proveedor<span style="color: red;"> (*)</span></label>
       <select id="proveedor" class="form-control">
         <option selected>Proveedores</option>
         <option>...</option>
@@ -66,35 +60,35 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="fechaadqui">Fecha de adquisición(*)</label>
-      <input type="date" class="form-control" id="fechaadqui">
+      <label for="fechaadqui">Fecha de adquisición<span style="color: red;"> (*)</span></label>
+      <input type="date" class="form-control" id="fechaadqui" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
-      <label for="garantia">Garantía(Años)(*)</label>
-    <input type="text" class="form-control" id="garantia">
+      <label for="garantia">Garantía(Años)<span style="color: red;"> (*)</span></label>
+    <input type="number" class="form-control" id="garantia" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
-      <label for="costo">Costo Unitario(*)</label>
-      <input type="text" class="form-control" id="costo">
+      <label for="costo">Costo Unitario<span style="color: red;"> (*)</span></label>
+      <input type="number"  step="0.01" class="form-control" id="costo" autocomplete="off">
     </div>
   </div>
 
     <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="cantidad">Cantidad(*)</label>
-      <input type="text" class="form-control" id="cantidad">
+      <label for="cantidad">Cantidad<span style="color: red;"> (*)</span></label>
+      <input type="number" class="form-control" id="cantidad" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
-      <label for="estado">Estado(Años)(*)</label>
+      <label for="estado">Estado<span style="color: red;"> (*)</span></label>
     <select id="estado" class="form-control">
         <option selected>Estado</option>
-        <option>Activo</option>
+        <option >Activo</option>
   <option>Inactivo</option>
 
         </select>
     </div>
     <div class="form-group col-md-4">
-      <label for="costo">Imagen(*)</label>
+      <label for="costo">Imagen</label>
       <button class="btnAddImage btn btn-success btn-sm">Seleccione una imagen</button>
     </div>
   </div>

@@ -135,12 +135,27 @@
 							$idproducto = $value["id"];
 							$cantidad = intval($value["cantidad"]);
 							$codigo = $value["codigobarra"];
+							$total = floatval($value["preciototal"]);
+
+
+							$formadepago = intval($value["tipoventa"]);
+							$cuota = floatval($value["cuota"]);
+
+							if ($formadepago == 1) {
+								if ($_SESSION['permisosMod']['escribir']) {
+									$request_detalle = $this->model->insertDetalle($idventa, $idproducto,$cantidad, $total, $formadepago);
+									
+								}
+							}else if ($formadepago == 2){
+								$credito = 0.00;
+								if ($_SESSION['permisosMod']['escribir']) {
+									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito);
+									
+								}
+							}
 							
 			
-							if ($_SESSION['permisosMod']['escribir']) {
-								$request_detalle = $this->model->insertDetalle($idventa, $idproducto,$cantidad);
-								
-							}
+							
 
 							if ($_SESSION['permisosMod']['actualizar']) {
 								$prod = $this->model->selectProducto($codigo);
