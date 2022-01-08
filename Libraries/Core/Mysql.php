@@ -27,6 +27,21 @@
 	        }
 	        return $lastInsert; 
 		}
+
+		public function insert2(string $query, array $arrValues)
+		{
+			$this->strquery = $query;
+			$this->arrVAlues = $arrValues;
+        	$insert = $this->conexion->prepare($this->strquery);
+        	$resInsert = $insert->execute($this->arrVAlues);
+        	if($resInsert)
+	        {
+	        	$lastInsert = 1;
+	        }else{
+	        	$lastInsert = 0;
+	        }
+	        return $lastInsert; 
+		}
 		//Busca un registro
 		public function select(string $query)
 		{

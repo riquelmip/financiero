@@ -57,7 +57,7 @@ class NuevoActivoFijoModel  extends Mysql{
                 $this->fecha,
                 $this->proveedor,
                 $this->cantidad);
-            $request_insert = $this->insert($query_insert,$arrData);
+            $request_insert = $this->insert2($query_insert,$arrData);
             $return = $request_insert;
             return $return;
             }
