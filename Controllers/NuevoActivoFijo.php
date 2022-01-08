@@ -26,82 +26,34 @@
             $data['page_tag'] = "Nuevo Activo Fijo";
             $data['page_name'] = "Nuevo Activo Fijo";
             $data['page_title'] = "Nuevo Activo Fijo";
-            $data['page_functions_js'] = "functions_activofijo.js";
+            $data['page_functions_js'] = "nuevoactivofijo.js";
             $this->views->getView($this,"NuevoActivoFijo",$data);
         }
 
-        
-
-        //Para acceder a los Moddelos
-
-
-
-        public function getActivoFijos()
-        {
-            if ($_SESSION['permisosMod']['leer']) {
-                $arrData = $this->model->mselectActivoFijos();
-                $htmlDatosTabla = "";
-                for ($i=0; $i < count($arrData); $i++) {
-                    $btnView = "";
-                    $btnEdit = "";
-                    $btnDelete = "";
-                    //concatenamos la fecha XD
-                    $fecha= $arrData[$i]['dia'] ."/". $arrData[$i]['mes'] ."/". $arrData[$i]['anio'];
-                    $arrData[$i]['dia']=$fecha;
-                    if($arrData[$i]['estado'] == 1)
-                    {
-                        $arrData[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
-                
-                    
-                    }else{
-                        $arrData[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
-                    }
-
-                    
-                    if ($_SESSION['permisosMod']['leer']) {
-                        $btnView = '<button class="btn btn-info btn-sm btnViewActivoFijo" onClick="fntViewActivoFijo('.$arrData[$i]['idActivoFijo'].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
-                    }
-                    //si tiene permiso de editar se agrega el botn
-                    if ($_SESSION['permisosMod']['actualizar']) {
-                    
-                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['idActivoFijo'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
-                    }
-
-                    if ($_SESSION['permisosMod']['eliminar']) {
-                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['idActivoFijo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
-                    }
-                    //si tiene permiso de eliminar se agrega el boton
-                    
-                    //agregamos los botones
-                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.' ' .$btnDelete.'</div>';
-
-                    $htmlDatosTabla.='<tr>
-                                        <td>'.$arrData[$i]['dui'].'</td>
-                                        <td>'.$arrData[$i]['nombre'].'</td>
-                                        <td>'.$arrData[$i]['apellido'].'</td>
-                                        <td>'.$arrData[$i]['nombrecargo'].'</td>
-                                        <td>'.$arrData[$i]['estado'].'</td>
-                                        <td>'.$arrData[$i]['opciones'].'</td>
-                                     </tr>';
-
+        public function getSelects(){
+            $htmltipos="";
+            $htmlprovee="";
+            $arrayTipos = $this->model->getTipo();
+            if(count($arrayTipos) > 0 ){
+                for ($i=0; $i < count($arrayTipos); $i++) { 
+                    $htmltipos .= '<option value="'.$arrayTipos[$i]['idtipoactivo'].'">'.$arrayTipos[$i]['nombre'].'</option>';
                 }
-
-                $htmlOptions = "";
-                $arrDataCargos = $this->model->selectCargos();
-                if(count($arrDataCargos) > 0 ){
-                    for ($y=0; $y < count($arrDataCargos); $y++) { 
-                        
-                        $htmlOptions .= '<option value="'.$arrDataCargos[$y]['idcargo'].'">'.$arrDataCargos[$y]['nombre'].'</option>';
-                        
-                    }
-                }
-
-                $arrayDatos = array('datosIndividuales' => $arrData,'htmlDatosTabla' => $htmlDatosTabla, 'listacargos' => $htmlOptions);
-                echo json_encode($arrayDatos,JSON_UNESCAPED_UNICODE);
             }
-            die();
+            
+
+            $arrayProvee = $this->model->getProveedores();
+            if(count($arrayTipos) > 0 ){
+                for ($i=0; $i < count($arrayProvee); $i++) { 
+                    $htmlprovee .= '<option value="'.$arrayProvee[$i]['idproveedor'].'">'.$arrayProvee[$i]['nombre'].'</option>';
+                }
+            }
+
+            $arrResponse = array('tipos' => $htmltipos,'proveedores' => $htmlprovee);
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            die();	
         }
 
+        //Para acceder a los Moddelos
 
         public function getActivoFijo(int $idActivoFijo)
         {
@@ -132,21 +84,17 @@
             $tipo =  intval($_POST['tipo']);
             $proveedor = strClean($_POST['proveedor']);
             $fecha = strClean($_POST['fechaadqui']);
-            // $porciones = explode("-", $fecha);
-            // $anio = intval($porciones[0]);
-            // $mes = intval($porciones[1]);
-            // $dia = intval($porciones[2]);
             $garantia=intval($_POST['garantia']);
             $costo=strClean($_POST['costo']);
             $cantidad=strClean($_POST['cantidad']);
             $estado=intval($_POST['estado']);
             // $img=intval($_POST['img']);
-
+            $option="";
             if($bandera == 0)
             {
                 $option = 1;
                 if ($_SESSION['permisosMod']['escribir']) {
-                $estado=1;
+               // $estado=1;
                 $request_ActivoFijo = $this->model->insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado);
                 }
             }else{

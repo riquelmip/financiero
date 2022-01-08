@@ -77,16 +77,6 @@
 
                 }
 
-                // $htmlOptions = "";
-                // $arrDataCargos = $this->model->selectCargos();
-                // if(count($arrDataCargos) > 0 ){
-                //     for ($y=0; $y < count($arrDataCargos); $y++) { 
-                        
-                //         $htmlOptions .= '<option value="'.$arrDataCargos[$y]['idcargo'].'">'.$arrDataCargos[$y]['nombre'].'</option>';
-                        
-                //     }
-                // }
-
                 $arrayDatos = array('datosIndividuales' => $arrData,'htmlDatosTabla' => $htmlDatosTabla);
                 echo json_encode($arrayDatos,JSON_UNESCAPED_UNICODE);
             }

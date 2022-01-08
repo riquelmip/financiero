@@ -20,23 +20,23 @@
                 <div class="tile-body">
            
 
-<form>
+<form name="formNuevoActivo" id="formNuevoActivo">
   <input type="hidden" name="bandera" id="bandera" value=0>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="nombre">Nombre<span style="color: red;"> (*)</span></label>
-      <input type="text" class="form-control" id="nombre" placeholder="Nombre" autocomplete="off">
+      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" autocomplete="off">
     </div>
     <div class="form-group col-md-6">
       <label for="codigo">Código Generado<span style="color: red;"> (*)</span></label>
-      <input type="text" class="form-control" id="codigo" placeholder="EJEM: SILLA-2021-2912-1">
+      <input type="text" class="form-control" id="codigo" name="codigo" placeholder="EJEM: SILLA-2021-2912-1">
     </div>
   </div>
 
     <div class="form-row">
    <div class="form-group col-md-12">
     <label for="descripcion">Descripción<span style="color: red;"> (*)</span></label>
-    <textarea class="form-control" id="descripcion" rows="3" autocomplete="off"></textarea>
+    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" autocomplete="off"></textarea>
   </div>
 
    </div>
@@ -44,7 +44,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
     <label for="tipo">Clasificación<span style="color: red;"> (*)</span></label>
-      <select id="tipo" class="form-control">
+      <select id="tipo" name="tipo" class="form-control">
         <option selected>Clasificación</option>
         <option>...</option>
       </select>
@@ -52,7 +52,7 @@
 
     <div class="form-group col-md-6">
     <label for="proveedor">Proveedor<span style="color: red;"> (*)</span></label>
-      <select id="proveedor" class="form-control">
+      <select id="proveedor" name="proveedor" class="form-control">
         <option selected>Proveedores</option>
         <option>...</option>
       </select>
@@ -61,26 +61,26 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="fechaadqui">Fecha de adquisición<span style="color: red;"> (*)</span></label>
-      <input type="date" class="form-control" id="fechaadqui" autocomplete="off">
+      <input type="date" class="form-control" id="fechaadqui" name="fechaadqui" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
       <label for="garantia">Garantía(Años)<span style="color: red;"> (*)</span></label>
-    <input type="number" class="form-control" id="garantia" autocomplete="off">
+    <input type="number" class="form-control" id="garantia" name="garantia" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
       <label for="costo">Costo Unitario<span style="color: red;"> (*)</span></label>
-      <input type="number"  step="0.01" class="form-control" id="costo" autocomplete="off">
+      <input type="number"  step="0.01" class="form-control" id="costo" name="costo" autocomplete="off">
     </div>
   </div>
 
     <div class="form-row">
     <div class="form-group col-md-4">
       <label for="cantidad">Cantidad<span style="color: red;"> (*)</span></label>
-      <input type="number" class="form-control" id="cantidad" autocomplete="off">
+      <input type="number" class="form-control" id="cantidad" name="cantidad" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
       <label for="estado">Estado<span style="color: red;"> (*)</span></label>
-    <select id="estado" class="form-control">
+    <select id="estado" name="estado" class="form-control">
         <option selected>Estado</option>
         <option >Activo</option>
   <option>Inactivo</option>
