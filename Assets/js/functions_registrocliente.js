@@ -58,7 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+function cambiarImagenjQ(){
+    console.log($_FILES['documento']['name']);
+    $("#pdfmostrar").attr("src",datomodificador);
+  }
 
 
 window.addEventListener('load', function () {
@@ -66,6 +69,7 @@ window.addEventListener('load', function () {
     document.getElementById('variablejuridica2').style.display = 'none';
     document.getElementById('variablejuridica3').style.display = 'none';
     document.getElementById('variablejuridica4').style.display = 'none';
+    document.getElementById('variablejuridica4').src = 'none';
     $.ajax({
         dataType: "json",
         method: "POST",
