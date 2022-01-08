@@ -154,11 +154,8 @@ headerAdmin($data);
               <div class="form-group col-md-2">
                 <input class="form-control" style="width: 120px; height: 30px;" id="estado" name="estado" type="text">
               </div>
-             
-            
-                <iframe id="pdfmostrar" src="/financiero/Assets/images/pdf/PJ-013.pdf"></iframe>
                 <div class="form-group col-md-4">
-              <input type="file" name="documento" onclick="cambiarImagenjQ();" >
+              <input type="file" name="documento"  >
               </div>
               <div class="form-group col-md-2">
                 <button id="btnActionForm" class="btn btn-primary" style="margin-left: 40px;" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
