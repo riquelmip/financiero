@@ -356,10 +356,11 @@ function inicializar_tabla(tabla){
         "columns":[
             {"data":"img"},
             {"data":"nombre"},
-            {"data":"codigo_activofijo"},
-            {"data":"costo_unitario"},
+            {"data":"codigo"},
+            {"data":"cantidad"},
             {"data":"fecha_adquisicion"},
-            {"data":"opciones"}
+            {"data":"opciones"},
+            {"data":"opciones2"}
         ],
        'dom': 'lBfrtip',
         'buttons': [
@@ -386,7 +387,7 @@ function inicializar_tabla(tabla){
             }
         ],
         "bDestroy": true,
-        "iDisplayLength": 10,
+        "iDisplayLength": 5,
         "order":[[0,"asc"]]  
     });
 }

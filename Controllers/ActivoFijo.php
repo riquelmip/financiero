@@ -53,25 +53,28 @@
                     //si tiene permiso de editar se agrega el botn
                     if ($_SESSION['permisosMod']['actualizar']) {
                     
-                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo'].')" title="Editar"><i class="fas fa-plus"></i></button>';
                     }
 
-                    if ($_SESSION['permisosMod']['eliminar']) {
-                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
-                    }
+                    // if ($_SESSION['permisosMod']['eliminar']) {
+                    //     $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
+                    // }
                     //si tiene permiso de eliminar se agrega el boton
                     
                     //agregamos los botones
-                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.' ' .$btnDelete.'</div>';
+                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.'</div>';
                     $arrData[$i]['img']="Assets/images/spidey.jpg";
+                    $arrData[$i]['opciones2'] = '<div class="text-center">'.'<button class="btn btn-sm btnDelActivoFijo" style="background: gray;" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-cogs"></i></button>'.'</div>';
+
                     // <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
                     $htmlDatosTabla.='<tr>
                                       <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
-                                        <td>'.$arrData[$i]['tipo_activo'].'</td>
-                                        <td>'.$arrData[$i]['idproveedor'].'</td>
+                                        <td>'.$arrData[$i]['nombre'].'</td>
                                         <td>'.$arrData[$i]['codigo'].'</td>
-                                        <td>'.$arrData[$i]['cantidad'].'</td>
+                                        <td>'.'$'.$arrData[$i]['cantidad'].'</td>
+                                        <td>'.$arrData[$i]['fecha_adquisicion'].'</td>
                                         <td>'.$arrData[$i]['opciones'].'</td>
+                                        <td>'.$arrData[$i]['opciones2'].'</td>
                                       
                                      </tr>';
 

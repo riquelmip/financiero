@@ -2,27 +2,12 @@ var divLoading = document.querySelector('#divLoading');
 document.addEventListener('DOMContentLoaded', function(){
 
     fntSelects();
-
+    ocultarEstado();
     var formNuevoActivo = document.querySelector("#formNuevoActivo");
     formNuevoActivo.onsubmit = function(e) {
         e.preventDefault(); 
 
-        
-        //     var code = document.querySelector('#idEmpleado').value;
-        //     var nombre = document.querySelector('#txtDui').value;
-        //     var strNit = document.querySelector('#txtNit').value; 
-        //     var strNombre = document.querySelector('#txtNombre').value;
-        //     var strApellido =document.querySelector('#txtApellido').value;  
-        //     var strDireccion = document.querySelector('#txtDireccion').value;
-        //     var telefono = document.querySelector('#txtTelefono').value;
-        //     var fecha = document.querySelector('#txtFecha').value;
-        //     var intCargo = document.querySelector('#listCargo').value;
-
-        // if(strDui == '' || strNit == '' || strNombre == '' || strApellido=='' || strDireccion=='' || telefono=='', fecha=='', intCargo=='')
-        // {
-        //     swal("Atención", "Todos los campos son obligatorios." , "error");
-        //     return false;
-        // }
+  
         divLoading.style.display = "flex";
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url+'/NuevoActivoFijo/setActivoFijo'; 
@@ -37,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 {
                     formNuevoActivo.reset();
                  
-                    swal("Empleado", objData.msg ,"success");
-                    cargar_datos();
+                    swal("Activo Fijo", objData.msg ,"success");
+                    
                 }else{
                     swal("Error", objData.msg , "error");
                 }              
@@ -76,6 +61,62 @@ function fntSelects() {
     };
   }
 
+	$(document).on("change","#tipo",function(e){
+    var a=document.querySelector('#nombre').value;
+    var e =document.querySelector('#tipo').value;
+    if(a=='' || e==-1){
+      return false;
+    }
+      var datos= {"nombre": document.querySelector('#nombre').value, "tipo": document.querySelector('#tipo').value}
+        $.ajax({
+          dataType: "json",
+          method: "POST",
+          url: base_url + "/NuevoActivoFijo/generarcode",
+          data : datos,
+      }).done(function(json) {
+        document.querySelector('#codigo').value=json.codigo;
+
+      }).always(function(){
+      
+      });
+
+
+	});
+
+function ocultarEstado() {
+ 
+  var bandera = document.querySelector('#bandera').value;
+
+  if(bandera==0){
+    
+    $('#oc').css('display', 'none');
+    
+  }else{
+    $('#oc').css('display', 'block');
+    
+  }
+}
+
+  $(document).on("change","#nombre",function(e){
+    var a=document.querySelector('#nombre').value;
+    if(a=='' || e==-1){
+      return false;
+    }
+      var datos= {"nombre": document.querySelector('#nombre').value, "tipo": document.querySelector('#tipo').value}
+        $.ajax({
+          dataType: "json",
+          method: "POST",
+          url: base_url + "/NuevoActivoFijo/generarcode",
+          data : datos,
+      }).done(function(json) {
+        document.querySelector('#codigo').value=json.codigo;
+
+      }).always(function(){
+      
+      });
+
+
+	});
 
 function alerta_recargartabla(titulo, mensaje, tipo){
     swal({
@@ -83,9 +124,6 @@ function alerta_recargartabla(titulo, mensaje, tipo){
         text: mensaje,
         type: tipo,
         //timer: 3000
-    }, 
-    function(){
-            cargar_datos();
     });
 
 }

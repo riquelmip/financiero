@@ -26,8 +26,37 @@
             $data['page_tag'] = "Nuevo Activo Fijo";
             $data['page_name'] = "Nuevo Activo Fijo";
             $data['page_title'] = "Nuevo Activo Fijo";
+            $data['bandera'] = 0;
             $data['page_functions_js'] = "nuevoactivofijo.js";
             $this->views->getView($this,"NuevoActivoFijo",$data);
+        }
+
+        public function generarcode(){// generator codeeeee!!!
+            $tipo =  strClean($_POST['tipo']);
+            $nombre =  strClean($_POST['nombre']);
+            $partes= explode(' ',$nombre);
+            $nombre=$partes[0]; 
+            $num= $this->model->foundnumber(intval($tipo));
+            // var_dump($num);
+            $codtipo=$this->model->codetipo($tipo);
+            $indicador="";
+
+            if(intval($num[0]['num'])>=0 && intval($num[0]['num'])<=9){
+                $i=intval($num[0]['num'])+1;
+              $indicador='00'.$i;
+            }else if(intval($num[0]['num'])>=10 && intval($num[0]['num'])<=99){
+                $i=intval($num[0]['num'])+1;
+                $indicador='0'.$i;
+            }else{
+                $i=intval($num[0]['num'])+1;
+                $indicador=$i;
+            }
+
+             $codigo='ELT-'.$nombre.'-'.$codtipo[0]['codigo'].'-'.$indicador;
+             $arrResponse=array("codigo" => $codigo);
+             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			
+             die();
         }
 
         public function getSelects(){
@@ -35,6 +64,7 @@
             $htmlprovee="";
             $arrayTipos = $this->model->getTipo();
             if(count($arrayTipos) > 0 ){
+                $htmltipos .= '<option value=-1>Seleccione</option>';
                 for ($i=0; $i < count($arrayTipos); $i++) { 
                     $htmltipos .= '<option value="'.$arrayTipos[$i]['idtipoactivo'].'">'.$arrayTipos[$i]['nombre'].'</option>';
                 }
@@ -43,6 +73,7 @@
 
             $arrayProvee = $this->model->getProveedores();
             if(count($arrayTipos) > 0 ){
+                $htmlprovee .= '<option value=-1>Seleccione</option>';
                 for ($i=0; $i < count($arrayProvee); $i++) { 
                     $htmlprovee .= '<option value="'.$arrayProvee[$i]['idproveedor'].'">'.$arrayProvee[$i]['nombre'].'</option>';
                 }
@@ -86,13 +117,16 @@
             $fecha = strClean($_POST['fechaadqui']);
             $garantia=intval($_POST['garantia']);
             $costo=strClean($_POST['costo']);
-            $cantidad=strClean($_POST['cantidad']);
+            $cantidad=intval($_POST['cantidad']);
             $estado=intval($_POST['estado']);
             // $img=intval($_POST['img']);
+
+
             $option="";
             if($bandera == 0)
             {
                 $option = 1;
+                $estado=1;
                 if ($_SESSION['permisosMod']['escribir']) {
                // $estado=1;
                 $request_ActivoFijo = $this->model->insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado);
@@ -105,7 +139,15 @@
                 }
             }
             
-            if($request_ActivoFijo > 0 )
+            if($request_ActivoFijo > 0 ){
+                for ($i=0; $i <$cantidad ; $i++) { 
+                    $a=$i+1;
+                    $code=$codigo.'-'.$a;
+                    $request_Detalle = $this->model->insertDetalle($code,$codigo,$descripcion,$estado,$garantia);
+                }
+            }
+
+            if($request_Detalle > 0 )
             {
                 if($option == 1)
                 {

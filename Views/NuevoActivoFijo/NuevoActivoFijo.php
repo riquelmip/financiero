@@ -21,7 +21,7 @@
            
 
 <form name="formNuevoActivo" id="formNuevoActivo">
-  <input type="hidden" name="bandera" id="bandera" value=0>
+  <input type="hidden" name="bandera" id="bandera" value=<?= $data['bandera'] ?>>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="nombre">Nombre<span style="color: red;"> (*)</span></label>
@@ -29,7 +29,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="codigo">Código Generado<span style="color: red;"> (*)</span></label>
-      <input type="text" class="form-control" id="codigo" name="codigo" placeholder="EJEM: SILLA-2021-2912-1">
+      <input type="text" class="form-control" id="codigo" name="codigo"  placeholder="EJEM: ELT-CAMION-ME-013">
     </div>
   </div>
 
@@ -46,7 +46,6 @@
     <label for="tipo">Clasificación<span style="color: red;"> (*)</span></label>
       <select id="tipo" name="tipo" class="form-control">
         <option selected>Clasificación</option>
-        <option>...</option>
       </select>
   </div>
 
@@ -54,7 +53,6 @@
     <label for="proveedor">Proveedor<span style="color: red;"> (*)</span></label>
       <select id="proveedor" name="proveedor" class="form-control">
         <option selected>Proveedores</option>
-        <option>...</option>
       </select>
   </div>
   </div>
@@ -64,7 +62,7 @@
       <input type="date" class="form-control" id="fechaadqui" name="fechaadqui" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
-      <label for="garantia">Garantía(Años)<span style="color: red;"> (*)</span></label>
+      <label for="garantia">Vida Útil(Años)<span style="color: red;"> (*)</span></label>
     <input type="number" class="form-control" id="garantia" name="garantia" autocomplete="off">
     </div>
     <div class="form-group col-md-4">
@@ -78,8 +76,8 @@
       <label for="cantidad">Cantidad<span style="color: red;"> (*)</span></label>
       <input type="number" class="form-control" id="cantidad" name="cantidad" autocomplete="off">
     </div>
-    <div class="form-group col-md-4">
-      <label for="estado">Estado<span style="color: red;"> (*)</span></label>
+    <div class="form-group col-md-4" id="oc">
+      <label for="estado" id="labelito">Estado<span style="color: red;"> (*)</span></label>
     <select id="estado" name="estado" class="form-control">
         <option selected>Estado</option>
         <option >Activo</option>
