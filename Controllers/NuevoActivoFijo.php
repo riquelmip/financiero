@@ -106,6 +106,28 @@
             die();
         }
 
+        //set imagen
+        public function setImage(){
+			if($_POST){
+				if(empty($_POST['codigo'])){
+					$arrResponse = array('status' => false, 'msg' => 'Antes ingrese datos');
+				}else{
+					$idProducto = intval($_POST['idproducto']);
+					$foto      = $_FILES['foto'];
+					$imgNombre = 'ac_'.md5(date('d-m-Y H:i:s')).'.jpg';
+					$request_image = $this->model->insertImage($idProducto,$imgNombre);
+					if($request_image){
+						$uploadImage = uploadImage($foto,$imgNombre);
+						$arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.');
+					}else{
+						$arrResponse = array('status' => false, 'msg' => 'Error de carga.');
+					}
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
         public function setActivoFijo(){
             
             $bandera =  strClean($_POST['bandera']);
@@ -120,6 +142,8 @@
             $cantidad=intval($_POST['cantidad']);
             $estado=intval($_POST['estado']);
             // $img=intval($_POST['img']);
+            $foto      = $_FILES['foto'];
+            $imgNombre = 'ac_'.md5(date('d-m-Y H:i:s')).'.jpg';
 
 
             $option="";
@@ -129,7 +153,7 @@
                 $estado=1;
                 if ($_SESSION['permisosMod']['escribir']) {
                // $estado=1;
-                $request_ActivoFijo = $this->model->insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado);
+                $request_ActivoFijo = $this->model->insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado,$imgNombre);
                 }
             }else{
                 $option = 2;
@@ -140,6 +164,7 @@
             }
             
             if($request_ActivoFijo > 0 ){
+                $uploadImage = uploadImage($foto,$imgNombre);
                 for ($i=0; $i <$cantidad ; $i++) { 
                     $a=$i+1;
                     $code=$codigo.'-'.$a;

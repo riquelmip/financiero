@@ -63,12 +63,17 @@
                     
                     //agregamos los botones
                     $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.'</div>';
-                    $arrData[$i]['img']="Assets/images/spidey.jpg";
+                    if(empty($arrData[$i]['img'])){
+                        $foto= media().'/images/notfound.png';
+                    }else{
+                        $foto= media().'/images/uploads/'.$arrData[$i]['img'];
+                    }
+                   
                     $arrData[$i]['opciones2'] = '<div class="text-center">'.'<button class="btn btn-sm btnDelActivoFijo" style="background: gray;" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-cogs"></i></button>'.'</div>';
 
                     // <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
                     $htmlDatosTabla.='<tr>
-                                      <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
+                                      <td><img class="minerva" src="'.$foto.'"></td>
                                         <td>'.$arrData[$i]['nombre'].'</td>
                                         <td>'.$arrData[$i]['codigo'].'</td>
                                         <td>'.'$'.$arrData[$i]['cantidad'].'</td>

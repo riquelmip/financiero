@@ -15,6 +15,7 @@ class NuevoActivoFijoModel  extends Mysql{
         public $cantidad;
         public $estado;
         public $vida;
+        public $img;
 
         public function __construct() {
             parent::__construct(); 
@@ -46,6 +47,7 @@ class NuevoActivoFijoModel  extends Mysql{
                 $request = $this->select_all($sql);
                 return $request; 
             }
+          
 
             public function insertDetalle($correlativo,$codigo,$descripcion,$estado,$vida){
                 
@@ -68,7 +70,7 @@ class NuevoActivoFijoModel  extends Mysql{
                 return $return;
             }
 
-            public function insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado){
+            public function insertActivoFijo($codigo,$nombre,$descripcion,$tipo,$proveedor,$fecha,$garantia,$costo,$cantidad,$estado,$img){
                
                 $return = "";
 
@@ -82,11 +84,12 @@ class NuevoActivoFijoModel  extends Mysql{
                 $this->costo=$costo;
                 $this->cantidad=$cantidad;
                 $this->estado=$estado;
+                $this->img=$img;
 
             // $sql = "SELECT * FROM activo_fijo WHERE nombre = '{$this->strDui}' AND descripcion='' AND precio=''";
 			// $request = $this->select_all($sql);
             //IF (){}
-            $query_insert  = "INSERT INTO activo_fijo (codigo,nombre,tipo_activo,fecha_adquisicion,idproveedor,cantidad,costo ) VALUES ( ?,?,?, ?, ?,?,?)";
+            $query_insert  = "INSERT INTO activo_fijo (codigo,nombre,tipo_activo,fecha_adquisicion,idproveedor,cantidad,costo,img ) VALUES ( ?,?,?, ?, ?,?,?,?)";
             $arrData = array(
                 $this->codigo,
                 $this->nombre,
@@ -94,7 +97,8 @@ class NuevoActivoFijoModel  extends Mysql{
                 $this->fecha,
                 $this->proveedor,
                 $this->cantidad,
-                $this->costo);
+                $this->costo,
+                $this->img);
             $request_insert = $this->insert2($query_insert,$arrData);
             $return = $request_insert;
             return $return;
