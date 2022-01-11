@@ -71,7 +71,15 @@ class Registrocliente extends Controllers
 		$intcodigo_cliente_natural = strClean($_POST['codigoclientejuridico']);
 		$strNombreempresa =  strClean($_POST['nombreclientejuridico']);
 		$strTelefono =  strClean($_POST['telefonoclientejuridico']);
-		$strDireccion =  strClean($_POST['direccionclientejuridico']);		
+		$strDireccion =  strClean($_POST['direccionclientejuridico']);	
+		
+		$ventasnetas =  strClean($_POST['ventasnetas']);
+		$costosventas =  strClean($_POST['costosventas']);
+		$activocorriente =  strClean($_POST['activocorriente']);
+		$pasivoscorrientes =  strClean($_POST['pasivoscorrientes']);
+		$inventarios =  strClean($_POST['inventarios']);
+		$cuentasporcobrar =  strClean($_POST['cuentasporcobrar']);
+		
 		$intEstado = intval($_POST['bandera']);
 		$balancegeneral = "balancegeneral";
 		$estadoresultado = "estadoresultado";
@@ -89,7 +97,7 @@ class Registrocliente extends Controllers
 
 		if ($intEstado == 2) {
 			$option = 1;
-			$request_cliente = $this->model->insertClienteJuridico($intcodigo_cliente_natural, $strNombreempresa,$strTelefono, $strDireccion, $urlbalance, $urlestado);
+			$request_cliente = $this->model->insertClienteJuridico($intcodigo_cliente_natural, $strNombreempresa,$strTelefono, $strDireccion, $urlbalance, $urlestado,$ventasnetas,$costosventas,$activocorriente,$pasivoscorrientes,$inventarios,$cuentasporcobrar);
 		}
 
 		if ($request_cliente > 0) {

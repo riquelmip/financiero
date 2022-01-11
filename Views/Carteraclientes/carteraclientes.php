@@ -56,13 +56,6 @@ getModal('modalCarteraclientes',$data);
                   <th>Código Persona Natural</th>
                   <th>DUI</th>
                   <th>Nombre Completo</th>
-                  <th>Dirección</th>
-                  <th>Teléfono</th>
-                  <th>Estado Civil</th>
-                  <th>Lugar de Trabajo</th>
-                  <th>Ingresos</th>
-                  <th>Egresos</th>
-                  <th>Boleta de Pagos</th>
                   <th>Categoria</th>
                   <th>Acciones</th>
                 </tr>
@@ -78,10 +71,6 @@ getModal('modalCarteraclientes',$data);
                 <tr>
                   <th>Código Persona Juridica</th>
                   <th>Nombre de la Empresa</th>
-                  <th>Dirección</th>
-                  <th>Télefono</th>
-                  <th>Balance General</th>
-                  <th>Estado de Resultado</th>
                   <th>Categoria</th>
                   <th>Acciones</th>
                 </tr>

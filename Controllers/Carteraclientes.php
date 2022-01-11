@@ -73,20 +73,10 @@
 				 $datoint = explode('-',$dato);
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
-					
-				
-
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
 										<td>'.$arrData[$i]['dui_persona_natural'].'</td>
 			                            <td>'.$arrData[$i]['nombre_completo'].'</td>
-										<td>'.$arrData[$i]['direccion_persona_natural'].'</td>
-										<td>'.$arrData[$i]['telefono_persona_natural'].'</td>
-										<td>'.$arrData[$i]['estado_civil_persona_natural'].'</td>
-										<td>'.$arrData[$i]['lugar_trabajo_persona_natural'].'</td>
-										<td>'.$arrData[$i]['ingreso_persona_natural'].'</td>
-										<td>'.$arrData[$i]['egresos_persona_natural'].'</td>
-										<td>'.$arrData[$i]['id_boleta_de_pago__persona_natural'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -120,13 +110,6 @@
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
 										<td>'.$arrData[$i]['dui_persona_natural'].'</td>
 			                            <td>'.$arrData[$i]['nombre_completo'].'</td>
-										<td>'.$arrData[$i]['direccion_persona_natural'].'</td>
-										<td>'.$arrData[$i]['telefono_persona_natural'].'</td>
-										<td>'.$arrData[$i]['estado_civil_persona_natural'].'</td>
-										<td>'.$arrData[$i]['lugar_trabajo_persona_natural'].'</td>
-										<td>'.$arrData[$i]['ingreso_persona_natural'].'</td>
-										<td>'.$arrData[$i]['egresos_persona_natural'].'</td>
-										<td>'.$arrData[$i]['id_boleta_de_pago__persona_natural'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -160,13 +143,6 @@
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
 										<td>'.$arrData[$i]['dui_persona_natural'].'</td>
 			                            <td>'.$arrData[$i]['nombre_completo'].'</td>
-										<td>'.$arrData[$i]['direccion_persona_natural'].'</td>
-										<td>'.$arrData[$i]['telefono_persona_natural'].'</td>
-										<td>'.$arrData[$i]['estado_civil_persona_natural'].'</td>
-										<td>'.$arrData[$i]['lugar_trabajo_persona_natural'].'</td>
-										<td>'.$arrData[$i]['ingreso_persona_natural'].'</td>
-										<td>'.$arrData[$i]['egresos_persona_natural'].'</td>
-										<td>'.$arrData[$i]['id_boleta_de_pago__persona_natural'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -200,13 +176,6 @@
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
 										<td>'.$arrData[$i]['dui_persona_natural'].'</td>
 			                            <td>'.$arrData[$i]['nombre_completo'].'</td>
-										<td>'.$arrData[$i]['direccion_persona_natural'].'</td>
-										<td>'.$arrData[$i]['telefono_persona_natural'].'</td>
-										<td>'.$arrData[$i]['estado_civil_persona_natural'].'</td>
-										<td>'.$arrData[$i]['lugar_trabajo_persona_natural'].'</td>
-										<td>'.$arrData[$i]['ingreso_persona_natural'].'</td>
-										<td>'.$arrData[$i]['egresos_persona_natural'].'</td>
-										<td>'.$arrData[$i]['id_boleta_de_pago__persona_natural'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -244,11 +213,7 @@
 
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['nombre_empresa_persona_juridica'].'</td>
-			                            <td>'.$arrData[$i]['direccion_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idtelefono_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idbalancegeneral_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idestadoresultado_persona_juridica'].'</td>
+										<td>'.$arrData[$i]['nombre_empresa_persona_juridica'].'</td>>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -282,10 +247,6 @@
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_juridica'].'</td>
 										<td>'.$arrData[$i]['nombre_empresa_persona_juridica'].'</td>
-			                            <td>'.$arrData[$i]['direccion_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idtelefono_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idbalancegeneral_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idestadoresultado_persona_juridica'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -319,10 +280,6 @@
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_juridica'].'</td>
 										<td>'.$arrData[$i]['nombre_empresa_persona_juridica'].'</td>
-			                            <td>'.$arrData[$i]['direccion_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idtelefono_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idbalancegeneral_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idestadoresultado_persona_juridica'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';
@@ -356,10 +313,6 @@
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_juridica'].'</td>
 										<td>'.$arrData[$i]['nombre_empresa_persona_juridica'].'</td>
-			                            <td>'.$arrData[$i]['direccion_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idtelefono_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idbalancegeneral_persona_juridica'].'</td>
-										<td>'.$arrData[$i]['idestadoresultado_persona_juridica'].'</td>
 										<td>'.$arrData[$i]['categoria'].'</td>
 			                            <td>'.$arrData[$i]['options'].'</td>
 			                         </tr>';

@@ -70,18 +70,15 @@ function fntViewUsuario2(idpersona){
 
             if(objData.estado)
             {
-
                 console.log(objData);
-                document.querySelector("#celDui").innerHTML = objData.data.codigo_persona_juridica;
-                document.querySelector("#celNit").innerHTML = objData.data.nombre_empresa_persona_juridica;
-                document.querySelector("#celNombre").innerHTML = objData.data.nombre;
-                document.querySelector("#celApellido").innerHTML = objData.data.apellido;
-                document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
-                document.querySelector("#celEmail").innerHTML = objData.data.email_usuario;
-                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
-                document.querySelector("#celEstado").innerHTML = estadoUsuario;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.datecreated; 
-                $('#modalViewUser').modal('show');
+                document.querySelector("#celDui2").innerHTML = objData.data.codigo_persona_juridica;
+                document.querySelector("#celNit2").innerHTML = objData.data.nombre_empresa_persona_juridica;
+                document.querySelector("#celNombre2").innerHTML = objData.data.direccion_persona_juridica;
+                document.querySelector("#celApellido2").innerHTML = objData.data.idtelefono_persona_juridica;
+                document.querySelector("#celTelefono2").innerHTML = objData.data.idbalancegeneral_persona_juridica;
+                document.querySelector("#celEmail2").innerHTML = objData.data.idestadoresultado_persona_juridica;
+                document.querySelector("#celTipoUsuario2").innerHTML = objData.data.categoria;
+                $('#modalViewUser2').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
             }
@@ -417,13 +414,7 @@ function inicializar_tabla(tabla) {
             { "data": "codigo_persona_natural" },
             { "data": "dui_persona_natural" },
             { "data": "nombre_completo" },
-            { "data": "direccion_persona_natural" },
-            { "data": "telefono_persona_natural" },
-            { "data": "estado_civil_persona_natural" },
-            { "data": "lugar_trabajo_persona_natural" },
-            { "data": "ingreso_persona_natural" },
-            { "data": "egresos_persona_natural" },
-            { "data": "id_boleta_de_pago__persona_natural" },
+            
             { "data": "categoria" },
             { "data": "options" }
         ],
@@ -490,10 +481,6 @@ function inicializar_tabla2(tabla) {
 
             { "data": "codigo_persona_juridica" },
             { "data": "nombre_empresa_persona_juridica" },
-            { "data": "direccion_persona_juridica" },
-            { "data": "idtelefono_persona_juridica" },
-            { "data": "idbalancegeneral_persona_juridica" },
-            { "data": "idestadoresultado_persona_juridica" },
             { "data": "categoria" },
             { "data": "options" }
 

@@ -88,6 +88,7 @@ headerAdmin($data);
               </div>
             </div>
 
+
             <div class="form-row" id="variablenatural3">
               <div class="form-group col-md-2">
                 <label for="codigocliente" style="font-size: medium; font-family: Arial, Helvetica, sans-serif;">Telefono</label>
@@ -136,7 +137,7 @@ headerAdmin($data);
               <div class="form-group col-md-2">
                 <input class="form-control" style="width: 120px; height: 30px;" id="egresoscliente" name="egresoscliente" step="0.01" type="number">
               </div>
-              <div class="form-group col-md-4"  >
+              <div class="form-group col-md-4">
                 <input type="file" name="documento1">
               </div>
               <div class="form-group col-md-2">
@@ -161,11 +162,52 @@ headerAdmin($data);
               <div class="form-group col-md-4">
                 <input type="file" name="documento2">
               </div>
+            </div>
+            <div class="form-row" id="variablejuridica5">
               <div class="form-group col-md-2">
-                <button id="btnActionForm" class="btn btn-primary" style="margin-left: 40px;" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+                <label for="1" style="font-size: medium; font-family: Arial, Helvetica, sans-serif;">Ventas Netas</label>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="1" style="font-size: medium;  font-family: Arial, Helvetica, sans-serif;">Costos de Ventas</label>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="1" style="font-size: medium;  font-family: Arial, Helvetica, sans-serif;">Activo Corrientes </label>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="1" style="font-size: medium;  font-family: Arial, Helvetica, sans-serif;">Pasivos Corrientes </label>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="1" style="font-size: medium;  font-family: Arial, Helvetica, sans-serif;">Inventarios</label>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="1" style="font-size: medium;  font-family: Arial, Helvetica, sans-serif;">Cuentas por Cobrar </label>
               </div>
             </div>
-
+            <div class="form-row" id="variablejuridica6">
+              <div class="form-group col-md-2">
+                <input class="form-control" style="width: 120px; height: 30px;" id="ventasnetas" name="ventasnetas" type="number">
+              </div>
+              <div class="form-group col-md-2">
+                <input class="form-control" style="width: 120px; height: 30px;" id="costosventas" name="costosventas" type="number">
+              </div>
+              <div class="form-group col-md-2">
+                <input class="form-control" style="width: 120px; height: 30px; " id="activocorriente" name="activocorriente" type="number">
+              </div>
+              <div class="form-group col-md-2">
+                <input class="form-control" style="width: 120px; height: 30px; " id="pasivoscorrientes" name="pasivoscorrientes" type="number">
+              </div>
+              <div class="form-group col-md-2">
+                <input class="form-control" style="width: 120px; height: 30px; " id="inventarios" name="inventarios" type="number">
+              </div>
+              <div class="form-group col-md-2">
+                <input class="form-control" style="width: 120px; height: 30px; " id="cuentasporcobrar" name="cuentasporcobrar" type="number">
+              </div>
+            </div>
+            <div class="form-row" id="variablejuridica7">
+          
+                <button id="btnActionForm" class="btn btn-primary" style="margin-left: 450px;"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+           
+            </div>
           </form>
         </div>
       </div>
