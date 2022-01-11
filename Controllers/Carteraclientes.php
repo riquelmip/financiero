@@ -23,10 +23,44 @@
 			$data['page_name'] = "Cartera de Clientes";
 			$data['page_title'] = "Cartera de Clientes";
 			$data['page_functions_js'] = "functions_carteraclientes.js";
-			$this->views->getView($this,"carteraclientesnatural",$data);
+			$this->views->getView($this,"carteraclientes",$data);
 		}
 
-	
+		public function getUsuario($idpersona){
+			if ($_SESSION['permisosMod']['leer']) {
+				$idusuario = $idpersona;
+				if($idusuario > 0)
+				{
+					$arrData = $this->model->selectUsuarioNatural($idusuario);
+					if(empty($arrData))
+					{
+						$arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
+					}else{
+						$arrResponse = array('estado' => true, 'data' => $arrData);
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				}
+			}
+			die();
+		}	
+
+		public function getUsuario2($idpersona){
+			if ($_SESSION['permisosMod']['leer']) {
+				$idusuario = $idpersona;
+				if($idusuario > 0)
+				{
+					$arrData = $this->model->selectUsuarioJuridico($idusuario);
+					if(empty($arrData))
+					{
+						$arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
+					}else{
+						$arrResponse = array('estado' => true, 'data' => $arrData);
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				}
+			}
+			die();
+		}	
 
 		public function personanaturalA()
 		{
@@ -34,10 +68,11 @@
 				$arrData = $this->model->selectPersonaNaturalA();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_natural'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+				 $dato = $arrData[$i]['codigo_persona_natural'];
+				 $datoint = explode('-',$dato);
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -73,10 +108,11 @@
 				$arrData = $this->model->selectPersonaNaturalB();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_natural'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+					$dato = $arrData[$i]['codigo_persona_natural'];
+					$datoint = explode('-',$dato);
+					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -112,10 +148,11 @@
 				$arrData = $this->model->selectPersonaNaturalC();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_natural'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+				 $dato = $arrData[$i]['codigo_persona_natural'];
+				 $datoint = explode('-',$dato);
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -151,10 +188,11 @@
 				$arrData = $this->model->selectPersonaNaturalD();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_natural'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+				 $dato = $arrData[$i]['codigo_persona_natural'];
+				 $datoint = explode('-',$dato);
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -195,10 +233,12 @@
 				$arrData = $this->model->selectPersonaJuridicaA();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_juridica'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+					$dato = $arrData[$i]['codigo_persona_juridica'];
+					$datoint = explode('-',$dato);
+					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -230,10 +270,12 @@
 				$arrData = $this->model->selectPersonaJuridicaB();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_juridica'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+					$dato = $arrData[$i]['codigo_persona_juridica'];
+					$datoint = explode('-',$dato);
+					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -265,10 +307,12 @@
 				$arrData = $this->model->selectPersonaJuridicaC();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_juridica'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+					$dato = $arrData[$i]['codigo_persona_juridica'];
+					$datoint = explode('-',$dato);
+					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 
@@ -300,10 +344,12 @@
 				$arrData = $this->model->selectPersonaJuridicaD();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnAdd = "";
-						
-					$btnAdd = '<button class="btn btn-primary btn-sm btnAddCoroAv" onClick="fntAddCoroAv('.$arrData[$i]['codigo_persona_juridica'].')" title="Agregar"><i class="fas fa-plus"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnAdd.'</div>';
+					$btnView = "";
+					$dato = $arrData[$i]['codigo_persona_juridica'];
+					$datoint = explode('-',$dato);
+					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
 

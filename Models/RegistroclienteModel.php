@@ -73,16 +73,16 @@
 
 
 
-		public function insertClienteNatural(string $intcodigo_cliente_natural, string $nombre, string $apellido, string $strDireccion, string $strTelefono, string $strDui, string $strEstadocivil, string $strLugartrabajo, string $stringreso, string $strEgresos ){
+		public function insertClienteNatural(string $intcodigo_cliente_natural, string $nombre, string $apellido, string $strDireccion, string $strTelefono, string $strDui, string $strEstadocivil, string $strLugartrabajo, string $stringreso, string $strEgresos, string $url){
 
-
+			$letraD = "D";
 		$sql = "SELECT * FROM tbl_persona_natural WHERE codigo_persona_natural = '{$this->intcodigo_cliente_natural}'";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 		{
-				$query_insert  = "INSERT INTO tbl_persona_natural(codigo_persona_natural,nombre_persona_natural,apellido_persona_natural,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural) VALUES(?,?,?,?,?,?,?,?,?,?)";
-	        	$arrData = array($intcodigo_cliente_natural,$nombre,$apellido,$strDireccion,$strTelefono,$strDui,$strEstadocivil,$strLugartrabajo,$stringreso,$strEgresos);
+				$query_insert  = "INSERT INTO tbl_persona_natural(codigo_persona_natural,nombre_persona_natural,apellido_persona_natural,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	        	$arrData = array($intcodigo_cliente_natural,$nombre,$apellido,$strDireccion,$strTelefono,$strDui,$strEstadocivil,$strLugartrabajo,$stringreso,$strEgresos,$url,$letraD);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = true;
 			}else{
@@ -97,11 +97,11 @@
 
 			$sql = "SELECT * FROM tbl_persona_juridica WHERE codigo_persona_juridica = '{$this->intcodigo_cliente_natural}'";
 			$request = $this->select_all($sql);
-
+			$letrad = "D";
 			if(empty($request))
 		{
-				$query_insert  = "INSERT INTO tbl_persona_juridica(codigo_persona_juridica,nombre_empresa_persona_juridica,direccion_persona_juridica,idtelefono_persona_juridica,idbalancegeneral_persona_juridica,idestadoresultado_persona_juridica) VALUES(?,?,?,?,?,?)";
-	        	$arrData = array($intcodigo_cliente_natural,$nombre,$strDireccion,$strTelefono,$stringreso,$strEgresos);
+				$query_insert  = "INSERT INTO tbl_persona_juridica(codigo_persona_juridica,nombre_empresa_persona_juridica,direccion_persona_juridica,idtelefono_persona_juridica,idbalancegeneral_persona_juridica,idestadoresultado_persona_juridica,categoria) VALUES(?,?,?,?,?,?,?)";
+	        	$arrData = array($intcodigo_cliente_natural,$nombre,$strDireccion,$strTelefono,$stringreso,$strEgresos,$letrad);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = true;
 		}else{

@@ -25,6 +25,71 @@ function persona_naturalA() {
 }
 
 
+function fntViewUsuario(idpersona){
+    console.log("Dato");
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Carteraclientes/getUsuario/'+idpersona;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+
+            if(objData.estado)
+            {
+
+                console.log(objData);
+                document.querySelector("#celDui").innerHTML = objData.data.codigo_persona_natural;
+                document.querySelector("#celNit").innerHTML = objData.data.nombre_completo;
+                document.querySelector("#celNombre").innerHTML = objData.data.direccion_persona_natural;
+                document.querySelector("#celApellido").innerHTML = objData.data.telefono_persona_natural;
+                document.querySelector("#celTelefono").innerHTML = objData.data.dui_persona_natural;
+                document.querySelector("#celEmail").innerHTML = objData.data.estado_civil_persona_natural;
+                document.querySelector("#celTipoUsuario").innerHTML = objData.data.lugar_trabajo_persona_natural;
+                document.querySelector("#celEstado").innerHTML = objData.data.ingreso_persona_natural;
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.egresos_persona_natural;
+                document.querySelector("#celBoleta").innerHTML = objData.data.id_boleta_de_pago__persona_natural;
+                document.querySelector("#celcategoria").innerHTML = objData.data.categoria;  
+                $('#modalViewUser').modal('show');
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    }
+}
+
+function fntViewUsuario2(idpersona){
+    console.log("Dato");
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Carteraclientes/getUsuario2/'+idpersona;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+
+            if(objData.estado)
+            {
+
+                console.log(objData);
+                document.querySelector("#celDui").innerHTML = objData.data.codigo_persona_juridica;
+                document.querySelector("#celNit").innerHTML = objData.data.nombre_empresa_persona_juridica;
+                document.querySelector("#celNombre").innerHTML = objData.data.nombre;
+                document.querySelector("#celApellido").innerHTML = objData.data.apellido;
+                document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
+                document.querySelector("#celEmail").innerHTML = objData.data.email_usuario;
+                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celEstado").innerHTML = estadoUsuario;
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.datecreated; 
+                $('#modalViewUser').modal('show');
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    }
+}
+
+
 function persona_juridicaA() {
     document.getElementById('tabla1').style.display = 'none';
     document.getElementById('tabla2').style.display = '';
@@ -286,6 +351,7 @@ window.addEventListener('load', function () {
     document.getElementById('botones2').style.display = 'none';
     document.getElementById('botones3').style.display = 'none';
     document.getElementById('botones4').style.display = 'none';
+    document.getElementById('tabla2').style.display = 'none';
 }, false);
 
 function cargar_datos() {

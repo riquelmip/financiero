@@ -1,9 +1,9 @@
 <?php
 headerAdmin($data);
-getModal('modalCliente', $data);
+getModal('modalCarteraclientes',$data);
 ?>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
@@ -23,10 +23,10 @@ getModal('modalCliente', $data);
     <div class="col-md-12">
       <div class="tab" role="tabpanel">
         <ul class="nav nav-tabs " role="tablist">
-          <li role="presentation" class="active"><a onclick="clientea()"  aria-controls="home" role="tab" data-toggle="tab">Cliente A</a></li>
-          <li role="presentation"><a onclick="clienteb()" aria-controls="profile" role="tab" data-toggle="tab">Cliente B</a></li>
-          <li role="presentation"><a onclick="clientec()"  aria-controls="messages" role="tab" data-toggle="tab">Cliente C</a></li>
-          <li role="presentation"><a onclick="cliented()"  aria-controls="settings" role="tab" data-toggle="tab">Cliente D</a></li>
+          <li role="presentation" class="active"><a onclick="clientea()" style="cursor: pointer;"  aria-controls="home" role="tab" data-toggle="tab">Cliente A</a></li>
+          <li role="presentation"><a onclick="clienteb()" style="cursor: pointer;" aria-controls="profile" role="tab" data-toggle="tab">Cliente B</a></li>
+          <li role="presentation"><a onclick="clientec()" style="cursor: pointer;" aria-controls="messages" role="tab" data-toggle="tab">Cliente C</a></li>
+          <li role="presentation"><a onclick="cliented()" style="cursor: pointer;" aria-controls="settings" role="tab" data-toggle="tab">Cliente D</a></li>
         </ul>
       </div>
 
