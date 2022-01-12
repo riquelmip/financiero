@@ -58,6 +58,10 @@ function fntViewUsuario(idpersona){
     }
 }
 
+function openModal(){
+    $('#ratios').modal('show');
+  }
+
 function fntViewUsuario2(idpersona){
     console.log("Dato");
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

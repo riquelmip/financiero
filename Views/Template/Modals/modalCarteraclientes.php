@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" >
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header header-primary">
         <h5 class="modal-title" id="titleModal">Datos del Cliente Natural</h5>
@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-       
+
         <table class="table table-bordered">
           <tbody>
             <tr>
@@ -57,7 +57,7 @@
             </tr>
           </tbody>
         </table>
-        
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -67,7 +67,7 @@
 </div>
 
 <div class="modal fade" id="modalViewUser2" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" >
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header header-primary">
         <h5 class="modal-title" id="titleModal">Datos del Cliente Juridico</h5>
@@ -76,7 +76,7 @@
         </button>
       </div>
       <div class="modal-body">
-       
+
         <table class="table table-bordered">
           <tbody>
             <tr>
@@ -110,7 +110,80 @@
 
           </tbody>
         </table>
-        
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ratios" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Razones Financieras</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="text-white text-center bg-primary mb-3">
+              <div class="card-header">Prueba Ácida</div>
+              <div class="card-body">
+                <h5 class="card-title"><span id="pruebaacida">$9999</span></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-white text-center bg-primary mb-3">
+              <div class="card-header">Rotación Cuentas por Cobrar</div>
+              <div class="card-body">
+                <h5 class="card-title"><span id="rotacioncuentas">$9999</span></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="text-white text-center bg-primary mb-3">
+              <div class="card-header">Rotación Cuentas por Cobrar (Días)</div>
+              <div class="card-body">
+                <h5 class="card-title"><span id="rotacioncuentasdias">$9999</span></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-white text-center bg-primary mb-3">
+              <div class="card-header">Rotación de inventarios</div>
+              <div class="card-body">
+                <h5 class="card-title"><span id="inventario">$9999</span></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="text-white text-center bg-primary mb-6">
+              <div class="card-header">Rotación de inventarios (Días)</div>
+              <div class="card-body">
+                <h5 class="card-title"><span id="inventariodias">$9999</span></h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-white text-center bg-primary mb-3">
+              <div class="card-header">Razón Circulante</div>
+              <div class="card-body">
+                <h5 class="card-title"><span id="razoncirculante">$9999</span></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

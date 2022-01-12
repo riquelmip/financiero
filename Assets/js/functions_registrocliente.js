@@ -84,6 +84,8 @@ function cambiarImagenjQ(){
   }
 
 
+
+  
 window.addEventListener('load', function () {
     document.getElementById('variablejuridica').style.display = 'none';
     document.getElementById('variablejuridica2').style.display = 'none';

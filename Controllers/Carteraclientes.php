@@ -71,7 +71,8 @@
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				 $datoint = explode('-',$dato);
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
@@ -102,6 +103,7 @@
 					$dato = $arrData[$i]['codigo_persona_natural'];
 					$datoint = explode('-',$dato);
 					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
@@ -135,6 +137,7 @@
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				 $datoint = explode('-',$dato);
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
@@ -168,6 +171,7 @@
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				 $datoint = explode('-',$dato);
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
@@ -207,7 +211,8 @@
 					$datoint = explode('-',$dato);
 					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
 					
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
 
@@ -239,8 +244,8 @@
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					$datoint = explode('-',$dato);
 					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
-					
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
 
@@ -273,7 +278,8 @@
 					$datoint = explode('-',$dato);
 					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
 					
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
 
@@ -306,7 +312,8 @@
 					$datoint = explode('-',$dato);
 					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
 					
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
 
