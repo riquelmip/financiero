@@ -28,10 +28,9 @@
 
 		public function getUsuario($idpersona){
 			if ($_SESSION['permisosMod']['leer']) {
-				$idusuario = $idpersona;
-				if($idusuario > 0)
-				{
-					$arrData = $this->model->selectUsuarioNatural($idusuario);
+
+
+					$arrData = $this->model->selectUsuarioNatural($idpersona);
 					if(empty($arrData))
 					{
 						$arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
@@ -39,17 +38,16 @@
 						$arrResponse = array('estado' => true, 'data' => $arrData);
 					}
 					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				}
+			
 			}
 			die();
 		}	
 
 		public function getUsuario2($idpersona){
 			if ($_SESSION['permisosMod']['leer']) {
-				$idusuario = $idpersona;
-				if($idusuario > 0)
-				{
-					$arrData = $this->model->selectUsuarioJuridico($idusuario);
+		
+
+					$arrData = $this->model->selectUsuarioJuridico($idpersona);
 					if(empty($arrData))
 					{
 						$arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
@@ -57,7 +55,7 @@
 						$arrResponse = array('estado' => true, 'data' => $arrData);
 					}
 					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				}
+			
 			}
 			die();
 		}	
@@ -66,8 +64,7 @@
 		public function getPruebas($idpersona){
 			if ($_SESSION['permisosMod']['leer']) {
 				$idusuario = $idpersona;
-				if($idusuario > 0)
-				{
+
 					$arrData = $this->model->selectUsuarioJuridico($idusuario);
 						
 							$ventas_netas = $arrData['ventas_netas'];
@@ -83,7 +80,7 @@
 							$Razoncuentaxcobrardias = 360 / $Razoncuentaxcobrar ;
 							$Rotacion_inventarios = $costos_de_ventas / $inventarios;
 							$Rotacion_inventariosdias = 360 / $Rotacion_inventarios;
-					$signo = "$";
+							$signo = "$";
 							$arrData['ventas_netas'] = $signo . (round($Razon_circulante * 100) /100);
 							$arrData['activos_corrientes'] = $signo .  (round($Prueba_acida * 100) /100);
 							$arrData['inventarios'] = $signo . (round($Razoncuentaxcobrar * 100) /100);
@@ -94,7 +91,7 @@
 						$arrResponse = array('estado' => true, 'data' => $arrData);
 				
 					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				}
+				
 			}
 			die();
 		}
@@ -102,15 +99,25 @@
 		public function personanaturalA()
 		{
 			if ($_SESSION['permisosMod']['leer']) {
+				$comillas = "'";
 				$arrData = $this->model->selectPersonaNaturalA();
 				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				 $datoint = explode('-',$dato);
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
-					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					
+					if ($arrData[$i]['incobrable_persona_natural']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
+					
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
 										<td>'.$arrData[$i]['dui_persona_natural'].'</td>
@@ -132,6 +139,7 @@
 
 		public function personanaturalB()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaNaturalB();
 				$htmlDatosTabla = "";
@@ -139,8 +147,8 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_natural'];
 					$datoint = explode('-',$dato);
-					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
-					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
@@ -166,6 +174,7 @@
 
 		public function personanaturalC()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaNaturalC();
 				$htmlDatosTabla = "";
@@ -173,8 +182,8 @@
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				 $datoint = explode('-',$dato);
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
-					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
 				
@@ -200,6 +209,7 @@
 
 		public function personanaturalD()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaNaturalD();
 				$htmlDatosTabla = "";
@@ -207,7 +217,7 @@
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				 $datoint = explode('-',$dato);
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
 					
@@ -239,6 +249,7 @@
 
 		public function PersonaJuridicaA()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaJuridicaA();
 				$htmlDatosTabla = "";
@@ -246,9 +257,9 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					$datoint = explode('-',$dato);
-					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
-					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
@@ -273,6 +284,7 @@
 
 		public function PersonaJuridicaB()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaJuridicaB();
 				$htmlDatosTabla = "";
@@ -280,8 +292,8 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					$datoint = explode('-',$dato);
-					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
-					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
@@ -306,6 +318,7 @@
 
 		public function PersonaJuridicaC()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaJuridicaC();
 				$htmlDatosTabla = "";
@@ -313,9 +326,9 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					$datoint = explode('-',$dato);
-					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
-					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				
@@ -340,6 +353,7 @@
 
 		public function PersonaJuridicaD()
 		{
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 				$arrData = $this->model->selectPersonaJuridicaD();
 				$htmlDatosTabla = "";
@@ -347,9 +361,9 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					$datoint = explode('-',$dato);
-					   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$datoint[1].')" title="Ver usuario"><i class="far fa-eye"></i></button>';	
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
-					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$datoint[1].')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
+					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
 					
 				

@@ -26,7 +26,7 @@ function persona_naturalA() {
 
 
 function fntViewUsuario(idpersona){
-    console.log("Dato");
+    
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/Carteraclientes/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
@@ -120,6 +120,35 @@ function fntRazonFinanciera(idpersona){
             }
         }
     }
+}
+
+function fntIncobrable(idpersona,valor){
+    console.log(idpersona);
+    console.log(valor);
+    
+    /*let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Carteraclientes/getPruebas/'+idpersona;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+
+            if(objData.estado)
+            {
+                console.log(objData);
+                document.querySelector("#pruebaacida").innerHTML = objData.data.activos_corrientes;
+                document.querySelector("#rotacioncuentas").innerHTML = objData.data.inventarios;
+                document.querySelector("#rotacioncuentasdias").innerHTML = objData.data.costos_de_ventas;
+                document.querySelector("#inventario").innerHTML = objData.data.pasivos_corrientes;
+                document.querySelector("#inventariodias").innerHTML = objData.data.cuentas_cobrar;
+                document.querySelector("#razoncirculante").innerHTML = objData.data.ventas_netas;
+                $('#ratios').modal('show');
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    }*/
 }
 
 
