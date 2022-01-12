@@ -105,7 +105,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
-				 $datoint = explode('-',$dato);
+				  
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					if ($arrData[$i]['incobrable_persona_natural']==0) {
@@ -146,7 +146,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_natural'];
-					$datoint = explode('-',$dato);
+					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
@@ -181,7 +181,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
-				 $datoint = explode('-',$dato);
+				  
 				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
@@ -216,7 +216,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
-				 $datoint = explode('-',$dato);
+				  
 				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
@@ -256,7 +256,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
-					$datoint = explode('-',$dato);
+					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
@@ -291,7 +291,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
-					$datoint = explode('-',$dato);
+					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
@@ -325,7 +325,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
-					$datoint = explode('-',$dato);
+					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
@@ -360,7 +360,7 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
-					$datoint = explode('-',$dato);
+					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
