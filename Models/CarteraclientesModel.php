@@ -19,7 +19,7 @@
 		public function selectPersonaNaturalA(){
 			
 			//EXTRAE CLIENTES
-			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria from tbl_persona_natural where categoria='A'";
+			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria,incobrable_persona_natural from tbl_persona_natural where categoria='A'";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -34,7 +34,7 @@
 		public function selectPersonaNaturalB(){
 			
 			//EXTRAE CLIENTES
-			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria from tbl_persona_natural where categoria='B'";
+			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria,incobrable_persona_natural from tbl_persona_natural where categoria='B'";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -46,10 +46,24 @@
 			return $request;
 		}
 
+		public function selectUsuarioNatural($idpersona){
+			$b = $idpersona;
+			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria from tbl_persona_natural where codigo_persona_natural='$b'";
+			$request = $this->select($sql);
+			return $request;
+		}
+
+		public function selectUsuarioJuridico($idpersona){
+			$b = $idpersona;
+			$sql = "SELECT * from tbl_persona_juridica where codigo_persona_juridica='$b'";
+			$request = $this->select($sql);
+			return $request;
+		}
+
 		public function selectPersonaNaturalC(){
 			
 			//EXTRAE CLIENTES
-			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria from tbl_persona_natural where categoria='C'";
+			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria,incobrable_persona_natural from tbl_persona_natural where categoria='C'";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -64,7 +78,7 @@
 		public function selectPersonaNaturalD(){
 			
 			//EXTRAE CLIENTES
-			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria from tbl_persona_natural where categoria='D'";
+			$sql = "SELECT codigo_persona_natural,CONCAT(nombre_persona_natural,' ',apellido_persona_natural) as nombre_completo,direccion_persona_natural,telefono_persona_natural,dui_persona_natural,estado_civil_persona_natural,lugar_trabajo_persona_natural,ingreso_persona_natural,egresos_persona_natural,id_boleta_de_pago__persona_natural,categoria,incobrable_persona_natural from tbl_persona_natural where categoria='D'";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -76,5 +90,67 @@
 			return $request;
 		}
         
+
+		public function deleteEmpleado(string $idEmpleado,int $estado)
+		{
+			$valor = $idEmpleado;
+			$valorsinletras = explode('-',$valor);
+			$valor2 = $valorsinletras[0];
+			if ($valor2=="PN") {
+				$this->intestado= $estado;
+			if ($this->intestado==0) {
+				$this->intestado = 1;
+			} else {
+				$this->intestado = 0;
+			}
+			
+			$this->intIdEmpleado = $idEmpleado;
+
+
+				$sql = "UPDATE tbl_persona_natural SET incobrable_persona_natural=? WHERE codigo_persona_natural = '$this->intIdEmpleado' ";
+
+					$arrData = array($this->intestado);
+				
+				 
+				 $request = $this->update($sql,$arrData);
+
+				if($request)
+				{
+					$request = 'ok';	
+				}else{
+					$request = 'error';
+				}
+
+			return $request;
+			} else {
+				$this->intestado= $estado;
+				if ($this->intestado==0) {
+					$this->intestado = 1;
+				} else {
+					$this->intestado = 0;
+				}
+				
+				$this->intIdEmpleado = $idEmpleado;
+	
+	
+					$sql = "UPDATE tbl_persona_juridica SET incobrable_persona_juridica=? WHERE codigo_persona_juridica = '$this->intIdEmpleado' ";
+	
+						$arrData = array($this->intestado);
+					
+					 
+					 $request = $this->update($sql,$arrData);
+	
+					if($request)
+					{
+						$request = 'ok';	
+					}else{
+						$request = 'error';
+					}
+	
+				return $request;
+			}
+			
+			
+		}
 	}
  ?>
