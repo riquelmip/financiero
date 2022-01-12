@@ -32,8 +32,54 @@
 
         
 
-        //Para acceder a los Moddelos
+        public function getDetalles(){
+            if ($_SESSION['permisosMod']['leer']) {
+                $id=$_POST['codigo'];
+                $arrData = $this->model->selectdetalles($id);
+                // var_dump($arrData);
+                $htmlDatosTabla = "";
+                for ($i=0; $i < count($arrData); $i++) {
+                    $btnEdit = "";
+                    $btnDelete = "";
+                
+                    //si tiene permiso de editar se agrega el botn
+                    if ($_SESSION['permisosMod']['actualizar']) {
+                    
+                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo_correlativo'].')" title="Editar"><i class="fas fa-plus"></i></button>';
+                    }
 
+                    if ($_SESSION['permisosMod']['eliminar']) {
+                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo_correlativo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
+                    }
+
+                    if(empty($arrData[$i]['img'])){
+                        $va=media().'/images/notfound.png';
+                        $arr='<img src="'.$va.'"  style="width: 150px; margin-left: 50px;">';
+                        
+                    }else{
+                        $va=media().'/images/uploads/'.$arrData[$i]['img'];
+                        $arr='<img src="'.$va.'"  style="width: 150px; margin-left: 50px;">';
+                    }
+                    //agregamos los botones
+                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.'</div>';
+                    $arrData[$i]['opciones2'] = '<div class="text-center">'.$btnDelete.'</div>';
+
+                    $htmlDatosTabla.='<tr>
+                                        <td>'.$arrData[$i]['codigo_correlativo'].'</td>
+                                        <td>'.$arrData[$i]['decripcion'].'</td>
+                                        <td>'.'$'.$arrData[$i]['estado'].'</td>
+                                        <td>'.$arrData[$i]['opciones'].'</td>
+                                        <td>'.$arrData[$i]['opciones2'].'</td>
+                                      
+                                     </tr>';
+
+                }
+
+                $arrayDatos = array('datosIndividuales' => $arrData,'arr'=>$arr,'htmlDatosTabla' => $htmlDatosTabla);
+                echo json_encode($arrayDatos,JSON_UNESCAPED_UNICODE);
+            }
+            die();
+        }
 
 
         public function getActivoFijos()
@@ -45,10 +91,11 @@
                     $btnView = "";
                     $btnEdit = "";
                     $btnDelete = "";
-                
+                    
+                    $var=$arrData[$i]['codigo'];
                     
                     if ($_SESSION['permisosMod']['leer']) {
-                        $btnView = '<button class="btn btn-info btn-sm btnViewActivoFijo" onClick="fntViewActivoFijo('.$arrData[$i]['codigo'].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+                        $btnView = '<button class="btn btn-info btn-sm abr"  data-id="'.$var.'" title="Ver Detalles de los activos"><i class="fas fa-list"></i></button>';
                     }
                     //si tiene permiso de editar se agrega el botn
                     if ($_SESSION['permisosMod']['actualizar']) {
@@ -56,20 +103,20 @@
                         $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo'].')" title="Editar"><i class="fas fa-plus"></i></button>';
                     }
 
-                    // if ($_SESSION['permisosMod']['eliminar']) {
-                    //     $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
-                    // }
+                    if ($_SESSION['permisosMod']['eliminar']) {
+                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
+                    }
                     //si tiene permiso de eliminar se agrega el boton
                     
                     //agregamos los botones
-                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.'</div>';
+                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.' '.$btnDelete.'</div>';
                     if(empty($arrData[$i]['img'])){
                         $foto= media().'/images/notfound.png';
                     }else{
                         $foto= media().'/images/uploads/'.$arrData[$i]['img'];
                     }
                    
-                    $arrData[$i]['opciones2'] = '<div class="text-center">'.'<button class="btn btn-sm btnDelActivoFijo" style="background: gray;" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-cogs"></i></button>'.'</div>';
+                 //   $arrData[$i]['opciones2'] = '<div class="text-center">'.'<button class="btn btn-sm btnDelActivoFijo" style="background: gray;" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-cogs"></i></button>'.'</div>';
 
                     // <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
                     $htmlDatosTabla.='<tr>
@@ -79,7 +126,6 @@
                                         <td>'.'$'.$arrData[$i]['cantidad'].'</td>
                                         <td>'.$arrData[$i]['fecha_adquisicion'].'</td>
                                         <td>'.$arrData[$i]['opciones'].'</td>
-                                        <td>'.$arrData[$i]['opciones2'].'</td>
                                       
                                      </tr>';
 

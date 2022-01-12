@@ -93,7 +93,7 @@ headerAdmin($data);
             <div class="form-group col-md-12">
               <div id="containerGallery">
                 <span>Agregar foto (440 x 545)</span>
-                <button class="btnAddImage btn btn-success btn-sm" type="button">
+                <button class="btnAddImage btn btn-success btn-sm"  type="button">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>

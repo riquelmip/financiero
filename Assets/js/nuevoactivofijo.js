@@ -87,6 +87,7 @@ function fntInputFile(){
                               document.querySelector("#"+parentId+" .btnDeleteImage").setAttribute("imgname",'a');
                               document.querySelector("#"+parentId+" .btnUploadfile").classList.add("notblock");
                               document.querySelector("#"+parentId+" .btnDeleteImage").classList.remove("notblock");
+                              $('#containerGallery').css('display', 'none');
               }
           }
 
@@ -100,6 +101,7 @@ function fntDelItem(element){
   // let idProducto = document.querySelector("#codigo").value;
               let itemRemove = document.querySelector(element);
               itemRemove.parentNode.removeChild(itemRemove);
+              $('#containerGallery').css('display', 'block');
 }
 
 function fntSelects() {
