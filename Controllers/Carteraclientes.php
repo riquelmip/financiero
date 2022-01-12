@@ -149,8 +149,17 @@
 					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					   
+					   if ($arrData[$i]['incobrable_persona_natural']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
 					
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
 				
 
 					$htmlDatosTabla.='<tr>
@@ -184,7 +193,16 @@
 				  
 				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					if ($arrData[$i]['incobrable_persona_natural']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
+					
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
 					
 				
 
@@ -219,7 +237,16 @@
 				  
 				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+				 if ($arrData[$i]['incobrable_persona_natural']==0) {
+					$valor = 0;
+					$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+				} else {
+					$valor = 1;
+					$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+				}
+				
+
+				$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
 					
 				
 
@@ -260,7 +287,16 @@
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
+					  
+					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
+
 					
 				
 
@@ -294,7 +330,14 @@
 					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
+					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
 					
 				
 
@@ -329,8 +372,14 @@
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
-					
+					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
 				
 
 					$htmlDatosTabla.='<tr>
@@ -364,7 +413,14 @@
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.'</div>';
+					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
+						$valor = 0;
+						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
+					} else {
+						$valor = 1;
+						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
+					}
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
 					
 				
 
