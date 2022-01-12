@@ -443,6 +443,35 @@
 		}
 
 
+		public function marcarincobrablePN()
+		
+		{
+			if($_POST){
+				if ($_SESSION['permisosMod']['eliminar']) {
+
+					//$json=json_encode($_POST['idEmpleado']);
+					$todo = strClean( $_POST['idEmpleado']);
+
+					$porciones = explode(",", $todo);
+					$idempleado = $porciones[0];
+					$estado = intval($porciones[1]);
+					$requestDelete = $this->model->deleteEmpleado($idempleado,$estado);
+					if($requestDelete == 'ok')
+					{
+						$arrResponse = array('estado' => true, 'msg' => 'Dado de Baja');
+					}else if($requestDelete == 'exist'){
+						$arrResponse = array('estado' => false, 'msg' => 'No puede dar de baja al Empleado');
+					}else{
+						$arrResponse = array('estado' => false, 'msg' => 'Error al cambiar el estado el Empleado.');
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				}
+			}
+			die();
+		}
+
+
+
 	}
 
     

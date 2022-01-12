@@ -123,32 +123,89 @@ function fntRazonFinanciera(idpersona){
 }
 
 function fntIncobrable(idpersona,valor){
-    console.log(idpersona);
-    console.log(valor);
-    
-    /*let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Carteraclientes/getPruebas/'+idpersona;
-    request.open("GET",ajaxUrl,true);
-    request.send();
-    request.onreadystatechange = function(){
-        if(request.readyState == 4 && request.status == 200){
-            let objData = JSON.parse(request.responseText);
-
-            if(objData.estado)
+    if (valor==0) {
+        swal({
+            title:"¿Desea marcar como Incobrable a este cliente?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si!",
+            cancelButtonText: "No!",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            
+            if (isConfirm) 
             {
-                console.log(objData);
-                document.querySelector("#pruebaacida").innerHTML = objData.data.activos_corrientes;
-                document.querySelector("#rotacioncuentas").innerHTML = objData.data.inventarios;
-                document.querySelector("#rotacioncuentasdias").innerHTML = objData.data.costos_de_ventas;
-                document.querySelector("#inventario").innerHTML = objData.data.pasivos_corrientes;
-                document.querySelector("#inventariodias").innerHTML = objData.data.cuentas_cobrar;
-                document.querySelector("#razoncirculante").innerHTML = objData.data.ventas_netas;
-                $('#ratios').modal('show');
-            }else{
-                swal("Error", objData.msg , "error");
+    
+                var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                var ajaxUrl = base_url+'/Carteraclientes/marcarincobrablePN';
+            
+            var strData ="idEmpleado="+idpersona+","+valor;
+                
+                request.open("POST",ajaxUrl,true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(strData);
+                request.onreadystatechange = function(){
+                    if(request.readyState == 4 && request.status == 200){
+                        var objData = JSON.parse(request.responseText);
+                        if(objData.estado)
+                        {
+                            swal("Cambio Realizado", objData.msg , "success");
+                            location.reload();
+                        }else{
+                            swal("Atención!", objData.msg , "error");
+                        }
+                    }
+                }
             }
-        }
-    }*/
+    
+        });
+    } else {
+        swal({
+            title:"¿Desea marcar como Cobrable a este cliente?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si!",
+            cancelButtonText: "No!",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            
+            if (isConfirm) 
+            {
+    
+                var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                var ajaxUrl = base_url+'/Carteraclientes/marcarincobrablePN';
+            
+            var strData ="idEmpleado="+idpersona+","+valor;
+                
+                request.open("POST",ajaxUrl,true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(strData);
+                request.onreadystatechange = function(){
+                    if(request.readyState == 4 && request.status == 200){
+                        var objData = JSON.parse(request.responseText);
+                        if(objData.estado)
+                        {
+                            swal("Cambio Realizado", objData.msg , "success");
+                            location.reload();
+                        }else{
+                            swal("Atención!", objData.msg , "error");
+                        }
+                    }
+                }
+            }
+    
+        });  
+    }
+    
+
+
+
+
+ 
 }
 
 

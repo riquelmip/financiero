@@ -90,5 +90,67 @@
 			return $request;
 		}
         
+
+		public function deleteEmpleado(string $idEmpleado,int $estado)
+		{
+			$valor = $idEmpleado;
+			$valorsinletras = explode('-',$valor);
+			$valor2 = $valorsinletras[0];
+			if ($valor2=="PN") {
+				$this->intestado= $estado;
+			if ($this->intestado==0) {
+				$this->intestado = 1;
+			} else {
+				$this->intestado = 0;
+			}
+			
+			$this->intIdEmpleado = $idEmpleado;
+
+
+				$sql = "UPDATE tbl_persona_natural SET incobrable_persona_natural=? WHERE codigo_persona_natural = '$this->intIdEmpleado' ";
+
+					$arrData = array($this->intestado);
+				
+				 
+				 $request = $this->update($sql,$arrData);
+
+				if($request)
+				{
+					$request = 'ok';	
+				}else{
+					$request = 'error';
+				}
+
+			return $request;
+			} else {
+				$this->intestado= $estado;
+				if ($this->intestado==0) {
+					$this->intestado = 1;
+				} else {
+					$this->intestado = 0;
+				}
+				
+				$this->intIdEmpleado = $idEmpleado;
+	
+	
+					$sql = "UPDATE tbl_persona_juridica SET incobrable_persona_juridica=? WHERE codigo_persona_juridica = '$this->intIdEmpleado' ";
+	
+						$arrData = array($this->intestado);
+					
+					 
+					 $request = $this->update($sql,$arrData);
+	
+					if($request)
+					{
+						$request = 'ok';	
+					}else{
+						$request = 'error';
+					}
+	
+				return $request;
+			}
+			
+			
+		}
 	}
  ?>
