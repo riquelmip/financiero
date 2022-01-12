@@ -62,6 +62,43 @@
 			die();
 		}	
 
+
+		public function getPruebas($idpersona){
+			if ($_SESSION['permisosMod']['leer']) {
+				$idusuario = $idpersona;
+				if($idusuario > 0)
+				{
+					$arrData = $this->model->selectUsuarioJuridico($idusuario);
+						
+							$ventas_netas = $arrData['ventas_netas'];
+							$activos_corrientes = $arrData['activos_corrientes'];
+							$inventarios = $arrData['inventarios'];
+							$costos_de_ventas = $arrData['costos_de_ventas'];
+							$pasivos_corrientes = $arrData['pasivos_corrientes'];
+							$cuentas_cobrar = $arrData['cuentas_cobrar'];
+
+							$Razon_circulante = $activos_corrientes/$pasivos_corrientes;
+							$Prueba_acida = ($activos_corrientes-$inventarios)/$pasivos_corrientes;
+							$Razoncuentaxcobrar = $ventas_netas / $cuentas_cobrar;
+							$Razoncuentaxcobrardias = 360 / $Razoncuentaxcobrar ;
+							$Rotacion_inventarios = $costos_de_ventas / $inventarios;
+							$Rotacion_inventariosdias = 360 / $Rotacion_inventarios;
+					$signo = "$";
+							$arrData['ventas_netas'] = $signo . (round($Razon_circulante * 100) /100);
+							$arrData['activos_corrientes'] = $signo .  (round($Prueba_acida * 100) /100);
+							$arrData['inventarios'] = $signo . (round($Razoncuentaxcobrar * 100) /100);
+							$arrData['costos_de_ventas'] = $signo .  (round($Razoncuentaxcobrardias * 100) /100);
+							$arrData['pasivos_corrientes'] = $signo .  (round($Rotacion_inventarios * 100) /100);
+							$arrData['cuentas_cobrar'] = $signo .  (round($Rotacion_inventariosdias * 100) /100);
+
+						$arrResponse = array('estado' => true, 'data' => $arrData);
+				
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				}
+			}
+			die();
+		}
+
 		public function personanaturalA()
 		{
 			if ($_SESSION['permisosMod']['leer']) {
