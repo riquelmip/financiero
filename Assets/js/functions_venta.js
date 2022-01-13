@@ -15,37 +15,32 @@ document.addEventListener('DOMContentLoaded', function(){
         "columns":[
             {"data":"idventa"},
             {"data":"fecha"},
-            {"data":"monto"},
             {"data":"cliente"},
+            {"data":"descripcion"},
+            {"data":"total"},
             {"data":"estado"},
             {"data":"opciones"}
         ],
         columnDefs: [{
-            width: "5%",
             targets: 0,
             className: 'text-center'
           },
           {
-            width: "7%",
             targets: 1,
             className: 'text-center'
           },
           {
-            width: "7%",
             targets: 2,
             className: 'text-center'
           },
           {
-            width: "25%",
             targets: 3
           },
           {
-            width: "4%",
             targets: 4,
             className: 'text-center'
           },
           {
-            width: "11%",
             targets: 5,
             className: 'text-center'
           }
