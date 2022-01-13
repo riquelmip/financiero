@@ -18,7 +18,7 @@
 			if (empty($_SESSION['permisosMod']['leer'])) {
 				header('location: '.base_url().'/dashboard');
 			}
-			$data['page_tag'] = "Ventas";//Nombre superior
+			$data['page_tag'] = "Ventas al contado";//Nombre superior
 			$data['page_name'] = "ventas";//Nombre de la pagina 
 			$data['page_title'] = "Ventas"; //Nombre del titulo en la vista
 			$data['page_functions_js'] = "functions_venta.js";// Funcion de js para las acciones
@@ -27,7 +27,7 @@
 		public function getVentas()
 		{
 			if ($_SESSION['permisosMod']['leer']) {
-				$arrData = $this->model->selectVentas();
+				$arrData = $this->model->selectVentascontado();
              
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
@@ -38,9 +38,6 @@
 					{
 						$arrData[$i]['estado'] = '<span class="badge badge-success">Realizada</span>';
 
-						if ($_SESSION['permisosMod']['actualizar']) {
-							$btnEdit = ' <button class="btn btn-danger btn-sm" onClick="anularVenta('.$arrData[$i]['idventa'].')" title="Anular Venta"><i class="fas fa-times"></i></button>';
-						}
 					}else{
 						$arrData[$i]['estado'] = '<span class="badge badge-danger">Anulada</span>';
 					}

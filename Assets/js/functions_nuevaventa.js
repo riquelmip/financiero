@@ -337,7 +337,8 @@ document.addEventListener('DOMContentLoaded', function(){
                                         "precio": parseFloat(precio).toFixed(2),
                                         "preciototal":parseFloat(preciot).toFixed(2),
                                         "cuota": parseFloat(cuota).toFixed(2),
-                                        "tipoventa": parseInt(forma)
+                                        "tipoventa": parseInt(forma),
+                                        "meses": parseInt(document.querySelector('#txtmeses').value)
                                         });
                    } //fin else
                     

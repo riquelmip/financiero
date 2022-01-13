@@ -22,7 +22,35 @@
 					v.estado,
 					CONCAT(c.nombre,' ',c.apellido)  AS cliente
 					FROM venta v
-					INNER JOIN cliente c ON v.idcliente = c.idcliente";
+					INNER JOIN cliente c ON v.idcliente = c.codigo_cliente_natural";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+		public function selectVentascontado() 
+		{
+
+			$sql = "SELECT 
+					v.idventa,
+					dv.iddetalle,
+					p.idproducto,
+					p.descripcion,
+					dv.cantidad,
+					dv.formapago,
+					dv.total,
+					dv.meses,
+					v.dia,
+					v.mes,
+					v.anio,
+					v.monto,
+					v.estado,
+					v.idcliente,
+					CONCAT(c.nombre,' ',c.apellido)  AS cliente
+					FROM detalleventa dv
+					INNER JOIN venta v ON v.idventa = dv.idventa
+					INNER JOIN producto p ON p.idproducto = dv.idproducto
+					INNER JOIN cliente c ON v.idcliente = c.codigo_cliente_natural
+					WHERE dv.formapago = 1";
 			$request = $this->select_all($sql);
 			return $request;
 		}

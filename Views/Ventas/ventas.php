@@ -33,8 +33,9 @@
                         <tr>
                           <th>Venta</th>
                           <th>Fecha</th>
-                          <th>Monto ($)</th>
                           <th>Cliente</th>
+                          <th>Descripción</th>
+                          <th>Total ($)</th>
                           <th>Estado</th>
                           <th>Acciones</th>
                         </tr>

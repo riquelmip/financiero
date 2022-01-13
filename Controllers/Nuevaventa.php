@@ -140,6 +140,7 @@
 
 							$formadepago = intval($value["tipoventa"]);
 							$cuota = floatval($value["cuota"]);
+							$meses = intval($value["meses"]);
 
 							if ($formadepago == 1) {
 								if ($_SESSION['permisosMod']['escribir']) {
@@ -149,7 +150,9 @@
 							}else if ($formadepago == 2){
 								$credito = 0.00;
 								if ($_SESSION['permisosMod']['escribir']) {
-									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito);
+									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito, $meses);
+
+									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total);
 									
 								}
 							}
