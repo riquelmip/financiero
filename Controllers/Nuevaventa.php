@@ -151,6 +151,8 @@
 								$credito = 0.00;
 								if ($_SESSION['permisosMod']['escribir']) {
 									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito, $meses);
+
+									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total);
 									
 								}
 							}

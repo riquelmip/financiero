@@ -186,6 +186,21 @@
 		}	
 
 
+		public function insertDetalleCreditoPagoCuota(int $iddetalle, $total){
+
+			$return = "";
+
+
+				$query_insert  = "INSERT INTO pagocuota(iddetalle, mes, fecha, fechapago, cuota, capital, intereses, abonocapital, totalabono, saldofinal) VALUES(?,?,?,?,?,?,?,?,?,?)";
+	        	$arrData = array($iddetalle, 0, "0000-00-00", "0000-00-00", 0, 0, 0, 0, 0, $total);
+	        	$request_insert = $this->insert($query_insert,$arrData);
+	        	$return = $request_insert;
+
+
+			return $return;
+		}	
+
+
 
 		public function actualizarstock(int $idproducto,int $nuevacantidad){
 
