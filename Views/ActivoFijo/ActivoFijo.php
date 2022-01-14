@@ -28,7 +28,7 @@
                           <th>Imagen</th>
                           <th>Nombre</th>        
                           <th>Código</th>
-                          <th>Costo</th>
+                          <th>Cantidad</th>
                           <th>Fecha Adquisición</th>
                           <th>Acciones</th>
                         </tr>

@@ -30,6 +30,9 @@
                 <?php if (!empty($_SESSION['permisos'][3]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
                 <?php } ?>
+                <?php if (!empty($_SESSION['permisos'][3]['leer'])) { ?>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Configuracion"><i class="icon fa fa-circle-o"></i> Configuración</a></li>
+                <?php } ?>
                 </ul>
             </li>
         <?php } ?>

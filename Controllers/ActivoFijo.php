@@ -45,7 +45,7 @@
                     //si tiene permiso de editar se agrega el botn
                     if ($_SESSION['permisosMod']['actualizar']) {
                     
-                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo_correlativo'].')" title="Editar"><i class="fas fa-plus"></i></button>';
+                        $btnEdit = '<button class="btn btn-primary btn-sm depre" data-code="'.$arrData[$i]['codigo_correlativo'].'"  title="Editar"><i class="fas fa-plus"></i></button>';
                     }
 
                     if ($_SESSION['permisosMod']['eliminar']) {
@@ -81,6 +81,48 @@
             die();
         }
 
+        public function dataDepreciacion(){
+            if ($_SESSION['permisosMod']['leer']) {
+                $id=$_POST['codigo'];
+                $arrData = $this->model->dataDepreciacion($id);
+                
+                $depA=floatval($arrData[0]['costo'])/intval($arrData[0]['vida_util']);
+                $costo=$arrData[0]['costo'];
+                $contador=0;
+                $libro=0;
+                $htmlDatosTabla = "";
+                for ($i=0; $i <= intval($arrData[0]['vida_util']); $i++) {
+                    
+                    
+                    
+
+                    if($i==0){
+                        $libro=$costo-$contador;
+                        $htmlDatosTabla.='<tr>
+                        <td>'.$i.'</td>
+                        <td>'.'</td>
+                        <td>'.'</td>
+                        <td>'.number_format($costo).'</td>
+                     </tr>';
+                     
+                    }else{
+                        $contador=$contador+$depA;
+                        $libro=$costo-$contador;
+                        $htmlDatosTabla.='<tr>
+                        <td>'.$i.'</td>
+                        <td>'.number_format($depA).'</td>
+                        <td>'.number_format($contador).'</td>
+                        <td>'.number_format($libro).'</td>
+                     </tr>';
+                    }
+
+                }
+
+                $arrayDatos = array('datosIndividuales' => $arrData,'htmlDatosTabla' => $htmlDatosTabla);
+                echo json_encode($arrayDatos,JSON_UNESCAPED_UNICODE);
+            }
+            die();
+        }
 
         public function getActivoFijos()
         {
@@ -115,7 +157,8 @@
                     }else{
                         $foto= media().'/images/uploads/'.$arrData[$i]['img'];
                     }
-                   
+                    $a=number_format($arrData[$i]['costo']);
+                    $arrData[$i]['costo']=$a;
                  //   $arrData[$i]['opciones2'] = '<div class="text-center">'.'<button class="btn btn-sm btnDelActivoFijo" style="background: gray;" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-cogs"></i></button>'.'</div>';
 
                     // <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
@@ -123,7 +166,7 @@
                                       <td><img class="minerva" src="'.$foto.'"></td>
                                         <td>'.$arrData[$i]['nombre'].'</td>
                                         <td>'.$arrData[$i]['codigo'].'</td>
-                                        <td>'.'$'.$arrData[$i]['cantidad'].'</td>
+                                        <td>'.$arrData[$i]['cantidad'].'</td>
                                         <td>'.$arrData[$i]['fecha_adquisicion'].'</td>
                                         <td>'.$arrData[$i]['opciones'].'</td>
                                       

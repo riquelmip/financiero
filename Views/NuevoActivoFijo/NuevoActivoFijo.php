@@ -28,7 +28,7 @@ headerAdmin($data);
               </div>
               <div class="form-group col-md-6">
                 <label for="codigo">Código Generado<span style="color: red;"> (*)</span></label>
-                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="EJEM: ELT-CAMION-ME-013">
+                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="EJEM: ELT-CAMION-ME-013" readonly>
               </div>
             </div>
 

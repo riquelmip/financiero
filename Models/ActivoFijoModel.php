@@ -30,6 +30,13 @@
 			return $request;
 		}
 
+		public function dataDepreciacion(string $id){
+			$this->intId = $id;
+			$sql="SELECT a.costo,b.vida_util FROM activo_fijo a INNER JOIN activofijo_bienes b on a.codigo=b.id_activofijo WHERE b.codigo_correlativo='$id'";
+			
+			$request = $this->select_all($sql);
+			return $request;
+		}
 
 	}
  ?>

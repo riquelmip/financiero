@@ -61,6 +61,32 @@ $(document).on("click",".abr",function(e){
   
 });
 
+$(document).on("click",".depre",function(e){
+    e.preventDefault();
+
+       var datos={"codigo": $(this).attr('data-code')}
+    $.ajax({
+        dataType: "json",
+        method: "POST",
+        url: base_url+"/ActivoFijo/dataDepreciacion",
+        data : datos,
+    }).done(function(json) {
+    
+        var oTable = $('#tableDepre').dataTable();
+        oTable.fnDestroy();
+        $("#detalle_depre").empty().html(json.htmlDatosTabla);
+        inicializar_tabla3("tableDepre");
+        $('#modalViewDepre').modal('show');
+       
+    }).fail(function(){
+
+    }).always(function(){
+        
+    });
+   
+  
+});
+
 function alerta_recargartabla(titulo, mensaje, tipo){
     swal({
         title: titulo,
@@ -181,6 +207,48 @@ function inicializar_tabla2(tabla){
         "lengthMenu" : [5,10,20,50],
         "bDestroy": true,
         "iDisplayLength": 5,
+        "order":[[0,"asc"]]  
+    });
+}
+
+function inicializar_tabla3(tabla){
+    $('#'+tabla).dataTable( {
+        "responsive": true,
+        "aServerSide": true,
+        "autoWidth": false,
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            }
+        },
+        "columns":[
+            {"data":'i'},
+            {"data":'depA'},
+            {"data":'contador'},
+            {"data":'libro'}
+        ],
+        "lengthMenu" : [10,20,50],
+        "bDestroy": true,
+        "iDisplayLength": 10,
         "order":[[0,"asc"]]  
     });
 }
