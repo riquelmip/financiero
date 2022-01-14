@@ -64,114 +64,6 @@
             </div>
 
             <!-- MODAL PARA MOSTRAR DEPRECIACIÓN -->
-<!-- <div class="modal fade" id="modalViewDepre" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" >
-    <div class="modal-content">
-      <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Depreciación de el Activo Fijo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped" id="tableDepre">
-        <thead>
-            <tr>
-                <th>N</th>
-                <th>Dep. Anual</th>
-                <th>Dep. Acumulada</th>
-                <th>Valor en Libro</th>
-            </tr>
-        </thead>
-          <tbody id="detalle_depre">
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-            <tr>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-                <td>Aja</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="modal fade" id="modalViewDepre" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -192,6 +84,43 @@
             </tr>
         </thead>
           <tbody id="detalle_depre">
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+                <!-- MODAL PARA CAMBIAR ESTADO -->
+<div class="modal fade" id="modalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header header-secondary">
+      <h5 class="modal-title" id="titleModal">Cambiar estado del Activo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="codigoCorre" id="codigoCorre" value="0">
+        <label for="motivo">Descripción:</label>
+      <textarea class="form-control" id="motivo" name="motivo" rows="2" autocomplete="off"></textarea>
+      <br>
+        <table class="table table-striped">
+     
+          <tbody>
+            <tr>
+              <div class="row">
+              <td class="text-center"><button class="btn btn-info donar"><i class="fas fa-hands-helping"></i></button><p><b>DONAR</b></p></label></td>
+              <td class="text-center"><button class="btn btn-warning vender"><i class="fas fa-hand-holding-usd"></i></button><p><b>VENDER</b></p></td>
+              <td class="text-center"><button class="btn btn-danger botar"><i class="far fa-trash-alt"></i></button><p><b>BOTAR</b></p></td>
+
+              </div>
+            </tr>
 
           </tbody>
         </table>

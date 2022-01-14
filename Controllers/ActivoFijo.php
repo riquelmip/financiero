@@ -41,16 +41,27 @@
                 for ($i=0; $i < count($arrData); $i++) {
                     $btnEdit = "";
                     $btnDelete = "";
-                
-                    //si tiene permiso de editar se agrega el botn
-                    if ($_SESSION['permisosMod']['actualizar']) {
                     
-                        $btnEdit = '<button class="btn btn-primary btn-sm depre" data-code="'.$arrData[$i]['codigo_correlativo'].'"  title="Editar"><i class="fas fa-plus"></i></button>';
+                        //si tiene permiso de editar se agrega el botn
+                        if ($_SESSION['permisosMod']['actualizar'] && $arrData[$i]['estado']==1) {
+                    
+                            $btnEdit = '<button class="btn btn-primary btn-sm depre" data-code="'.$arrData[$i]['codigo_correlativo'].'"  title="Ver Depreciación"><i class="fas fa-file-invoice-dollar"></i></button>';
+                        }
+    
+                        if ($_SESSION['permisosMod']['eliminar'] && $arrData[$i]['estado']==1) {
+                            $btnDelete = '<button class="btn btn-danger btn-sm estado" data-estado="'.$arrData[$i]['codigo_correlativo'].'"  title="Dar de baja"><i class="fas fa-exclamation-circle"></i></button>';
+                        }
+                    //ESTADO
+                    if($arrData[$i]['estado']==1){
+                    $arrData[$i]['estado']='<span class="badge badge-success">Activo</span>';
+                    }else if($arrData[$i]['estado']==2){
+                    $arrData[$i]['estado']='<span class="badge badge-info">Donado</span>';
+                    }else if($arrData[$i]['estado']==3){
+                    $arrData[$i]['estado']='<span class="badge badge-warning">Vendido</span>';
+                    }else{
+                    $arrData[$i]['estado']='<span class="badge badge-danger">Botado</span>';
                     }
-
-                    if ($_SESSION['permisosMod']['eliminar']) {
-                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo_correlativo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
-                    }
+                
 
                     if(empty($arrData[$i]['img'])){
                         $va=media().'/images/notfound.png';
@@ -63,11 +74,12 @@
                     //agregamos los botones
                     $arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.'</div>';
                     $arrData[$i]['opciones2'] = '<div class="text-center">'.$btnDelete.'</div>';
-
+                    $a=number_format($arrData[$i]['costo']);
+                    $arrData[$i]['costo']=$a;
                     $htmlDatosTabla.='<tr>
                                         <td>'.$arrData[$i]['codigo_correlativo'].'</td>
                                         <td>'.$arrData[$i]['decripcion'].'</td>
-                                        <td>'.'$'.$arrData[$i]['estado'].'</td>
+                                        <td class="text-center">'.$arrData[$i]['estado'].'</td>
                                         <td>'.$arrData[$i]['opciones'].'</td>
                                         <td>'.$arrData[$i]['opciones2'].'</td>
                                       
@@ -132,7 +144,7 @@
                 for ($i=0; $i < count($arrData); $i++) {
                     $btnView = "";
                     $btnEdit = "";
-                    $btnDelete = "";
+                   
                     
                     $var=$arrData[$i]['codigo'];
                     
@@ -145,20 +157,14 @@
                         $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo'].')" title="Editar"><i class="fas fa-plus"></i></button>';
                     }
 
-                    if ($_SESSION['permisosMod']['eliminar']) {
-                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelActivoFijo" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-exclamation-circle"></i></button>';
-                    }
-                    //si tiene permiso de eliminar se agrega el boton
-                    
                     //agregamos los botones
-                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.' '.$btnDelete.'</div>';
+                    $arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' ' .$btnEdit.'</div>';
                     if(empty($arrData[$i]['img'])){
                         $foto= media().'/images/notfound.png';
                     }else{
                         $foto= media().'/images/uploads/'.$arrData[$i]['img'];
                     }
-                    $a=number_format($arrData[$i]['costo']);
-                    $arrData[$i]['costo']=$a;
+                   
                  //   $arrData[$i]['opciones2'] = '<div class="text-center">'.'<button class="btn btn-sm btnDelActivoFijo" style="background: gray;" data-estado=1 onClick="fntDelActivoFijo('.$arrData[$i]['codigo'].',2)" title="Deshabilitar"><i class="fas fa-cogs"></i></button>'.'</div>';
 
                     // <td><img class="minerva" src="'.$arrData[$i]['img'].'"></td>
@@ -180,6 +186,23 @@
             die();
         }
 
+        public function changeEstado(){
+            $estado=strClean($_POST['valor']);
+            $codigo=strClean($_POST['codigo']);
+            $descrip=strClean($_POST['motivo']);
+          
+                    $requestchange = $this->model->changeActivoFijo($codigo,$descrip,$estado);
+    
+            if($requestchange>0)
+            {
+                $arrResponse = array('estado' => true, 'msg' => 'Cambio Realizado');
+            }else{
+                $arrResponse = array('estado' => false, 'msg' => 'Error al cambiar el estado ');
+            }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+
+            die();
+        }
 
     //     public function getActivoFijo(int $idActivoFijo)
     //     {

@@ -61,6 +61,142 @@ $(document).on("click",".abr",function(e){
   
 });
 
+//CAMBIAR ESTADO DEL ACTIVO FIJO
+$(document).on("click",".estado", function (e) {
+    e.preventDefault();
+    var datos=$(this).attr('data-estado');
+    document.querySelector("#codigoCorre").value=datos;
+    $('#modalEstado').modal('show');
+});
+
+$(document).on("click",".donar",function(e) {
+    e.preventDefault();
+    if((document.querySelector("#motivo").value)==''){
+        return false;
+        }
+    swal({
+        title:"¿Desea donar el Activo?",
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si!",
+        cancelButtonText: "No!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm) 
+        {
+            
+            var datos={"codigo":document.querySelector("#codigoCorre").value,"valor":2,"motivo": document.querySelector("#motivo").value}
+            $.ajax({
+                dataType: "json",
+                method: "POST",
+                url: base_url+"/ActivoFijo/changeEstado",
+                data : datos,
+            }).done(function(json) {
+       
+                swal("Cambio Realizado", json.msg , "success");
+                $('#modalEstado').modal("hide");
+            }).fail(function(json){
+                swal("Atención!", json.msg , "error");
+                $('#modalEstado').modal("hide");
+            }).always(function(){
+                $('#modalDetalleActivofijo').modal("hide");
+                
+            });
+
+
+        }
+    }); 
+});
+
+
+$(document).on("click",".vender",function(e) {
+    e.preventDefault();
+    if((document.querySelector("#motivo").value)==''){
+    return false;
+    }
+    swal({
+        title:"¿Desea vender el Activo?",
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si!",
+        cancelButtonText: "No!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm) 
+        {
+            
+            var datos={"codigo":document.querySelector("#codigoCorre").value,"valor":3,"motivo": document.querySelector("#motivo").value}
+            $.ajax({
+                dataType: "json",
+                method: "POST",
+                url: base_url+"/ActivoFijo/changeEstado",
+                data : datos,
+            }).done(function(json) {
+       
+                swal("Cambio Realizado", json.msg , "success");
+                $('#modalEstado').modal("hide");
+            }).fail(function(json){
+                swal("Atención!", json.msg , "error");
+                $('#modalEstado').modal("hide");
+            }).always(function(){
+                $('#modalDetalleActivofijo').modal("hide");
+                
+            });
+
+
+        }
+    }); 
+});
+
+
+$(document).on("click",".botar",function(e) {
+    e.preventDefault();
+    if((document.querySelector("#motivo").value)==''){
+        return false;
+        }
+    swal({
+        title:"¿Desea botar el Activo?",
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si!",
+        cancelButtonText: "No!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm) 
+        {
+            
+            var datos={"codigo":document.querySelector("#codigoCorre").value,"valor":4,"motivo": document.querySelector("#motivo").value}
+            $.ajax({
+                dataType: "json",
+                method: "POST",
+                url: base_url+"/ActivoFijo/changeEstado",
+                data : datos,
+            }).done(function(json) {
+       
+                swal("Cambio Realizado", json.msg , "success");
+                $('#modalEstado').modal("hide");
+            }).fail(function(json){
+                swal("Atención!", json.msg , "error");
+                $('#modalEstado').modal("hide");
+            }).always(function(){
+                $('#modalDetalleActivofijo').modal("hide");
+                
+            });
+
+
+        }
+    }); 
+});
+
 $(document).on("click",".depre",function(e){
     e.preventDefault();
 
@@ -78,7 +214,7 @@ $(document).on("click",".depre",function(e){
         inicializar_tabla3("tableDepre");
         $('#modalViewDepre').modal('show');
        
-    }).fail(function(){
+    }).fail(function(json){
 
     }).always(function(){
         
