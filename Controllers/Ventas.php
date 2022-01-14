@@ -18,16 +18,30 @@
 			if (empty($_SESSION['permisosMod']['leer'])) {
 				header('location: '.base_url().'/dashboard');
 			}
-			$data['page_tag'] = "Ventas al contado";//Nombre superior
+			$data['page_tag'] = "Ventas";//Nombre superior
 			$data['page_name'] = "ventas";//Nombre de la pagina 
 			$data['page_title'] = "Ventas"; //Nombre del titulo en la vista
 			$data['page_functions_js'] = "functions_venta.js";// Funcion de js para las acciones
 			$this->views->getView($this,"ventas",$data);//Se refiere al nombre de la vista
 		}
-		public function getVentas()
+
+		public function Ventascontado()
+		{
+			//si no tiene permiso de usuarios, lo rediccionara
+			if (empty($_SESSION['permisosMod']['leer'])) {
+				header('location: '.base_url().'/dashboard');
+			}
+			$data['page_tag'] = "Ventas al contado";//Nombre superior
+			$data['page_name'] = "ventas";//Nombre de la pagina 
+			$data['page_title'] = "Ventas al contado"; //Nombre del titulo en la vista
+			$data['page_functions_js'] = "functions_ventacontado.js";// Funcion de js para las acciones
+			$this->views->getView($this,"ventascontado",$data);//Se refiere al nombre de la vista
+		}
+
+		public function getVentascn()
 		{
 			if ($_SESSION['permisosMod']['leer']) {
-				$arrData = $this->model->selectVentascontado();
+				$arrData = $this->model->selectVentasCN();
              
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";
@@ -55,6 +69,110 @@
 					
 					//agregamos los botones
 					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.$btnEdit.' </div>';
+
+				
+				}
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+
+public function getVentascj()
+		{
+			if ($_SESSION['permisosMod']['leer']) {
+				$arrData = $this->model->selectVentasCJ();
+             
+				for ($i=0; $i < count($arrData); $i++) {
+					$btnView = "";
+					$btnEdit = "";
+					$btnDelete = "";
+
+					if($arrData[$i]['estado'] == 1)
+					{
+						$arrData[$i]['estado'] = '<span class="badge badge-success">Realizada</span>';
+
+					}else{
+						$arrData[$i]['estado'] = '<span class="badge badge-danger">Anulada</span>';
+					}
+
+					//concatenamos la fecha XD
+					$fecha= $arrData[$i]['dia'] ."/". $arrData[$i]['mes'] ."/". $arrData[$i]['anio'];
+					$arrData[$i]['fecha']=$fecha;
+					
+
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-info btn-sm" onClick="verTicket('.$arrData[$i]['idventa'].')" title="Ver Ticket"><i class="fas fa-ticket-alt"></i></button> <button class="btn btn-primary btn-sm" onClick="verFactura('.$arrData[$i]['idventa'].')" title="Ver Factura PDF"><i class="fas fa-file-pdf"></i></button>';
+					}
+					
+					
+					
+					//agregamos los botones
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.$btnEdit.' </div>';
+
+				
+				}
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+
+		public function getVentascontadocn()
+		{
+			if ($_SESSION['permisosMod']['leer']) {
+				$arrData = $this->model->selectVentascontadoCN();
+             
+				for ($i=0; $i < count($arrData); $i++) {
+					$btnView = "";
+					$btnEdit = "";
+					$btnDelete = "";
+
+					if($arrData[$i]['estado'] == 1)
+					{
+						$arrData[$i]['estado'] = '<span class="badge badge-success">Realizada</span>';
+
+					}else{
+						$arrData[$i]['estado'] = '<span class="badge badge-danger">Anulada</span>';
+					}
+
+					//concatenamos la fecha XD
+					$fecha= $arrData[$i]['dia'] ."/". $arrData[$i]['mes'] ."/". $arrData[$i]['anio'];
+					$arrData[$i]['fecha']=$fecha;
+					
+
+					
+				
+				}
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+		public function getVentascontadocj()
+		{
+			if ($_SESSION['permisosMod']['leer']) {
+				$arrData = $this->model->selectVentascontadoCJ();
+             
+				for ($i=0; $i < count($arrData); $i++) {
+					$btnView = "";
+					$btnEdit = "";
+					$btnDelete = "";
+
+					if($arrData[$i]['estado'] == 1)
+					{
+						$arrData[$i]['estado'] = '<span class="badge badge-success">Realizada</span>';
+
+					}else{
+						$arrData[$i]['estado'] = '<span class="badge badge-danger">Anulada</span>';
+					}
+
+					//concatenamos la fecha XD
+					$fecha= $arrData[$i]['dia'] ."/". $arrData[$i]['mes'] ."/". $arrData[$i]['anio'];
+					$arrData[$i]['fecha']=$fecha;
+					
+
+					
 
 				
 				}

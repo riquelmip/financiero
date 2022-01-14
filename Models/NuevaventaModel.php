@@ -46,6 +46,28 @@
 			return $request;
 		}
 
+		public function selectPersonaN()
+		{
+
+			$sql = "SELECT 
+					codigo_persona_natural as codigo, 
+					CONCAT(nombre_persona_natural,' ',apellido_persona_natural)  AS nombre
+					FROM tbl_persona_natural";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+		public function selectPersonaJ()
+		{
+
+			$sql = "SELECT 
+					codigo_persona_juridica as codigo,
+					nombre_empresa_persona_juridica as nombre
+					FROM tbl_persona_juridica";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
 		public function insertCliente(string $dui, string $nombre, string $apellido, string $telefono, int $estado){
 
 			$return = "";
@@ -133,7 +155,7 @@
 
 
 
-		public function insertarVenta(string $monto,int $estado, int $cliente, int $usuario, string $subtotal, string $iva){
+		public function insertarVentaN(string $monto,int $estado, string $cliente, int $usuario, string $subtotal, string $iva, int $tipocliente){
 
 			
 
@@ -144,8 +166,30 @@
 
 		
 			
-			$query_insert  = "INSERT INTO venta(dia,mes,anio,monto,estado,idcliente,idusuario, subtotal, iva) VALUES(?,?,?,?,?,?,?,?,?)";
-        	$arrData = array($dia,$mes,$anio,$monto,$estado,$cliente,$usuario,$subtotal, $iva);
+			$query_insert  = "INSERT INTO venta(dia,mes,anio,monto,estado,idclientenat,idusuario, subtotal, iva, tipocliente) VALUES(?,?,?,?,?,?,?,?,?, ?)";
+        	$arrData = array($dia,$mes,$anio,$monto,$estado,$cliente,$usuario,$subtotal, $iva, $tipocliente);
+        	$request_insert = $this->insert($query_insert,$arrData);
+        	$return = $request_insert;
+		
+
+
+
+			return $return;
+		}
+
+		public function insertarVentaJ(string $monto,int $estado, string $cliente, int $usuario, string $subtotal, string $iva, int $tipocliente){
+
+			
+
+			
+            $dia = date("d");
+			$mes = date("m");
+			$anio = date("Y");
+
+		
+			
+			$query_insert  = "INSERT INTO venta(dia,mes,anio,monto,estado,idclientejuridico,idusuario, subtotal, iva, tipocliente) VALUES(?,?,?,?,?,?,?,?,?, ?)";
+        	$arrData = array($dia,$mes,$anio,$monto,$estado,$cliente,$usuario,$subtotal, $iva, $tipocliente);
         	$request_insert = $this->insert($query_insert,$arrData);
         	$return = $request_insert;
 		

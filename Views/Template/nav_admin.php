@@ -30,6 +30,9 @@
                 <?php if (!empty($_SESSION['permisos'][3]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
                 <?php } ?>
+                <?php if (!empty($_SESSION['permisos'][3]['leer'])) { ?>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Configuracion"><i class="icon fa fa-circle-o"></i> Configuración</a></li>
+                <?php } ?>
                 </ul>
             </li>
         <?php } ?>
@@ -81,6 +84,7 @@
                 <?php if (!empty($_SESSION['permisos'][7]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Nuevaventa"><i class="icon fa fa-circle-o"></i> Nueva Venta</a></li>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Ventas"><i class="icon fa fa-circle-o"></i> Gestionar Ventas</a></li>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Ventas/Ventascontado"><i class="icon fa fa-circle-o"></i> Ventas al contado</a></li>
                 <?php  } ?>
                 </ul>
             </li>

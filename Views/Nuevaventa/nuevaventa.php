@@ -26,6 +26,7 @@
                     <input type="hidden" id="inputtotal" name="inputtotal"  value="">
                     <input type="hidden"  id="listaDetalles" name="listaDetalles">
                     <input type="hidden"  id="tasaoculta" name="tasaoculta">
+                    <input type="hidden"  id="tipocliente" name="tipocliente">
                       
                     <div class="text-right">
                       <a onmouseover="mostrarAyuda();"><i class="fa fa-question fa-lg"></i></a>
@@ -35,19 +36,20 @@
                     
                    
 
+                  <div class="form-row">
+                    <div class="btn-group mb-2" role="group" aria-label="Basic example" id="botones1">
+                      <button type="button" onclick="persona_natural()" class="btn btn-success">Persona Natural</button>
+                      <button type="button" onclick="persona_juridica()" class="btn btn-warning">Persona Jurídica</button>
+                    </div>
+                </div>
+
               <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="listCliente">Cliente : </label>
                     <div class="input-group">
                       <select class="form-control" id="listCliente" name="listCliente"  data-live-search="true" required=""></select>
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" id="btnAddCliente" type="button">Agregar Cliente</button>
-                      </div>
                     </div>
-                </div>
-
-
-               
+                </div>    
               </div>
 
                     
