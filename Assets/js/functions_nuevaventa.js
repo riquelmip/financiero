@@ -5,7 +5,7 @@ var arrayIdProductos = [];
 var contadordet = 0;
 document.addEventListener('DOMContentLoaded', function(){
     
-    fntSelects();
+    persona_natural();
 
 //AL DAR CLIC EN EL BOTON DE AÑADIR CLIENTE SE ABRE EL MODAL
     $("#btnAddCliente").click(function(e) {
@@ -374,6 +374,51 @@ function fntSelects(){
 
             document.querySelector('#listCliente').innerHTML = objData.clientes;
             $('#listCliente').selectpicker('render');
+          
+        }
+    }
+    
+       
+}
+
+
+function persona_natural(){
+   
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Nuevaventa/getSelectPersonaN';
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+
+            document.querySelector('#listCliente').innerHTML = objData.personan;
+            $('#listCliente').selectpicker('refresh');
+            $('#listCliente').selectpicker('render');
+
+            document.querySelector('#tipocliente').value = 1;
+          
+        }
+    }
+    
+       
+}
+
+function persona_juridica(){
+   
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Nuevaventa/getSelectPersonaJ';
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+
+            document.querySelector('#listCliente').innerHTML = objData.personaj;
+            $('#listCliente').selectpicker('refresh');
+            $('#listCliente').selectpicker('render');
+
+            document.querySelector('#tipocliente').value = 2;
           
         }
     }
