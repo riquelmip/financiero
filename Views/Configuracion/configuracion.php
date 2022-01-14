@@ -25,7 +25,7 @@
                     <table class="table table-hover table-bordered" id="tableConfiguracion">
                       <thead>
                         <tr>                        
-                          <th>Nombre</th>
+                          <th>Tiempo de Incobrabilidad</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
