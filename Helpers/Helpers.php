@@ -222,4 +222,13 @@
         return $meses;
     }
 
+    function formatear_fecha($fecha){
+            $pos = strpos($fecha, "/");
+            if ($pos === false) $fecha = explode("-",$fecha);
+            else $fecha = explode("/",$fecha);
+            $dia1 = (strlen($fecha[0])==1) ? '0'.$fecha[0] : $fecha[0];
+            $fecha1 = $fecha[2].'-'.$fecha[1].'-'.$dia1;
+            return $fecha1;
+    }
+
  ?>

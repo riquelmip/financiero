@@ -81,6 +81,7 @@
                 <?php if (!empty($_SESSION['permisos'][7]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Nuevaventa"><i class="icon fa fa-circle-o"></i> Nueva Venta</a></li>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Ventas"><i class="icon fa fa-circle-o"></i> Gestionar Ventas</a></li>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Creditos"><i class="icon fa fa-circle-o"></i> Gestionar Creditos</a></li>
                 <?php  } ?>
                 </ul>
             </li>
