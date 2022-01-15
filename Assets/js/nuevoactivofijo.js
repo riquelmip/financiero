@@ -6,7 +6,16 @@ document.addEventListener('DOMContentLoaded', function(){
     var formNuevoActivo = document.querySelector("#formNuevoActivo");
     formNuevoActivo.onsubmit = function(e) {
         e.preventDefault(); 
-
+        if((document.querySelector("#tipo").value==-1) || (document.querySelector("#proveedor").value==-1)){
+              swal("Error","Seleccione!" , "error");
+              return false;
+             }else if((document.querySelector("#nombre").value=='') || (document.querySelector("#descripcion").value=='') ||
+              (document.querySelector("#fechaadqui").value=='')
+              || (document.querySelector("#garantia").value=='') || (document.querySelector("#costo").value=='') ||
+               (document.querySelector("#cantidad").value=='')){ 
+              swal("Error","Falta de Datos!" , "error");
+              return false;
+             }
   
         divLoading.style.display = "flex";
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
