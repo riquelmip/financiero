@@ -61,8 +61,6 @@
 			$this->Intiddetalle = $iddetalle;
 			$sql = "SELECT d.iddetalle,
 				p.descripcion,
-				pr.codigo_persona_natural as dui,
-				CONCAT(pr.nombre_persona_natural,' ',pr.apellido_persona_natural) as nombreCliente,
 				v.dia,
 				v.mes as mesinicio,
 				pg.mes+1 as mesPago,
@@ -76,43 +74,12 @@
 				INNER JOIN detalleventa d on d.idventa = v.idventa
 				INNER JOIN producto p on p.idproducto = d.idproducto
 				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
-				INNER JOIN tbl_persona_natural pr on pr.codigo_persona_natural = v.idclientenat
 				INNER JOIN pagocuota pg on pg.iddetalle = d.iddetalle
-				WHERE d.formapago = 2 and pg.iddetalle = $iddetalle and v.tipocliente=1
+				WHERE d.formapago = 2 and pg.iddetalle = $iddetalle
 					ORDER BY pg.idpagocuota DESC LIMIT 1";
 			$request = $this->select($sql);
 			return $request;
 		}
-
-		public function selectCreditoJuridico(int $iddetalle) //Selecciona la categoria existente
-		{
-			$this->Intiddetalle = $iddetalle;
-			$sql = "SELECT d.iddetalle,
-				p.descripcion,
-				pr.codigo_persona_juridica as dui,
-				pr.nombre_empresa_persona_juridica  as nombreCliente,
-				v.dia,
-				v.mes as mesinicio,
-				pg.mes+1 as mesPago,
-				v.anio,
-				d.total as totalCredito,
-				d.cuota,
-				ct.tasainteres as tasa,
-				pg.saldofinal,
-				d.meses
-				FROM venta v
-				INNER JOIN detalleventa d on d.idventa = v.idventa
-				INNER JOIN producto p on p.idproducto = d.idproducto
-				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
-				INNER JOIN tbl_persona_juridica pr on pr.codigo_persona_juridica = v.idclientejuridico
-				INNER JOIN pagocuota pg on pg.iddetalle = d.iddetalle
-				WHERE d.formapago = 2 and pg.iddetalle = 14 and v.tipocliente=2
-					ORDER BY pg.idpagocuota DESC LIMIT 1";
-			$request = $this->select($sql);
-			return $request;
-		}
-
-
 
 		public function insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$capital,$intereses,$abonoCapital,$totalabono,$saldof){
 
@@ -141,7 +108,7 @@
 			$this->Intiddetalle = $iddetalle;
 			$estado = 1;
 			
-				$sql = "UPDATE detalleventa SET estadopago = ? WHERE iddetalle = $this->iddetalle";
+				$sql = "UPDATE detalleventa SET estadopago = ? WHERE iddetalle = $this->Intiddetalle";
 				$arrData = array($estado);
 				$request = $this->update($sql,$arrData);
 			

@@ -20,13 +20,12 @@
               <br>
               <div class="tile">
                 <div class="tile-body">
-                  <div class="form-group col-md-4">
-                    <h4>Tipo Persona</h4> 
-                    <select class="form-control" id="listaTipo" name="listaTipo" required="" onchange="ftnDatos();">
-                      <option value="0">Seleccione</option>
-                      <option value="1">Persona natural</option>
-                      <option value="2">Persona juridica</option>
-                    </select>
+                  <br>
+                    <div class="form-row">
+                    <div class="btn-group mb-2" role="group" aria-label="Basic example" id="botones1">
+                      <button type="button" onclick="persona_natural()" class="btn btn-success">Persona Natural</button>
+                      <button type="button" onclick="persona_juridica()" class="btn btn-warning">Persona Jurídica</button>
+                    </div>
                 </div>
                 <br>
                 <br>

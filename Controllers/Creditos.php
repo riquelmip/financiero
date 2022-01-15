@@ -57,7 +57,6 @@
 			if ($_SESSION['permisosMod']['leer']) {
 
 				$arrData = $this->model->selectCreditosDos();
-				$htmlDatosTabla = "";
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnEdit = "";					
 			
@@ -68,22 +67,8 @@
 
 					//agregamos los botones
 					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.'</div>';
-
-					$htmlDatosTabla .= '<tr>
-						<td>' . $arrData[$i]['dui'] . '</td>
-						<td>' . $arrData[$i]['nombreCliente'] . '</td>
-						<td>' . $arrData[$i]['descripcion'] . '</td>
-						<td>' . $arrData[$i]['fecha_inicio'] . '</td>
-						<td>' . $arrData[$i]['total'] . '</td>
-						<td>' . $arrData[$i]['opciones'] . '</td>
-						</tr>';
-
-				
 				}
-
-				$arrResponse = array('datosIndividuales' => $arrData, 'htmlDatosTabla' => $htmlDatosTabla);
-
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 			}
 			die();
 		}
