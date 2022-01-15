@@ -95,6 +95,15 @@ function fntViewUsuario2(idpersona){
     }
 }
 
+function fntFiador(idpersona){
+    console.log(idpersona);
+    $('#modalFormFiador').modal('show');
+
+}
+
+
+
+
 function fntRazonFinanciera(idpersona){
     console.log("Dato");
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
