@@ -285,6 +285,7 @@
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					 
 					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					$btnFiador = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					  
@@ -295,7 +296,7 @@
 						$valor = 1;
 						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
 					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.' '.$btnFiador.'</div>';
 
 					
 				
