@@ -21,10 +21,10 @@
 	const SMONEY = "$";
 
 	//Datos envio de correo
-	const NOMBRE_REMITENTE = "Ferreteria Granadeño";
+	const NOMBRE_REMITENTE = "Electrodomésticos La Cima";
 	const EMAIL_REMITENTE = "web.riquelmipalacios@gmail.com";
-	const NOMBRE_EMPESA = "Ferreteria Granadeño";
-	const WEB_EMPRESA = "ferreteria_granadeño.com";
+	const NOMBRE_EMPESA = "Electrodomésticos La Cima";
+	const WEB_EMPRESA = "eleclacima.com";
 	
 
 
