@@ -6,16 +6,29 @@ document.addEventListener('DOMContentLoaded', function(){
     var formNuevoActivo = document.querySelector("#formNuevoActivo");
     formNuevoActivo.onsubmit = function(e) {
         e.preventDefault(); 
-
+        if((document.querySelector("#tipo").value==-1) || (document.querySelector("#proveedor").value==-1)){
+              swal("Error","Seleccione!" , "error");
+              return false;
+             }else if((document.querySelector("#nombre").value=='') || (document.querySelector("#descripcion").value=='') ||
+              (document.querySelector("#fechaadqui").value=='')
+              || (document.querySelector("#garantia").value=='') || (document.querySelector("#costo").value=='') ||
+               (document.querySelector("#cantidad").value=='')){ 
+              swal("Error","Falta de Datos!" , "error");
+              return false;
+             }
   
         divLoading.style.display = "flex";
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url+'/NuevoActivoFijo/setActivoFijo'; 
         var formData = new FormData(formNuevoActivo);
        //Obtengo el fichero que va a ser subido
-        var dato_archivo = $('#imagen').prop("files")[0];
-
-        formData.append("foto", dato_archivo);
+  
+       if((document.querySelector("#bande").value)==0){ 
+         formData.append("foto", ''); 
+      }else{
+          var dato_archivo = $('#imagen').prop("files")[0];        
+          formData.append("foto", dato_archivo);
+        }
         request.open("POST",ajaxUrl,true);
         request.send(formData);
         request.onreadystatechange = function(){
@@ -25,11 +38,20 @@ document.addEventListener('DOMContentLoaded', function(){
                 if(objData.estado)
                 {
                     formNuevoActivo.reset();
-                 
+                    if((document.querySelector("#bande").value)==1){ 
+                    $('#containerImages').empty();
+                    $('#containerGallery').css('display', 'block');
+                    }
                     swal("Activo Fijo", objData.msg ,"success");
-                    
+                    document.querySelector("#bande").value=0;
                 }else{
                     swal("Error", objData.msg , "error");
+                    if((document.querySelector("#bande").value)==1){ 
+                      $('#containerImages').empty();
+                      $('#containerGallery').css('display', 'block');
+                      }
+                    document.querySelector("#bande").value=0;
+
                 }              
             } 
             divLoading.style.display = "none";
@@ -39,20 +61,30 @@ document.addEventListener('DOMContentLoaded', function(){
         
     }
 
+    //cancelar y  limpiar jeje
+    
+    $(document).on("click",".cancelar",function(e){
+      formNuevoActivo.reset();
+      if((document.querySelector("#bande").value)==1){ 
+      $('#containerImages').empty();
+      $('#containerGallery').css('display', 'block');
+      }
+    });
    //para cargar la imagen
    if(document.querySelector(".btnAddImage")){
     let btnAddImage =  document.querySelector(".btnAddImage");
     btnAddImage.onclick = function(e){
-     let key = Date.now(); //id unico para el div de cada imagen que se agregue
-     let newElement = document.createElement("div");
-     newElement.id= "div"+key; //el id del div quedaria algo asi: div12523682887
-     newElement.innerHTML = `
-         <div class="prevImage"></div>
-         <input type="file" name="foto" id="imagen" class="inputUploadfile">
-         <label for="imagen" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-         <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
-     document.querySelector("#containerImages").appendChild(newElement); //todo lo del div de cada imagen se agrega al contenedor de imagenes
-     document.querySelector("#div"+key+" .btnUploadfile").click();
+      let key = Date.now(); //id unico para el div de cada imagen que se agregue
+      let newElement = document.createElement("div");
+      newElement.id= "div"+key; //el id del div quedaria algo asi: div12523682887
+      newElement.innerHTML = `
+      <div class="prevImage"></div>
+      <input type="file" name="foto" id="imagen" class="inputUploadfile">
+      <label for="imagen" class="btnUploadfile"><i class="fas fa-upload "></i></label>
+      <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
+      document.querySelector("#containerImages").appendChild(newElement); //todo lo del div de cada imagen se agrega al contenedor de imagenes
+      document.querySelector("#div"+key+" .btnUploadfile").click();
+      document.querySelector("#bande").value=1;
      fntInputFile();
     }
  }
@@ -87,6 +119,7 @@ function fntInputFile(){
                               document.querySelector("#"+parentId+" .btnDeleteImage").setAttribute("imgname",'a');
                               document.querySelector("#"+parentId+" .btnUploadfile").classList.add("notblock");
                               document.querySelector("#"+parentId+" .btnDeleteImage").classList.remove("notblock");
+                              $('#containerGallery').css('display', 'none');
               }
           }
 
@@ -100,6 +133,7 @@ function fntDelItem(element){
   // let idProducto = document.querySelector("#codigo").value;
               let itemRemove = document.querySelector(element);
               itemRemove.parentNode.removeChild(itemRemove);
+              $('#containerGallery').css('display', 'block');
 }
 
 function fntSelects() {

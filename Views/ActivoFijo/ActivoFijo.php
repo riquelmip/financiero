@@ -1,7 +1,7 @@
 
     <?php 
   headerAdmin($data); 
-  // getModal('modalActivoFijo',$data);
+   getModal('modalDetalleActivofijo',$data);
 ?> 
 <main class="app-content">
       <div class="app-title">
@@ -28,10 +28,9 @@
                           <th>Imagen</th>
                           <th>Nombre</th>        
                           <th>Código</th>
-                          <th>Costo</th>
+                          <th>Cantidad</th>
                           <th>Fecha Adquisición</th>
                           <th>Acciones</th>
-                          <th>Mantenimiento</th>
                         </tr>
                       </thead>
                       <tbody id="datos_tabla">

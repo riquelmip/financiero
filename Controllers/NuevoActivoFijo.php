@@ -142,9 +142,13 @@
             $cantidad=intval($_POST['cantidad']);
             $estado=intval($_POST['estado']);
             // $img=intval($_POST['img']);
+            $foto='';
+            if(!empty($_FILES['foto'])){
             $foto      = $_FILES['foto'];
             $imgNombre = 'ac_'.md5(date('d-m-Y H:i:s')).'.jpg';
-
+            }else{
+                $imgNombre=null;
+            }
 
             $option="";
             if($bandera == 0)
@@ -164,7 +168,9 @@
             }
             
             if($request_ActivoFijo > 0 ){
+                if($foto!=''){//Condicionando si la variable va vacia LOL
                 $uploadImage = uploadImage($foto,$imgNombre);
+                }
                 for ($i=0; $i <$cantidad ; $i++) { 
                     $a=$i+1;
                     $code=$codigo.'-'.$a;

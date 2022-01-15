@@ -92,7 +92,7 @@
 		}	
 
 
-		public function insertClienteJuridico(string $intcodigo_cliente_natural, string $nombre, string $strTelefono, string $strDireccion, string $stringreso, string $strEgresos ){
+		public function insertClienteJuridico(string $intcodigo_cliente_natural, string $nombre, string $strTelefono, string $strDireccion, string $stringreso, string $strEgresos, $ventasnetas,$costosventas,$activocorriente,$pasivoscorrientes,$inventarios,$cuentasporcobrar){
 
 
 			$sql = "SELECT * FROM tbl_persona_juridica WHERE codigo_persona_juridica = '{$this->intcodigo_cliente_natural}'";
@@ -100,8 +100,8 @@
 			$letrad = "D";
 			if(empty($request))
 		{
-				$query_insert  = "INSERT INTO tbl_persona_juridica(codigo_persona_juridica,nombre_empresa_persona_juridica,direccion_persona_juridica,idtelefono_persona_juridica,idbalancegeneral_persona_juridica,idestadoresultado_persona_juridica,categoria) VALUES(?,?,?,?,?,?,?)";
-	        	$arrData = array($intcodigo_cliente_natural,$nombre,$strDireccion,$strTelefono,$stringreso,$strEgresos,$letrad);
+				$query_insert  = "INSERT INTO tbl_persona_juridica(codigo_persona_juridica,nombre_empresa_persona_juridica,direccion_persona_juridica,idtelefono_persona_juridica,idbalancegeneral_persona_juridica,idestadoresultado_persona_juridica,categoria,ventas_netas,activos_corrientes,inventarios,costos_de_ventas,pasivos_corrientes,cuentas_cobrar) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	        	$arrData = array($intcodigo_cliente_natural,$nombre,$strDireccion,$strTelefono,$stringreso,$strEgresos,$letrad, $ventasnetas,$costosventas,$activocorriente,$pasivoscorrientes,$inventarios,$cuentasporcobrar);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = true;
 		}else{

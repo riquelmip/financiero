@@ -19,7 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     var objData = JSON.parse(request.responseText);
                     if (objData.estado) {
-                        swal("Datos Cliente", objData.msg, "success");
+                        swal({
+                            title: 'Cliente Registrado',
+                            text: objData.msg,
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!'
+                          }, 
+                          function(){
+                               window.location.href = base_url+"/Carteraclientes";
+                          });
 
                     } else {
                         swal("Error", objData.msg, "error");
@@ -40,7 +50,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     var objData = JSON.parse(request.responseText);
                     if (objData.estado) {
-                        swal("Datos Cliente", objData.msg, "success");
+                        swal({
+                            title: 'Cliente Registrado',
+                            text: objData.msg,
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!'
+                          }, 
+                          function(){
+                               window.location.href = base_url+"/Carteraclientes";
+                          });
 
                     } else {
                         swal("Error", objData.msg, "error");
@@ -64,12 +84,16 @@ function cambiarImagenjQ(){
   }
 
 
+
+  
 window.addEventListener('load', function () {
     document.getElementById('variablejuridica').style.display = 'none';
     document.getElementById('variablejuridica2').style.display = 'none';
     document.getElementById('variablejuridica3').style.display = 'none';
     document.getElementById('variablejuridica4').style.display = 'none';
-    document.getElementById('variablejuridica4').src = 'none';
+    document.getElementById('variablejuridica5').style.display = 'none';
+    document.getElementById('variablejuridica6').style.display = 'none';
+    document.getElementById('variablejuridica7').style.display = 'none';
     $.ajax({
         dataType: "json",
         method: "POST",
@@ -112,8 +136,9 @@ $(document).on("change", "#radio1", function (e) {
     document.getElementById('variablejuridica2').style.display = 'none';
     document.getElementById('variablejuridica3').style.display = 'none';
     document.getElementById('variablejuridica4').style.display = 'none';
-
-
+    document.getElementById('variablejuridica5').style.display = 'none';
+    document.getElementById('variablejuridica6').style.display = 'none';
+    document.getElementById('variablejuridica7').style.display = 'none';
    
     $.ajax({
         dataType: "json",
@@ -156,7 +181,9 @@ $(document).on("change", "#radio2", function (e) {
   document.getElementById('variablejuridica2').style.display = '';
   document.getElementById('variablejuridica3').style.display = '';
   document.getElementById('variablejuridica4').style.display = '';
-
+  document.getElementById('variablejuridica5').style.display = '';
+  document.getElementById('variablejuridica6').style.display = '';
+  document.getElementById('variablejuridica7').style.display = '';
     
     $.ajax({
         dataType: "json",

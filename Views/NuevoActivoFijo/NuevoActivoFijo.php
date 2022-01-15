@@ -28,7 +28,7 @@ headerAdmin($data);
               </div>
               <div class="form-group col-md-6">
                 <label for="codigo">Código Generado<span style="color: red;"> (*)</span></label>
-                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="EJEM: ELT-CAMION-ME-013">
+                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="EJEM: ELT-CAMION-ME-013" readonly>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ headerAdmin($data);
             <div class="form-group col-md-12">
               <div id="containerGallery">
                 <span>Agregar foto (440 x 545)</span>
-                <button class="btnAddImage btn btn-success btn-sm" type="button">
+                <button class="btnAddImage btn btn-success btn-sm"  type="button">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
@@ -101,14 +101,14 @@ headerAdmin($data);
               <div id="containerImages">
               </div>
             </div>
-
+            <input type="hidden" value=0 name="bande" id="bande">
             <div class="row">
               <div class="form-group col-md-4"></div>
               <div class="form-group col-md-2">
                 <button id="btnActionForm" class="btn btn-success " type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>
               </div>
               <div class="form-group col-md-2">
-                <button class="btn btn-danger " type="button"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
+                <button class="btn btn-danger cancelar" type="button"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</button>
               </div>
             </div>
           </form>

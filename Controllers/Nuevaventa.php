@@ -26,21 +26,40 @@
 		}
 
 
-		public function getClientesSelects() 
+		public function getSelectPersonaN() 
 		{
 			$html = "";
-			$arrData = $this->model->selectClientes();
+			$arrData = $this->model->selectPersonaN();
 			if(count($arrData) > 0 ){
 				for ($i=0; $i < count($arrData); $i++) { 
-					if($arrData[$i]['estado'] == 1 ){
-					$html .= '<option value="'.$arrData[$i]['codigo_cliente_natural'].'">'.$arrData[$i]['nombre']." ".$arrData[$i]['apellido'].'</option>';
 					
-					}
+					$html .= '<option value="'.$arrData[$i]['codigo'].'">'.$arrData[$i]['nombre'].'</option>';
+					
+					
 				}
 			}
 
 
-			$arrResponse = array('clientes' => $html);
+			$arrResponse = array('personan' => $html);
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			die();		
+		}
+
+		public function getSelectPersonaJ() 
+		{
+			$html = "";
+			$arrData = $this->model->selectPersonaJ();
+			if(count($arrData) > 0 ){
+				for ($i=0; $i < count($arrData); $i++) { 
+					
+					$html .= '<option value="'.$arrData[$i]['codigo'].'">'.$arrData[$i]['nombre'].'</option>';
+					
+					
+				}
+			}
+
+
+			$arrResponse = array('personaj' => $html);
 			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 			die();		
 		}
@@ -116,12 +135,19 @@
 					
 	                 
 					$strArray = json_decode($_POST["listaDetalles"], true);//detalles
-					$intCliente =  intval(strClean($_POST['listCliente']));
+					$intCliente =  strClean($_POST['listCliente']);
+					$tipocliente =  intval(strClean($_POST['tipocliente']));
 					$subtotal =  strClean($_POST['inputsubtotal']);
 					$iva =  strClean($_POST['inputiva']);
 					$total =  strClean($_POST['inputtotal']);
 
-					$request = $this->model->insertarVenta($total, 1, $intCliente, $_SESSION['userData']['idusuario'], $subtotal, $iva);
+					if ($tipocliente == 1) {
+						$request = $this->model->insertarVentaN($total, 1, $intCliente, $_SESSION['userData']['idusuario'], $subtotal, $iva, $tipocliente);
+					}else{
+						$request = $this->model->insertarVentaJ($total, 1, $intCliente, $_SESSION['userData']['idusuario'], $subtotal, $iva, $tipocliente);
+					}
+
+					
 					
 					
 						
@@ -140,6 +166,7 @@
 
 							$formadepago = intval($value["tipoventa"]);
 							$cuota = floatval($value["cuota"]);
+							$meses = intval($value["meses"]);
 
 							if ($formadepago == 1) {
 								if ($_SESSION['permisosMod']['escribir']) {
@@ -149,7 +176,9 @@
 							}else if ($formadepago == 2){
 								$credito = 0.00;
 								if ($_SESSION['permisosMod']['escribir']) {
-									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito);
+									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito, $meses);
+
+									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total);
 									
 								}
 							}

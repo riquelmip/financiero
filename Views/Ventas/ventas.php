@@ -27,14 +27,20 @@
                       <a onmouseover="mostrarAyuda();"><i class="fa fa-question fa-lg"></i></a>
                     </div>
                     <br>
+                    <div class="btn-group mb-2" role="group" aria-label="Basic example" id="botones1">
+                      <button type="button" onclick="persona_natural()" class="btn btn-success">Persona Natural</button>
+                      <button type="button" onclick="persona_juridica()" class="btn btn-warning">Persona Jurídica</button>
+                    </div>
                   <div class="table-responsive">
                     <table class="table table-hover table-bordered" id="tableVentas">
                       <thead>
                         <tr>
                           <th>Venta</th>
                           <th>Fecha</th>
-                          <th>Monto ($)</th>
                           <th>Cliente</th>
+                          <th>Subtotal ($)</th>
+                          <th>Iva ($)</th>
+                          <th>Monto ($)</th>
                           <th>Estado</th>
                           <th>Acciones</th>
                         </tr>

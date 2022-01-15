@@ -26,7 +26,7 @@ function persona_naturalA() {
 
 
 function fntViewUsuario(idpersona){
-    console.log("Dato");
+    
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/Carteraclientes/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
@@ -58,6 +58,15 @@ function fntViewUsuario(idpersona){
     }
 }
 
+
+
+
+
+
+function openModal(){
+    $('#ratios').modal('show');
+  }
+
 function fntViewUsuario2(idpersona){
     console.log("Dato");
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -70,24 +79,144 @@ function fntViewUsuario2(idpersona){
 
             if(objData.estado)
             {
-
                 console.log(objData);
-                document.querySelector("#celDui").innerHTML = objData.data.codigo_persona_juridica;
-                document.querySelector("#celNit").innerHTML = objData.data.nombre_empresa_persona_juridica;
-                document.querySelector("#celNombre").innerHTML = objData.data.nombre;
-                document.querySelector("#celApellido").innerHTML = objData.data.apellido;
-                document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
-                document.querySelector("#celEmail").innerHTML = objData.data.email_usuario;
-                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
-                document.querySelector("#celEstado").innerHTML = estadoUsuario;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.datecreated; 
-                $('#modalViewUser').modal('show');
+                document.querySelector("#celDui2").innerHTML = objData.data.codigo_persona_juridica;
+                document.querySelector("#celNit2").innerHTML = objData.data.nombre_empresa_persona_juridica;
+                document.querySelector("#celNombre2").innerHTML = objData.data.direccion_persona_juridica;
+                document.querySelector("#celApellido2").innerHTML = objData.data.idtelefono_persona_juridica;
+                document.querySelector("#celTelefono2").innerHTML = objData.data.idbalancegeneral_persona_juridica;
+                document.querySelector("#celEmail2").innerHTML = objData.data.idestadoresultado_persona_juridica;
+                document.querySelector("#celTipoUsuario2").innerHTML = objData.data.categoria;
+                $('#modalViewUser2').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
             }
         }
     }
 }
+
+function fntFiador(idpersona){
+    console.log(idpersona);
+    $('#modalFormFiador').modal('show');
+
+}
+
+
+
+
+function fntRazonFinanciera(idpersona){
+    console.log("Dato");
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Carteraclientes/getPruebas/'+idpersona;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+
+            if(objData.estado)
+            {
+                console.log(objData);
+                document.querySelector("#pruebaacida").innerHTML = objData.data.activos_corrientes;
+                document.querySelector("#rotacioncuentas").innerHTML = objData.data.inventarios;
+                document.querySelector("#rotacioncuentasdias").innerHTML = objData.data.costos_de_ventas;
+                document.querySelector("#inventario").innerHTML = objData.data.pasivos_corrientes;
+                document.querySelector("#inventariodias").innerHTML = objData.data.cuentas_cobrar;
+                document.querySelector("#razoncirculante").innerHTML = objData.data.ventas_netas;
+                $('#ratios').modal('show');
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    }
+}
+
+function fntIncobrable(idpersona,valor){
+    if (valor==0) {
+        swal({
+            title:"¿Desea marcar como Incobrable a este cliente?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si!",
+            cancelButtonText: "No!",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            
+            if (isConfirm) 
+            {
+    
+                var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                var ajaxUrl = base_url+'/Carteraclientes/marcarincobrablePN';
+            
+            var strData ="idEmpleado="+idpersona+","+valor;
+                
+                request.open("POST",ajaxUrl,true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(strData);
+                request.onreadystatechange = function(){
+                    if(request.readyState == 4 && request.status == 200){
+                        var objData = JSON.parse(request.responseText);
+                        if(objData.estado)
+                        {
+                            swal("Cambio Realizado", objData.msg , "success");
+                            location.reload();
+                        }else{
+                            swal("Atención!", objData.msg , "error");
+                        }
+                    }
+                }
+            }
+    
+        });
+    } else {
+        swal({
+            title:"¿Desea marcar como Cobrable a este cliente?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si!",
+            cancelButtonText: "No!",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            
+            if (isConfirm) 
+            {
+    
+                var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                var ajaxUrl = base_url+'/Carteraclientes/marcarincobrablePN';
+            
+            var strData ="idEmpleado="+idpersona+","+valor;
+                
+                request.open("POST",ajaxUrl,true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(strData);
+                request.onreadystatechange = function(){
+                    if(request.readyState == 4 && request.status == 200){
+                        var objData = JSON.parse(request.responseText);
+                        if(objData.estado)
+                        {
+                            swal("Cambio Realizado", objData.msg , "success");
+                            location.reload();
+                        }else{
+                            swal("Atención!", objData.msg , "error");
+                        }
+                    }
+                }
+            }
+    
+        });  
+    }
+    
+
+
+
+
+ 
+}
+
 
 
 function persona_juridicaA() {
@@ -417,13 +546,7 @@ function inicializar_tabla(tabla) {
             { "data": "codigo_persona_natural" },
             { "data": "dui_persona_natural" },
             { "data": "nombre_completo" },
-            { "data": "direccion_persona_natural" },
-            { "data": "telefono_persona_natural" },
-            { "data": "estado_civil_persona_natural" },
-            { "data": "lugar_trabajo_persona_natural" },
-            { "data": "ingreso_persona_natural" },
-            { "data": "egresos_persona_natural" },
-            { "data": "id_boleta_de_pago__persona_natural" },
+            
             { "data": "categoria" },
             { "data": "options" }
         ],
@@ -490,10 +613,6 @@ function inicializar_tabla2(tabla) {
 
             { "data": "codigo_persona_juridica" },
             { "data": "nombre_empresa_persona_juridica" },
-            { "data": "direccion_persona_juridica" },
-            { "data": "idtelefono_persona_juridica" },
-            { "data": "idbalancegeneral_persona_juridica" },
-            { "data": "idestadoresultado_persona_juridica" },
             { "data": "categoria" },
             { "data": "options" }
 
