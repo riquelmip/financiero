@@ -177,7 +177,7 @@ function fntPagosCredito(iddetalle){
   })
     .done(function (json) {
         console.log(json);
-    //  $("#nombreProducto").empty().html(json[0]['datosIndividuales']['descripcion']);
+      $("#nombreProducto").empty().html(json['datosIndividuales'][0].descripcion);
       $('#tablePagosCreditos').DataTable().destroy();
       $("#datos_tabla").empty().html(json.htmlDatosTabla);
       inicializar_tabla("tablePagosCreditos");
