@@ -166,6 +166,10 @@ function fntVerPagos(iddetalle){
 
 }
 
+
+
+
+
 function fntPagosCredito(iddetalle){
 
   var datos = { "iddetalle": iddetalle};
@@ -466,6 +470,9 @@ function inicializar_tabla1(tabla) {
     ],
   });
 }
+
+
+
 //SOLO LETRAS
 $(function(){
 

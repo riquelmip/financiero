@@ -368,24 +368,17 @@
 			
 			$intId = 1;
 			$strCat =  $_POST['codigo2'];
-			$variable = $_FILES['documento12'];
-			var_dump($strCat);
-			var_dump($variable);
-			die();
-			if($intId == 0)
-			{
-				$option = 1;
-				if ($_SESSION['permisosMod']['escribir']) {
-				//Crear
-				$request_cat = $this->model->insertCargo($strCat);
-				}
-			}else{
-				$option = 2;
-				if ($_SESSION['permisosMod']['actualizar']) {
-				//Actualizar
-				$request_cat = $this->model->updateCargo($intId, $strCat);
-				}
+			$strCat2 =  $_POST['codigo22'];
+			$strCat3 =  $_POST['codigo23'];
+			if(isset($_FILES['documento12']) && $_FILES['documento12']['type']=='application/pdf'){
+				$userfile_extn = explode(".", strtolower($_FILES['documento12']['name']));
+				move_uploaded_file ($_FILES['documento12']['tmp_name'] , $_SERVER['DOCUMENT_ROOT'] .'/financiero/Assets/images/pdf/'. strClean($strCat) . '.' . $userfile_extn[1]);
 			}
+			$variable = strClean($strCat) . '.' . $userfile_extn[1];
+				$option = 1;
+			
+
+				$request_cat = $this->model->insertCargo($strCat,$variable,$strCat2,$strCat3);
 
 			if($request_cat > 0 )
 			{

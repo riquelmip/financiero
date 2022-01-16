@@ -57,6 +57,14 @@
 			return $request;
 		}
 
+
+		public function datoembargodetalle(int $dato){
+
+			$sql = "SELECT dv.estado_embargo from detalleventa dv WHERE iddetalle = $dato";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
 		public function selectCreditosDos(){
 
 			$sql = "SELECT d.iddetalle,

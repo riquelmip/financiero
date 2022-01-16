@@ -14,7 +14,47 @@
 			parent::__construct();
 		}
 
+		public function insertCargo(string $nombre, string $variablepdf, int $detalleventa,int $embargoendetalle){ //Inserta la categoria nueva a la base de datos
+			$return = "";
+			$this->strDui = $nombre;
+			$this->strNombre = $variablepdf;
+			$this->detalleventa = $detalleventa;
+			if ($embargoendetalle==0) {
+				$embargoendetalle = 1;
+				$this->embargoendetalle = $embargoendetalle;
+			} else {
+				$embargoendetalle = 0;
+				$this->embargoendetalle = $embargoendetalle;
+			}
 
+
+
+			$valor = $nombre;
+			$valorsinletras = explode('-',$valor);
+			$valor2 = $valorsinletras[0];
+
+			$query_insert  = "UPDATE detalleventa set estado_embargo = ? WHERE iddetalle = $this->detalleventa";
+			$arrData = array($this->embargoendetalle);
+			$request_insert = $this->update($query_insert,$arrData);
+
+
+
+			if ($valor2=="PN") {
+				$query_insert  = "INSERT INTO tbl_embargo(pdf_embargo,persona_pn) VALUES(?,?)";
+	        	$arrData = array($this->strNombre,$this->strDui);
+	        	$request_insert = $this->insert($query_insert,$arrData);
+	        	$return = $request_insert;
+			} else {
+				$query_insert  = "INSERT INTO tbl_embargo(pdf_embargo,persona_pj) VALUES(?,?)";
+	        	$arrData = array($this->strNombre,$this->strDui);
+	        	$request_insert = $this->insert($query_insert,$arrData);
+	        	$return = $request_insert;
+			}
+			
+
+
+			return $return;
+		}	
 
 		public function selectPersonaNaturalA(){
 			

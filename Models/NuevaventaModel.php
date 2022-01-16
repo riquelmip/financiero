@@ -203,10 +203,10 @@
 		public function insertDetalle(int $idventa,int $idproducto,int $cantidad, float $total, float $formapago){
 
 			$return = "";
+			$cero = 0;
 
-
-				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago) VALUES(?,?,?,?,?)";
-	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago);
+				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago,estado_embargo) VALUES(?,?,?,?,?,?)";
+	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago,$cero);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 
@@ -219,9 +219,9 @@
 
 			$return = "";
 
-
-				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago, cuota, meses, estadopago) VALUES(?,?,?,?,?,?,?, ?)";
-	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago, $cuota, $meses, $estadopago);
+				$cero = 0;
+				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago, cuota, meses, estadopago,estado_embargo) VALUES(?,?,?,?,?,?,?, ?,?)";
+	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago, $cuota, $meses, $estadopago,$cero);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 
