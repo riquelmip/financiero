@@ -179,14 +179,13 @@ function fntPagoCuota(iddetalle,mes){
     data: datos,
   })
     .done(function (json) {
-        
-        var mes = json.mesPago;
-        var fecha = json.anio+"-"+json.mesPago+"-"+json.dia;
-        var cuota = json.cuota;
-        var saldofinal = json.saldofinal;
-        var tasa = json.tasa;
-        var meses = json.meses;
-        var iddetalle = json.iddetalle;
+        var mes = json[0].mesPago;
+        var fecha = json[0].anio+"-"+json[0].mesPago+"-"+json[0].dia;
+        var cuota = json[0].cuota;
+        var saldofinal = json[0].saldofinal;
+        var tasa = json[0].tasa;
+        var meses = json[0].meses;
+        var iddetalle = json[0].iddetalle;
         //var n = window.prompt("HOLAAA","tasa");
         console.log(saldofinal+" "+cuota);       
         
@@ -225,6 +224,7 @@ function fntPagoCuota(iddetalle,mes){
 
         divLoading.style.display = "flex";
         var datos_insert = {"iddetalle": iddetalle,"mes": mes, "fecha": fecha, "cuota": cuota, "saldofinal": saldofinal, "tasa": tasa, "meses": meses, "abonoCapital": abonoCapital};
+        console.log(datos_insert);
         $.ajax({
             dataType: "json",
             method: "POST",

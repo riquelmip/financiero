@@ -144,7 +144,7 @@
 			$this->mes = $mes;
 			$this->fecha = $fecha;
 			$this->fechapago = $fechapago;
-			$estado = 1;
+			$this->estado = 1;
 			
 				$sql = "UPDATE pagocuota SET estado = ?, fecha = ?, fechapago = ? WHERE iddetalle = $this->Intiddetalle and mes = $this->mes";
 				$arrData = array($this->estado,$this->fecha,$this->fechapago);
