@@ -55,6 +55,10 @@
 
 							$arrData = $this->model->sessionLogin($_SESSION['idUser']);
 							sessionUser($_SESSION['idUser']); //crea la variable sesion
+							
+							//$arrDatosPagos = $this->model->getDatosPagosCuota();
+							//$fechaActual = new Date().format('Y-m-d');
+							//$arrDatos = getDatosPagosCuota();
 
 							$arrResponse = array('estado' => true, 'msg' => 'Inicio de Sesión correctamente');
 						}else{

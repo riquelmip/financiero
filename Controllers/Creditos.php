@@ -26,6 +26,20 @@
 			$this->views->getView($this,"creditos",$data);
 		}
 
+		public function creditosIncobrables()
+		{
+			//si no tiene permiso de usuarios, lo rediccionara
+			if (empty($_SESSION['permisosMod']['leer'])) {
+				header('location: '.base_url().'/dashboard');
+			}
+			$data['page_id'] = 11;
+			$data['page_tag'] = "Créditos Incobrables";
+			$data['page_name'] = "creditosincobrables";
+			$data['page_title'] = "Créditos Incobrables";
+			$data['page_functions_js'] = "functions_creditosincobrables.js";
+			$this->views->getView($this,"creditosincobrables",$data);
+		}
+
 		//Obtener total de CLientes...
 		public function getCreditos(){
 
@@ -34,19 +48,72 @@
 				$arrData = $this->model->selectCreditos();
 
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnEdit = "";					
+					$btnEdit = "";
+					$btnView = "";					
 			
 					//si tiene permiso de editar se agrega el botn
 					if ($_SESSION['permisosMod']['escribir']) {
-						$btnEdit = '<button class="btn btn-warning btn-sm btnVerTablaPagos" onClick="fntPagosCredito('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-donate"></i></button>';
+						$btnEdit = '<button class="btn btn-warning btn-sm btnVerTablaPagos" onClick="fntPagosCredito('.$arrData[$i]['iddetalle'].')" title="Pagos"><i class="fas fa-donate"></i></button>';
+					}
+
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
 					}
 
 					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.'</div>';
 
 				
 				}
 
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+		public function getCreditosIncobrables(){
+
+			if ($_SESSION['permisosMod']['leer']) {
+
+				$arrData = $this->model->selectCreditosIncobrables();
+
+				for ($i=0; $i < count($arrData); $i++) {
+					$btnView = "";					
+			
+					//si tiene permiso de editar se agrega el botn
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagosPendientes('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+					}
+
+					//agregamos los botones
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
+					$arrData[$i]['embargo'] = 0;
+
+				
+				}
+
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+		public function getCreditosDosIncobrables(){
+
+			if ($_SESSION['permisosMod']['leer']) {
+
+				$arrData = $this->model->selectCreditosDos();
+				for ($i=0; $i < count($arrData); $i++) {
+					$btnView = "";					
+					//si tiene permiso de editar se agrega el botn
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagosPendientes('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+					}
+
+					//agregamos los botones
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
+					$arrData[$i]['embargo'] = 0;
+
+				}
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 			}
 			die();
@@ -59,16 +126,57 @@
 				$arrData = $this->model->selectCreditosDos();
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnEdit = "";					
-			
+					$btnView = "";
 					//si tiene permiso de editar se agrega el botn
 					if ($_SESSION['permisosMod']['escribir']) {
 						$btnEdit = '<button class="btn btn-warning btn-sm btnVerTablaPagos" onClick="fntPagosCredito('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-donate"></i></button>';
 					}
 
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+					}
+
 					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.'</div>';
 				}
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+		public function getPagos(){
+
+			if ($_SESSION['permisosMod']['leer']) {
+
+				$iddetalle = strClean($_POST['iddetalle']);
+				$estado = strClean($_POST['estado']);
+
+				$arrData = $this->model->selectPagos(intval($iddetalle),intval($estado));
+
+				$htmlDatosTabla = "";
+				if(empty($arrData)){
+				   $arrayDatos = array('estado' => false, 'msg' => 'Datos no encontrados.');
+				}else{
+					for ($i = 0; $i < count($arrData); $i++) {
+							$htmlDatosTabla .= '<tr>
+												<td>' . $arrData[$i]['mes'] . '</td>
+												<td>' . $arrData[$i]['fecha'] . '</td>
+												<td>' . $arrData[$i]['fechapago']. '</td>
+												<td>$ ' . $arrData[$i]['cuota'] . '</td>
+											    <td>$ ' . $arrData[$i]['capital'] . '</td>
+												<td>$ ' . $arrData[$i]['intereses'] . '</td>
+												<td>$ ' . $arrData[$i]['mora'] . '</td>
+												<td>$ ' . $arrData[$i]['abonocapital'] . '</td>
+												<td>$ ' . $arrData[$i]['totalabono'] . '</td>
+												<td>$ ' . $arrData[$i]['saldofinal'] . '</td>
+											 </tr>';
+					}
+
+					$arrayDatos = array('datosIndividuales' => $arrData, 'htmlDatosTabla' => $htmlDatosTabla);
+
+					echo json_encode($arrayDatos, JSON_UNESCAPED_UNICODE);
+
+				}
 			}
 			die();
 		}
@@ -80,6 +188,12 @@
 				$iddetalle = strClean($_POST['iddetalle']);
 				$mes = strClean($_POST['mes']);
 				$arrData = $this->model->selectCreditoPagar(intval($iddetalle),intval($mes));
+				$arrData1 = $this->model->selectCredito(intval(strClean($iddetalle)));
+				if(count($arrData1) > 1){
+					$arrData[0]['cuotaspendientes']=1;					
+				}else{
+					$arrData[0]['cuotaspendientes']=0;
+				}
 
 				if($arrData[0]['saldofinal'] < $arrData[0]['cuota']){
 					$arrData[0]['cuota'] = $arrData[0]['saldofinal'] + ($arrData[0]['saldofinal'] * (($arrData[0]['tasa']/100)/12));
@@ -129,12 +243,10 @@
 			$arrData[0]['totalCuotas'] = $totalRegistros;
 
 			for ($i = 0; $i < $cantcuotas; $i++) {
-				
-
 				$btnPago = "";
 				//si tiene permiso de editar se agrega el botn
 				
-				if($i < $totalRegistros){
+				if($totalRegistros > $i){
 					if ($_SESSION['permisosMod']['escribir']) {
 					$btnPago = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntPagoCuota('.$arrData[$i]['iddetalle'].','.$arrData[$i]['mesPago'].')" title="Pagar"><i class="fas fa-dollar-sign"></i></button>';
 					}else{
@@ -144,7 +256,7 @@
 				$arrData[$i]['dia'] = $diaPago.'-'.$mesInicio.'-'.$anio;
 
 				$htmlDatosTabla .= '<tr>
-						<td>' . round($arrData[$i]['cuota']) . '</td>
+						<td>' . round($arrData[$i]['cuota'],2) . '</td>
 						<td>' . $arrData[$i]['dia'] . '</td>
 						<td>' . $arrData[$i]['totalCredito'] . '</td>
 						<td>' . $arrData[$i]['opciones'] . '</td>
@@ -203,9 +315,14 @@
            	
            		$intereses = round(($saldofinal * (($tasa/100)/12)),2);
 			    $capital = round(($cuota - $intereses),2);
-			    $totalabono = round(($intereses + $capital),2);
+			    $totalabono = $intereses + $capital;
 			    $saldof = round(($saldofinal-$capital),2);
 			    $saldofin = round(($saldof-$abonoCapital),2);
+
+			    	$mesProximo = date("m", strtotime($fecha))+1;
+				 	$diaProximo = date("d", strtotime($fecha));
+				 	$anioProximo = date("Y", strtotime($fecha));
+				 	$fechaProxima = $anioProximo.'-'.$mesProximo.'-'.$diaProximo;
 		
 
 			if($saldof<=0 || $saldofin<=0){
@@ -213,7 +330,7 @@
 
 			 	$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
 
-			 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),$fecha,$fechapago,$cuota,$capital,$intereses,0,$totalabono,$saldof,1);
+			 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),$fecha,$fechapago,$cuota,$capital,$intereses,0,$totalabono,$saldof,1,0);
 
 			}else{
 
@@ -227,17 +344,21 @@
 							
 							$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
 
-							$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),'0000-00-00','0000-00-00',$cuota,$capital,$intereses,0,$totalabono,$saldof,0);
+
+							$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),$fechaProxima,'0000-00-00',$cuota,$capital,$intereses,0,$totalabono,$saldof,0,0);
 						}
 					
 				}
 			}else{
 				$option = 2;
 				if ($_SESSION['permisosMod']['escribir']) {
-				 
+
 				 	$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
 
-				 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$abonoCapital,0,$abonoCapital,$abonoCapital,$saldofin,1);
+				 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$abonoCapital,0,$abonoCapital,$abonoCapital,$saldofin,1,0);
+
+				 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),$fechaProxima,'0000-00-00',$cuota,$capital,$intereses,0,$totalabono,$saldof,0,0);
+
 				 
 
 				}

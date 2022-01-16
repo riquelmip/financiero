@@ -25,7 +25,9 @@
 					v.idclientenat as idcliente,
 					CONCAT(c.nombre_persona_natural,' ',c.apellido_persona_natural)  AS cliente
 					FROM venta v
-					INNER JOIN tbl_persona_natural c ON v.idclientenat = c.codigo_persona_natural";
+					INNER JOIN tbl_persona_natural c ON v.idclientenat = c.codigo_persona_natural
+					INNER JOIN detalleventa dv ON v.idventa = dv.idventa
+					WHERE dv.formapago = 1 GROUP BY v.idventa";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -45,7 +47,9 @@
 					v.idclientejuridico as idcliente,
 					c.nombre_empresa_persona_juridica  AS cliente
 					FROM venta v
-					INNER JOIN tbl_persona_juridica c ON v.idclientejuridico = c.codigo_persona_juridica";
+					INNER JOIN tbl_persona_juridica c ON v.idclientejuridico = c.codigo_persona_juridica
+					INNER JOIN detalleventa dv ON v.idventa = dv.idventa
+					WHERE dv.formapago = 1 GROUP BY v.idventa";
 			$request = $this->select_all($sql);
 			return $request;
 		}

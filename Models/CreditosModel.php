@@ -13,6 +13,7 @@
 		public $totalabono;
 		public $saldof;
 		public $estado;
+		public $mora;
 
 
 		public function __construct()
@@ -38,6 +39,24 @@
 			return $request;
 		}
 
+		public function selectCreditosIncobrables(){
+
+			$sql = "SELECT d.iddetalle,
+					p.descripcion,
+					c.codigo_persona_natural as dui,
+					CONCAT(c.nombre_persona_natural,' ',c.apellido_persona_natural) as nombreCliente,
+					CONCAT(v.dia,'-',v.mes,'-',v.anio) as fecha_inicio,
+					d.total,
+					d.meses
+					FROM detalleventa d 
+					INNER JOIN venta v on v.idventa = d.idventa
+					INNER JOIN producto p on p.idproducto = d.idproducto
+					INNER JOIN tbl_persona_natural c on c.codigo_persona_natural = v.idclientenat
+					WHERE d.formapago = 2 and d.estadopago=2 and v.tipocliente=1";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
 		public function selectCreditosDos(){
 
 			$sql = "SELECT d.iddetalle,
@@ -52,6 +71,24 @@
 					INNER JOIN producto p on p.idproducto = d.idproducto
 					INNER JOIN tbl_persona_juridica c on c.codigo_persona_juridica = v.idclientejuridico
 					WHERE d.formapago = 2 and d.estadopago=0 and v.tipocliente=2";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+		public function selectCreditosDosIncobrables(){
+
+			$sql = "SELECT d.iddetalle,
+					p.descripcion,
+					c.codigo_persona_juridica as dui,
+					c.nombre_empresa_persona_juridica as nombreCliente,
+					CONCAT(v.dia,'-',v.mes,'-',v.anio) as fecha_inicio,
+					d.total,
+					d.meses
+					FROM detalleventa d 
+					INNER JOIN venta v on v.idventa = d.idventa
+					INNER JOIN producto p on p.idproducto = d.idproducto
+					INNER JOIN tbl_persona_juridica c on c.codigo_persona_juridica = v.idclientejuridico
+					WHERE d.formapago = 2 and d.estadopago=2 and v.tipocliente=2";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -105,7 +142,30 @@
 			return $request;
 		}
 
-		public function insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$capital,$intereses,$abonoCapital,$totalabono,$saldof,$estado){
+		public function selectPagos(int $iddetalle,int $estado) //Selecciona la categoria existente
+		{
+			$this->Intiddetalle = $iddetalle;
+			$this->estado = $estado;
+
+			$sql = "SELECT
+				pg.mes,
+				pg.fecha,
+				pg.fechapago,
+				pg.cuota,
+				pg.capital,
+				pg.intereses,
+				pg.mora,
+				pg.abonocapital,
+				pg.totalabono,
+				pg.saldofinal
+				FROM pagocuota pg
+				INNER JOIN detalleventa d on d.iddetalle = pg.iddetalle
+				WHERE d.iddetalle = $this->Intiddetalle and pg.estado=$this->estado";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+		public function insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$capital,$intereses,$abonoCapital,$totalabono,$saldof,$estado,$mora){
 
 			$return = "";
 			$this->Intiddetalle = $iddetalle;
@@ -118,10 +178,11 @@
 			$this->abonoCapital = $abonoCapital;
 			$this->totalabono = $totalabono;
 			$this->saldof = $saldof; 
-			$this->estado = $estado; 
+			$this->estado = $estado;
+			$this->mora = $mora; 
 
-				$query_insert  = "INSERT INTO pagocuota(iddetalle,mes,fecha,fechapago,cuota,capital,intereses,abonocapital,totalabono,saldofinal,estado) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	        	$arrData = array($this->Intiddetalle,$this->mes,$this->fecha,$this->fechapago,$this->cuota,$this->capital,$this->intereses,$this->abonoCapital,$this->totalabono,$this->saldof,$this->estado);
+				$query_insert  = "INSERT INTO pagocuota(iddetalle,mes,fecha,fechapago,cuota,capital,intereses,abonocapital,totalabono,saldofinal,estado,mora) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	        	$arrData = array($this->Intiddetalle,$this->mes,$this->fecha,$this->fechapago,$this->cuota,$this->capital,$this->intereses,$this->abonoCapital,$this->totalabono,$this->saldof,$this->estado,$this->mora = $mora);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 			
