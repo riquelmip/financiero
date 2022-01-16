@@ -295,12 +295,15 @@ document.addEventListener('DOMContentLoaded', function(){
                         let cuota;
                         let forma = parseInt(document.querySelector('#listFormaPago').value);
                         let tipoventa;
+                        let estadopago;
                         if (forma == 1) {
                             cuota = parseFloat(0.00);
+                            estadopago = null;
                             tipoventa = "Contado";
                         }else{
                             cuota = parseFloat(document.querySelector('#txtcuota').value);
                             tipoventa = "Crédito";
+                            estadopago = "";
                         }
 
                         contadordet++;
@@ -338,7 +341,8 @@ document.addEventListener('DOMContentLoaded', function(){
                                         "preciototal":parseFloat(preciot).toFixed(2),
                                         "cuota": parseFloat(cuota).toFixed(2),
                                         "tipoventa": parseInt(forma),
-                                        "meses": parseInt(document.querySelector('#txtmeses').value)
+                                        "meses": parseInt(document.querySelector('#txtmeses').value),
+                                        "estadopago": estadopago
                                         });
                    } //fin else
                     
