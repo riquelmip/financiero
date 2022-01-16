@@ -179,7 +179,17 @@
 								if ($_SESSION['permisosMod']['escribir']) {
 									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $meses, $estadopago);
 
-									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total, 0, 0);
+								$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle,0,0,0,0,0,0,$total,1,0);
+								
+								$arrPagos = $this->model->obtenerDatosPagos($idproducto);
+									$intereses = round(($total * (($arrPagos[0]['tasa']/100)/12)),2);
+								    $capital = round(($cuota - $intereses),2);
+								    $totalabono = $intereses + $capital;
+								    $saldof = round(($total-$capital),2);
+
+								 $request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle,1,$arrPagos[0]['fecha'] ,$cuota,$capital,$intereses,$totalabono,$saldof,0, 0);
+
+
 									
 								}
 							}

@@ -69,6 +69,27 @@
 
 		}
 
+		public function getDatosPagosCuota(){
+			
+			$sql = "SELECT d.iddetalle,
+				pg.mes,
+				pg.fecha,
+				pg.cuota,
+				pg.capital,
+				pg.intereses,
+				pg.totalabono,
+				pg.saldofinal
+				FROM venta v
+				INNER JOIN detalleventa d on d.idventa = v.idventa
+				INNER JOIN producto p on p.idproducto = d.idproducto
+				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
+				INNER JOIN pagocuota pg on pg.iddetalle = d.iddetalle
+				WHERE d.formapago = 2 and pg.estado = 0 and d.estadopago = 0 and pg.mes!=0";
+			 $request = $this->select($sql);
+			return $request;
+
+		}
+
 		public function setTokenUser(int $idusuario, string $token){
 			$this->intIdUsuario = $idusuario;
 			$this->srtToken = $token;
@@ -119,5 +140,7 @@
 			$request = $this->update($sql, $arrData);
 			return $request;
 		}
+
+
 	}
  ?>
