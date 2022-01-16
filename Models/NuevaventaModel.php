@@ -230,18 +230,31 @@
 		}	
 
 
-		public function insertDetalleCreditoPagoCuota(int $iddetalle, $total, $estado, $mora){
+		public function insertDetalleCreditoPagoCuota(int $iddetalle, $mes, $fecha, $cuota, $capital, $intereses, $totalabono, $total, $estado, $mora){
 
 			$return = "";
 
-
-				$query_insert  = "INSERT INTO pagocuota(iddetalle, mes, fecha, fechapago, cuota, capital, intereses, abonocapital, totalabono, saldofinal, estado, mora) VALUES(?,?,?,?,?,?,?,?,?,?, ?,?)";
-	        	$arrData = array($iddetalle, 0, "0000-00-00", "0000-00-00", 0, 0, 0, 0, 0, $total, $estado, $mora);
+				$query_insert  = "INSERT INTO pagocuota(iddetalle, mes, fecha, fechapago, cuota, capital, intereses, abonocapital, totalabono, saldofinal, estado, mora) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	        	$arrData = array($iddetalle, $mes, $fecha, 0, $cuota, $capital, $intereses,0, $totalabono,$total, $estado, $mora);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 
-
 			return $return;
+		}
+
+
+
+		public function obtenerDatosPagos(int $idproducto){
+			$sql = "SELECT
+				ct.tasainteres as tasa,
+				CONCAT(v.anio,'-',v.mes,'-',v.dia) as fecha
+				FROM producto p 
+				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
+				INNER JOIN detalleventa d on d.idproducto = p.idproducto
+				INNER JOIN venta v on v.idventa = d.idventa
+				WHERE p.idproducto=$idproducto LIMIT 1";
+			$request = $this->select_all($sql);
+			return $request;
 		}	
 
 

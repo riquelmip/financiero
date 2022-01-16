@@ -1,6 +1,5 @@
 <?php 
     headerAdmin($data); 
-    getModal('modalPagosCreditos',$data);
     getModal('modalPagos',$data);
 ?>
     <div id="contentAjax"></div> 
@@ -31,14 +30,15 @@
                 <br>
                 <br>
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="tableCreditos">
+                    <table class="table table-hover table-bordered" id="tableCreditosIncobrables">
                       <thead >
                         <tr>
                           <th>Código</th>
                           <th>Cliente</th>
                           <th>Producto</th>
-                          <th>Fecha Crédito</th>
+                          <th>Fecha Credito</th>
                           <th>Monto</th>
+                          <th>Estado</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -52,4 +52,3 @@
         </div>
   
 <?php footerAdmin($data); ?>
-    
