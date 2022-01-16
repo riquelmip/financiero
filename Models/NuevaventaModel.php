@@ -215,12 +215,12 @@
 		}	
 
 
-		public function insertDetalleCredito(int $idventa,int $idproducto,int $cantidad, float $total, float $formapago, float $cuota, float $credito, int $meses){
+		public function insertDetalleCredito(int $idventa,int $idproducto,int $cantidad, float $total, float $formapago, float $cuota, int $meses){
 
 			$return = "";
 
 
-				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago, cuota, meses) VALUES(?,?,?,?,?,?,?, ?)";
+				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago, cuota, meses) VALUES(?,?,?,?,?,?,?)";
 	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago, $cuota, $meses);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
