@@ -220,8 +220,8 @@
 			$return = "";
 
 
-				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago, cuota, credito, meses) VALUES(?,?,?,?,?,?,?, ?)";
-	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago, $cuota, $credito, $meses);
+				$query_insert  = "INSERT INTO detalleventa(idventa,idproducto,cantidad, total, formapago, cuota, meses) VALUES(?,?,?,?,?,?,?, ?)";
+	        	$arrData = array($idventa, $idproducto,$cantidad, $total, $formapago, $cuota, $meses);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 
