@@ -230,13 +230,13 @@
 		}	
 
 
-		public function insertDetalleCreditoPagoCuota(int $iddetalle, $total, $estado){
+		public function insertDetalleCreditoPagoCuota(int $iddetalle, $total, $estado, $mora){
 
 			$return = "";
 
 
-				$query_insert  = "INSERT INTO pagocuota(iddetalle, mes, fecha, fechapago, cuota, capital, intereses, abonocapital, totalabono, saldofinal, estado) VALUES(?,?,?,?,?,?,?,?,?,?, ?)";
-	        	$arrData = array($iddetalle, 0, "0000-00-00", "0000-00-00", 0, 0, 0, 0, 0, $total, $estado);
+				$query_insert  = "INSERT INTO pagocuota(iddetalle, mes, fecha, fechapago, cuota, capital, intereses, abonocapital, totalabono, saldofinal, estado, mora) VALUES(?,?,?,?,?,?,?,?,?,?, ?,?)";
+	        	$arrData = array($iddetalle, 0, "0000-00-00", "0000-00-00", 0, 0, 0, 0, 0, $total, $estado, $mora);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 

@@ -179,7 +179,7 @@
 								if ($_SESSION['permisosMod']['escribir']) {
 									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $meses, $estadopago);
 
-									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total, 0);
+									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total, 0, 0);
 									
 								}
 							}
