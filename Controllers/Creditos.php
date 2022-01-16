@@ -71,7 +71,7 @@
 			die();
 		}
 
-		public function getCreditosIncobrables(){
+		public function getCreditosIncobrables(){ //Embargos
 
 			if ($_SESSION['permisosMod']['leer']) {
 
@@ -144,7 +144,7 @@
 			die();
 		}
 
-		public function getPagos(){
+		public function getPagos(){ //Para factura
 
 			if ($_SESSION['permisosMod']['leer']) {
 
