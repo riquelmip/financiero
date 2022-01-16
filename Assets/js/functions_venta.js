@@ -90,7 +90,7 @@ function verFactura(idventa){
      window.open(base_url+"/Consultas/imprimirfactura/"+idventa);
 }
 
-function verFactura(idventa){
+function verNota(idventa){
 
   window.open(base_url+"/Consultas/imprimirnota/"+idventa);
 }
