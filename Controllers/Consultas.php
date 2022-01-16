@@ -86,5 +86,41 @@
 		}
 
 
+		public function imprimirnota($idventa){
+			//if($_SESSION['permisosMod']['leer']){
+				$id = $idventa;
+				if($id > 0){
+					$arrDatav = $this->model->selectVenta($id);
+					if(empty($arrDatav)){
+						$this->views->getView("Errors","error");
+					}else{
+						if ($arrDatav['idclientenat'] != '') {
+							$arrData = $this->model->selectVentaCN($id);
+							$arrData2 = $this->model->selectempleadoCN($arrData[0]['idusuario']);
+						}else{
+							$arrData = $this->model->selectVentaCJ($id);
+							$arrData2 = $this->model->selectempleadoCN($arrData[0]['idusuario']);
+						}
+						$data['productos'] = $arrData;
+						$data['idventa'] = $arrData[0]['idventa'];
+						$data['fecha'] = $arrData[0]['dia']."/".$arrData[0]['mes']."/".$arrData[0]['anio'];
+						$data['subtotal'] = $arrData[0]['subtotal'];
+						$data['iva'] = $arrData[0]['iva'];
+						$data['monto'] = $arrData[0]['monto'];
+						$data['cliente'] = $arrData[0]['cliente'];
+						$data['vendedor'] = $_SESSION['userData']['nombre'].' '.$_SESSION['userData']['apellido'] ;
+						$data['idusuario'] = $arrData[0]['idusuario'];
+						$data['nombreusuario'] = $arrData2[0]['nombre'];
+						$data['dui'] = $arrData2[0]['dui'];
+						$data['telefono'] = $arrData2[0]['telefono'];
+						$this->views->getView($this,"nota",$data);
+					}
+					echo json_encode($data,JSON_UNESCAPED_UNICODE);
+				}
+			//}
+			die();
+		}
+
+
 	}
  ?>
