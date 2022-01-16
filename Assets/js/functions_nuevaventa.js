@@ -193,11 +193,20 @@ document.addEventListener('DOMContentLoaded', function(){
                                 confirmButtonText: 'Ok!'
                               }, 
                               function(){
-                                
-                                   window.location.href = base_url+"/Ventas";
+                                    if (objData.tipoventa == 1) {
+                                        window.location.href = base_url+"/Ventas";
+                                    }else{
+                                        window.location.href = base_url+"/Creditos";
+                                    }
+                                   
 
                               });
-                            window.open(base_url+"/Consultas/imprimirticket/"+objData.idventa);
+                                if (objData.tipoventa == 1) {
+                                        window.open(base_url+"/Consultas/imprimirticket/"+objData.idventa);
+                                    }else{
+                                        //window.location.href = base_url+"/Creditos";
+                                    }
+                            
                            
                         }else{
                             swal("Error", objData.msg , "error");
@@ -269,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 let codigo = document.querySelector('#codigobarra').value;
                 let cantidad = document.querySelector('#cantidad').value;
                 let precio = document.querySelector('#precio').innerHTML;
-                let preciot = document.querySelector('#preciot').innerHTML;
+                let preciot = parseFloat(document.querySelector('#preciot').innerHTML);
                 let descripcion = document.querySelector('#descripcion').innerHTML;
                 let stock = document.querySelector('#stock').innerHTML;
 

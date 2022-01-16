@@ -204,7 +204,7 @@
 								
 							}
 						}
-						$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.', 'idventa' => $request);
+						$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.', 'idventa' => $request, 'tipoventa' => $formadepago);
 					
 					}else{
 						$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
