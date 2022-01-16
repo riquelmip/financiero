@@ -145,7 +145,7 @@ $(document).on('focusin', function(e) {
 
 function fntPagosCredito(iddetalle){
 
-  var datos = { iddetalle: iddetalle};
+  var datos = { "iddetalle": iddetalle};
   $.ajax({
     dataType: "json",
     method: "POST",
@@ -153,9 +153,8 @@ function fntPagosCredito(iddetalle){
     data: datos,
   })
     .done(function (json) {
-        
-      $("#nombreCliente").empty().html(json.datosIndividuales.nombreCliente);
-      $("#nombreProducto").empty().html(json.datosIndividuales.descripcion);
+        console.log(json);
+      //$("#nombreProducto").empty().html(json[datosIndividuales][descripcion]);
       $('#tablePagosCreditos').DataTable().destroy();
       $("#datos_tabla").empty().html(json.htmlDatosTabla);
       inicializar_tabla("tablePagosCreditos");
@@ -169,10 +168,10 @@ function fntPagosCredito(iddetalle){
     });
 }
 
-function fntPagoCuota(iddetalle){
+function fntPagoCuota(iddetalle,mes){
 
   
-  var datos = { iddetalle: iddetalle};
+  var datos = { iddetalle: iddetalle,mes:mes};
   $.ajax({
     dataType: "json",
     method: "POST",

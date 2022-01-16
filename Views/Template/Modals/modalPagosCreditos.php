@@ -10,7 +10,6 @@
         <div class="modal-body">
             <div class="col-md-12">
               <div class="tile">
-                    <p><h4 class="modal-title h4" >Cliente: </h4><h4 class="modal-title h4" id="nombreCliente"></h4></p>
                     <p><h4 class="modal-title h4" >Producto: </h4><h4 class="modal-title h4" id="nombreProducto"></h4></p>
                     <br>
                     <div class="table-responsive">

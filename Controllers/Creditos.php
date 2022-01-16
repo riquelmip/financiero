@@ -77,8 +77,15 @@
 
 			if ($_SESSION['permisosMod']['leer']) {
 
-				$iddetalle = $_POST['iddetalle'];
-				$arrData = $this->model->selectCredito(intval(strClean($iddetalle)));
+				$iddetalle = strClean($_POST['iddetalle']);
+				$mes = strClean($_POST['mes']);
+				$arrData = $this->model->selectCreditoPagar(intval($iddetalle),intval($mes));
+
+				if($arrData[0]['saldofinal'] < $arrData[0]['cuota']){
+					$arrData[0]['cuota'] = $arrData[0]['saldofinal'] + ($arrData[0]['saldofinal'] * (($arrData[0]['tasa']/100)/12));
+				}else{
+					$arrData[0]['cuota'] = $arrData[0]['cuota'];
+				}
 
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 			}
@@ -99,54 +106,73 @@
 		   $arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
 		}else{
 
-			$mes = $arrData['mesPago'];
-			$anio = $arrData['anio'];
-			$diaPago=$arrData['dia'];
-			$id=$arrData['iddetalle'];
-			$cantcuotas = $arrData['meses'] - $mes;
+			$totalRegistros = count($arrData);
+			$mes = $arrData[0]['mesPago'];
+			$anio = $arrData[0]['anio'];
+			$diaPago=$arrData[0]['dia'];
+			$id=$arrData[0]['iddetalle'];
+			$cantcuotas = $arrData[0]['meses'] - ($mes);
+
 			if($mes==1){
-				$mesInicio = $arrData['mesinicio'];
+				$mesInicio = $arrData[0]['mesinicio'];
 			}else{
-				$mesInicio = $arrData['mesinicio'] + ($mes-1);
+				$mesInicio = $arrData[0]['mesinicio'] + ($mes);
 			}
 
 
-			if($arrData['saldofinal'] < $arrData['cuota']){
-				$arrData['cuota'] = $arrData['saldofinal'] + ($arrData['saldofinal'] * (($arrData['tasa']/100)/12));
+			if($arrData[0]['saldofinal'] < $arrData[0]['cuota']){
+				$arrData[0]['cuota'] = $arrData[0]['saldofinal'] + ($arrData[0]['saldofinal'] * (($arrData[0]['tasa']/100)/12));
 			}else{
-				$arrData['cuota'] = $arrData['cuota'];
+				$arrData[0]['cuota'] = $arrData[0]['cuota'];
 			}
 
-			for ($i = 0; $i <= $cantcuotas; $i++) {
+			$arrData[0]['totalCuotas'] = $totalRegistros;
+
+			for ($i = 0; $i < $cantcuotas; $i++) {
 				
+
 				$btnPago = "";
 				//si tiene permiso de editar se agrega el botn
-				if ($_SESSION['permisosMod']['escribir']) {
-				if($i==0){
-
-					$btnPago = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntPagoCuota('.$arrData['iddetalle'].')" title="Pagar"><i class="fas fa-dollar-sign"></i></button>';
-
-					//onClick="gotoNode(\'' + result.name + '\')"
-				}else{
-					$btnPago = '<button class="btn btn-secondary btn-sm btnPagoCuota" disabled title="Cuotas"><i class=" fas fa-dollar-sign"></i></button>';
-				}
-				}
-				//agregamos los botones
-				$arrData[$i]['opciones'] = '<div class="text-center">' . $btnPago . '</div>';
-				$arrData['dia'] = $diaPago.'-'.$mesInicio.'-'.$anio;
+				
+				if($i < $totalRegistros){
+					if ($_SESSION['permisosMod']['escribir']) {
+					$btnPago = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntPagoCuota('.$arrData[$i]['iddetalle'].','.$arrData[$i]['mesPago'].')" title="Pagar"><i class="fas fa-dollar-sign"></i></button>';
+					}else{
+						$btnPago = '<button class="btn btn-secondary btn-sm btnPagoCuota" disabled title="Cuotas"><i class=" fas fa-dollar-sign"></i></button>';
+					}
+					$arrData[$i]['opciones'] = '<div class="text-center">' . $btnPago . '</div>';
+				$arrData[$i]['dia'] = $diaPago.'-'.$mesInicio.'-'.$anio;
 
 				$htmlDatosTabla .= '<tr>
-						<td>' . $arrData['cuota'] . '</td>
-						<td>' . $arrData['dia'] . '</td>
-						<td>' . $arrData['totalCredito'] . '</td>
+						<td>' . round($arrData[$i]['cuota']) . '</td>
+						<td>' . $arrData[$i]['dia'] . '</td>
+						<td>' . $arrData[$i]['totalCredito'] . '</td>
 						<td>' . $arrData[$i]['opciones'] . '</td>
 						</tr>';
+					//onClick="gotoNode(\'' + result.name + '\')"
+				}else{
+					if($arrData[0]['saldofinal'] > $arrData[0]['cuota']){
+							$btnPago = '<button class="btn btn-secondary btn-sm btnPagoCuota" disabled title="Cuotas"><i class=" fas fa-dollar-sign"></i></button>';
+
+						$arrData[$i]['opciones'] = '<div class="text-center">' . $btnPago . '</div>';
+
+						$arrData['dia'] = $diaPago.'-'.$mesInicio.'-'.$anio;
+						$htmlDatosTabla .= '<tr>
+							<td>' . $arrData[0]['cuota'] . '</td>
+							<td>' . $arrData['dia'] . '</td>
+							<td>' . $arrData[0]['totalCredito'] . '</td>
+							<td>' . $arrData[$i]['opciones'] . '</td>
+							</tr>';
+					 }
+					
+					}
 						if($mesInicio<12){
 							$mesInicio=$mesInicio+1;
 						}else{
 							$mesInicio=$mesInicio-11;
 							$anio=$anio+1;
 						}
+
 				
 			}
 
@@ -159,6 +185,8 @@
  }
 
 		public function setPagoCredito(){
+
+
 			
 			$iddetalle = intval($_POST['iddetalle']);
 			$mes = intval($_POST['mes']);
@@ -169,35 +197,57 @@
            	$meses = intval($_POST['meses']);
            	$abonoCapital = $_POST['abonoCapital'];
            	$fechapago = date("Y-m-d");
+
+	        $arrData = $this->model->selectCredito(intval(strClean($iddetalle)));
+			$cuotaspendientes = count($arrData);
            	
            		$intereses = round(($saldofinal * (($tasa/100)/12)),2);
 			    $capital = round(($cuota - $intereses),2);
 			    $totalabono = round(($intereses + $capital),2);
 			    $saldof = round(($saldofinal-$capital),2);
 			    $saldofin = round(($saldof-$abonoCapital),2);
+		
 
 			if($saldof<=0 || $saldofin<=0){
 			 	$request_estado = $this->model->updateEstadoCredito(intval(strClean($iddetalle)));
-			}   
 
-			if($abonoCapital == 0){
+			 	$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
+
+			 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),$fecha,$fechapago,$cuota,$capital,$intereses,0,$totalabono,$saldof,1);
+
+			}else{
+
+				if($abonoCapital == 0){
 				$option = 1;
 				if ($_SESSION['permisosMod']['escribir']) {
 					//Crear
-$request_pago = $this->model->insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$capital,$intereses,0,$totalabono,$saldof);
+						if($cuotaspendientes > 1){
+							$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
+						}else{
+							
+							$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
 
+							$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($mes+1),'0000-00-00','0000-00-00',$cuota,$capital,$intereses,0,$totalabono,$saldof,0);
+						}
+					
 				}
 			}else{
 				$option = 2;
 				if ($_SESSION['permisosMod']['escribir']) {
+				 
+				 	$request_estado_pago = $this->model->updateEstadoPago(strClean($fecha),strClean($fechapago),intval(strClean($iddetalle)),intval(strClean($mes)));
 
-				$request_pago = $this->model->insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$capital,$intereses,0,$totalabono,$saldof);
+				 	$request_estado_pago = $this->model->insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$abonoCapital,0,$abonoCapital,$abonoCapital,$saldofin,1);
+				 
 
-				 $request_pago = $this->model->insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$abonoCapital,0,$abonoCapital,$abonoCapital,$saldofin);
 				}
 			}
 
-			if($request_pago > 0 )
+			}   
+
+			
+
+			if($request_estado_pago > 0)
 			{
 				if($option == 1)
 				{
