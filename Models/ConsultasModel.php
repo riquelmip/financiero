@@ -21,6 +21,7 @@
 					v.mes,
 					v.anio,
 					v.monto,
+					v.idusuario,
 					v.estado,
 					v.subtotal,
 					v.iva,
@@ -46,6 +47,17 @@
 		}
 
 
+		public function selectempleadoCN(int $idusuario) 
+		{
+
+			$sql = "SELECT * from empleado e inner join usuario u on u.idempleado=e.idempleado where u.idusuario= $idusuario";
+			$request = $this->select_all($sql);
+
+			return $request;
+		}
+
+
+
 		public function selectVentaCJ(int $idventa) 
 		{
 
@@ -54,6 +66,7 @@
 					v.dia,
 					v.mes,
 					v.anio,
+					v.idusuario,
 					v.monto,
 					v.estado,
 					v.subtotal,

@@ -63,12 +63,13 @@
 
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm" onClick="verTicket('.$arrData[$i]['idventa'].')" title="Ver Ticket"><i class="fas fa-ticket-alt"></i></button> <button class="btn btn-primary btn-sm" onClick="verFactura('.$arrData[$i]['idventa'].')" title="Ver Factura PDF"><i class="fas fa-file-pdf"></i></button>';
+						$btnView2 = '<button class="btn btn-primary btn-sm" onClick="verFactura('.$arrData[$i]['idventa'].')" title="Ver NOTA"><i class="fas fa-file-pdf"></i></button>';
 					}
 					
 					
 					
 					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.$btnEdit.' </div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnView2.' </div>';
 
 				
 				}

@@ -90,6 +90,11 @@ function verFactura(idventa){
      window.open(base_url+"/Consultas/imprimirfactura/"+idventa);
 }
 
+function verFactura(idventa){
+
+  window.open(base_url+"/Consultas/imprimirnota/"+idventa);
+}
+
 
 function mostrarAyuda(){
     $('#modalAyuda').modal('show');
