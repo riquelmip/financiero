@@ -304,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             cuota = parseFloat(document.querySelector('#txtcuota').value);
                             tipoventa = "Crédito";
                             estadopago = "";
+                            preciot = cuota * parseInt(document.querySelector('#txtmeses').value); 
                         }
 
                         contadordet++;
@@ -314,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function(){
                                     '<td class="col-md-1 text-center" id="stock-'+idproducto+'">'+stock+'</td>'+
                                     '<td class="col-md-1 text-center" id="cantidad-'+idproducto+'">'+cantidad+'</td>'+
                                     '<td class="col-md-1 text-center" id="precio-'+idproducto+'">'+precio+'</td>'+
-                                    '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot+'</td>'+
+                                    '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot.toFixed(2)+'</td>'+
                                     '<td class="col-md-1 text-center" id="tipoventa-'+idproducto+'">'+tipoventa+'</td>'+
                                     '<td class="col-md-1 text-center" id="cuota-'+idproducto+'">'+cuota.toFixed(2)+'</td>'+
                                     '<td class="col-md-1 text-center"><button onClick="fntDel(\'' +idproducto+'-'+contadordet+ '\')" class="btn btn-danger btnEliminarDet" type="button"><i class="fas fa-trash-alt"></i></button></td>'+
