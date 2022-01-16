@@ -56,12 +56,12 @@
                   <input type="file" name="documento12">
                 </div>
                 <div class="form-group">
-                  <label class="control-label">Codigo Cliente</label>
-                  <input class="form-control" autocomplete="off"  id="codigo2" name="codigo2" type="text" placeholder="Tasa" readonly>
+               
+                  <input class="form-control" autocomplete="off"  id="codigo2" name="codigo2" type="text" placeholder="Tasa" hidden>
                 </div>
                 <div class="form-group">
-                  <label class="control-label">Codigo de Venta</label>
-                  <input class="form-control" autocomplete="off"  id="codigo22" name="codigo22" type="text" placeholder="Tasa" readonly>
+           
+                  <input class="form-control" autocomplete="off"  id="codigo22" name="codigo22" type="text" placeholder="Tasa" hidden>
                 </div>
                 <div class="form-group">
                   <input class="form-control" autocomplete="off"  id="codigo23" name="codigo23" type="text" placeholder="Tasa" hidden>
