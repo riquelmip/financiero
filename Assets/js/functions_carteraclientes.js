@@ -101,7 +101,52 @@ function fntFiador(idpersona){
 
 }
 
+function fntEmbargo(idpersona){
+    console.log(idpersona);
+    document.querySelector("#codigo2").value = idpersona;
+    $('#modalEmbargo').modal('show');
+    var formCargos = document.querySelector("#formFiador2");
+    formCargos.onsubmit = function(e) {
+        e.preventDefault();
 
+        var strNombre = document.querySelector('#codigo2').value;
+        
+        if(strNombre == '')
+        {
+            swal("Atención", "Todos los campos son obligatorios." , "error");
+            return false;
+        }
+        divLoading.style.display = "flex";
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/Carteraclientes/setEmbargo'; 
+        var formData = new FormData(formCargos);
+        request.open("POST",ajaxUrl,true);
+        request.send(formData);
+        request.onreadystatechange = function(){
+           if(request.readyState == 4 && request.status == 200){
+                
+                var objData = JSON.parse(request.responseText);
+                if(objData.estado)
+                {
+                    
+                    $('#modalFormCargos').modal("hide");
+                    formCargos.reset();
+                    
+                    swal("Cargos", objData.msg ,"success");
+                    tableCargo.api().ajax.reload();
+
+                }else{
+                    swal("Error", objData.msg , "error");
+                }              
+            } 
+            divLoading.style.display = "none";
+            return false;
+        }
+
+        
+    }
+
+}
 
 
 function fntRazonFinanciera(idpersona){
