@@ -501,7 +501,7 @@
 			}
 
 			$arrDatos = $this->model->selectUltimaCuota(intval($iddetalle));
-			var_dump($arrDatos);
+			
 			if($arrDatos['saldofinal'] < $arrDatos['cuota']){
 				$arrDatos['cuota'] = $arrDatos['saldofinal'] + ($arrDatos['saldofinal'] * (($arrDatos['tasa']/100)/12));
 			}else{
@@ -519,7 +519,7 @@
 			$fechaProxima = $anioProximo.'-'.$mesProximo.'-'.$diaProximo;
 
 
-			$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($arrDatos['mesPago']+1),$fechaProxima,'0000-00-00',$cuota,$capital,$intereses,0,$totalabono,$saldof,0,0);
+			$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($arrDatos['mesPago']+1),$fechaProxima,'0000-00-00',$arrDatos['cuota'],$capital,$intereses,0,$totalabono,$saldof,0,0);
 
 			if($request_estado_pago > 0)
 			{

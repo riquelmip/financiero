@@ -252,7 +252,7 @@
 								$diferenciaMes = $mesActual - $mesPago;//4  1
 
 								$cuotaspendientes = $this->model->getCuotasPendientes(intval($iddetalle));
-								if($cuotaspendientes[0]['total'] > 3){
+								if(intval($cuotaspendientes[0]['total']) > 3){
 												
 									$arrPagos = $this->model->updateDetalleIncobrable(intval($iddetalle));
 
