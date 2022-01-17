@@ -197,7 +197,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header headerRegister">
-        <h5 class="modal-title" id="titleModal">Nuevo Cargo</h5>
+        <h5 class="modal-title" id="titleModal">Nuevo Fiador</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -208,12 +208,24 @@
               <form id="formFiador" name="formFiador">
                 <input type="hidden" id="id_fiador" name="id_fiador" value="">
                 <div class="form-group">
-                  <label class="control-label">Nombre Fiador</label>
+                  <label class="control-label">Nombre</label>
                   <input class="form-control" autocomplete="off"  id="nombre_fiador" name="nombre_fiador" type="text" placeholder="Nombre de la categoria" required="">
                 </div>
                 <div class="form-group">
-                  <label class="control-label">Dirección Fiador</label>
-                  <input class="form-control" autocomplete="off"  id="direccion_fiador" name="direccion_fiador" type="text" placeholder="Tasa" required="">
+                  <label class="control-label">Dirección</label>
+                  <input class="form-control" autocomplete="off"  id="direccion_fiador" name="direccion_fiador" type="text" placeholder="Dirección" required="">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">DUI</label>
+                  <input class="form-control" autocomplete="off"  id="dui_fiador" name="dui_fiador" type="text" placeholder="DUI" required="">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Teléfono</label>
+                  <input class="form-control" autocomplete="off"  id="telefono_fiador" name="telefono_fiador" type="text" placeholder="Telefono" required="">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Boleta de Pago</label>
+                  <input class="form-control" type="file" name="boletapagofiador">
                 </div>
                 <div class="tile-footer">
                   <button id="btnActionForm" class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" href="#" data-dismiss="modal" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</a>

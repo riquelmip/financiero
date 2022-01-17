@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"marca"},
             {"data":"categoria"},
             {"data":"stock"},
+            {"data":"bodega"},
             {"data":"unidad"}
             
         ],
