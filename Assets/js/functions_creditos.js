@@ -166,6 +166,13 @@ function fntVerPagos(iddetalle){
 
 }
 
+
+
+function verNotaCredito(idventa){
+
+  window.open(base_url+"/Consultas/imprimirnotaCREDITO/"+idventa);
+}
+
 function fntPagosCredito(iddetalle){
 
   var datos = { "iddetalle": iddetalle};
@@ -466,6 +473,9 @@ function inicializar_tabla1(tabla) {
     ],
   });
 }
+
+
+
 //SOLO LETRAS
 $(function(){
 

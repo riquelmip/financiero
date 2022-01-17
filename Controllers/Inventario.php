@@ -36,13 +36,20 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					
 					$stock="";
-
+					$stock = $arrData[$i]['stock'];
+					$bodega = $stock/2;
 					if($arrData[$i]['stock'] > 10){
 						$stock='<span class="badge badge-success">'.$arrData[$i]['stock'].'</span>';
 					}else{
 						$stock='<span class="badge badge-danger">'.$arrData[$i]['stock'].'</span>';
 					}
-
+					$arrData[$i]['bodega'] = intval($bodega);
+					if($arrData[$i]['bodega'] > 10){
+						$stock2='<span class="badge badge-success">'.$arrData[$i]['bodega'].'</span>';
+					}else{
+						$stock2='<span class="badge badge-danger">'.$arrData[$i]['bodega'].'</span>';
+					}
+					$arrData[$i]['bodega'] = $stock2;
 					$arrData[$i]['stock'] = $stock;
 				
 				}

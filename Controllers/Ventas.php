@@ -62,8 +62,8 @@
 					
 
 					if ($_SESSION['permisosMod']['leer']) {
-						$btnView = '<button class="btn btn-info btn-sm" onClick="verTicket('.$arrData[$i]['idventa'].')" title="Ver Ticket"><i class="fas fa-ticket-alt"></i></button> <button class="btn btn-primary btn-sm" onClick="verFactura('.$arrData[$i]['idventa'].')" title="Ver Factura PDF"><i class="fas fa-file-pdf"></i></button>';
-						$btnView2 = '<button class="btn btn-primary btn-sm" onClick="verNota('.$arrData[$i]['idventa'].')" title="Ver NOTA"><i class="fas fa-file-pdf"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm" onClick="verTicket('.$arrData[$i]['idventa'].')" title="Ver Ticket"><i class="fas fa-ticket-alt"></i></button> <button class="btn btn-primary btn-sm" onClick="verFactura('.$arrData[$i]['idventa'].')" title="Ver Factura Consumidor Final"><i class="fas fa-file-pdf"></i></button>';
+						$btnView2 = '<button class="btn btn-primary btn-sm" onClick="verNota('.$arrData[$i]['idventa'].')" title="Ver Nota Debito"><i class="fas fa-file-pdf"></i></button>';
 					}
 					
 					
@@ -103,7 +103,7 @@ public function getVentascj()
 					
 
 					if ($_SESSION['permisosMod']['leer']) {
-						$btnView = '<button class="btn btn-info btn-sm" onClick="verTicket('.$arrData[$i]['idventa'].')" title="Ver Ticket"><i class="fas fa-ticket-alt"></i></button> <button class="btn btn-primary btn-sm" onClick="verFactura('.$arrData[$i]['idventa'].')" title="Ver Factura PDF"><i class="fas fa-file-pdf"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm" onClick="verTicket('.$arrData[$i]['idventa'].')" title="Ver Ticket"><i class="fas fa-ticket-alt"></i></button> <button class="btn btn-primary btn-sm" onClick="verFacturacredito('.$arrData[$i]['idventa'].')" title="Ver Factura Credito Fiscal"><i class="fas fa-file-pdf"></i></button>';
 					}
 					
 					

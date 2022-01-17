@@ -139,6 +139,57 @@ function fntVerPagosPendientes(iddetalle){
 
 }
 
+function fntEmbargo(idpersona,detalle,valorembargo){
+  console.log(idpersona);
+  document.querySelector("#codigo2").value = idpersona;
+  document.querySelector("#codigo22").value = detalle;
+  document.querySelector("#codigo23").value = valorembargo;
+  $('#modalEmbargo').modal('show');
+  var formCargos = document.querySelector("#formFiador2");
+  formCargos.onsubmit = function(e) {
+      e.preventDefault();
+
+      var strNombre = document.querySelector('#codigo2').value;
+      
+      if(strNombre == '')
+      {
+          swal("Atención", "Todos los campos son obligatorios." , "error");
+          return false;
+      }
+      divLoading.style.display = "flex";
+      var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+      var ajaxUrl = base_url+'/Carteraclientes/setEmbargo'; 
+      var formData = new FormData(formCargos);
+      request.open("POST",ajaxUrl,true);
+      request.send(formData);
+      request.onreadystatechange = function(){
+         if(request.readyState == 4 && request.status == 200){
+              
+              var objData = JSON.parse(request.responseText);
+              if(objData.estado)
+              {
+                  
+                  $('#modalEmbargo').modal("hide");
+                  formCargos.reset();
+                  
+                  swal("Embargos", objData.msg ,"success");
+                  tableCreditosIncobrables.api().ajax.reload();
+
+              }else{
+                  swal("Error", objData.msg , "error");
+              }              
+          } 
+          divLoading.style.display = "none";
+          return false;
+      }
+
+      
+  }
+
+}
+
+
+
 function inicializar_tabla1(tabla) {
   $("#" + tabla).dataTable({
     responsive: true,

@@ -58,10 +58,11 @@
 
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Nota Credito"><i class="fas fa-money-check-alt"></i></button>';
 					}
 
 					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.' '.$btnView2.'</div>';
 
 				
 				}
@@ -71,23 +72,33 @@
 			die();
 		}
 
-		public function getCreditosIncobrables(){
+		public function getCreditosIncobrables(){ //Embargos
 
 			if ($_SESSION['permisosMod']['leer']) {
-
+				$comillas = "'";
 				$arrData = $this->model->selectCreditosIncobrables();
 
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = "";					
-			
+					$dato = $arrData[$i]['dui'];
+					$valor = $arrData[$i]['iddetalle'];
 					//si tiene permiso de editar se agrega el botn
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagosPendientes('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+						
 					}
 
-					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
-					$arrData[$i]['embargo'] = 0;
+					$arrData2 = $this->model->datoembargodetalle($arrData[$i]['iddetalle']);
+					$valorembargo = $arrData2[$i]['estado_embargo'];
+					if ($arrData2[$i]['estado_embargo'] == 0) {
+						$btnEmbargo = '<button class="btn btn-danger btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Embargar"><i class="far fa-eye"></i></button>';
+						$arrData[$i]['embargo'] = '<span class="badge badge-success">No Embargado</span>';
+					} else {
+						$btnEmbargo = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Entregar"><i class="far fa-eye"></i></button>';
+						$arrData[$i]['embargo'] = '<span class="badge badge-danger">Embargado</span>';
+					}
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
+				
 
 				
 				}
@@ -98,20 +109,32 @@
 		}
 
 		public function getCreditosDosIncobrables(){
-
+			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 
 				$arrData = $this->model->selectCreditosDos();
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnView = "";					
+					$btnView = "";	
+					$dato = $arrData[$i]['dui'];	
+					$valor = $arrData[$i]['iddetalle'];			
 					//si tiene permiso de editar se agrega el botn
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagosPendientes('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+						
+						
 					}
-
-					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
-					$arrData[$i]['embargo'] = 0;
+					$arrData2 = $this->model->datoembargodetalle($arrData[$i]['iddetalle']);
+					$valorembargo = $arrData2[$i]['estado_embargo'];
+					if ($arrData2[$i]['estado_embargo'] == 0) {
+						$btnEmbargo = '<button class="btn btn-danger btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Embargar"><i class="far fa-eye"></i></button>';
+						$arrData[$i]['embargo'] = '<span class="badge badge-success">No Embargado</span>';
+					} else {
+						$btnEmbargo = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Entregar"><i class="far fa-eye"></i></button>';
+						$arrData[$i]['embargo'] = '<span class="badge badge-danger">Embargado</span>';
+					}
+					
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
+					
 
 				}
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
@@ -134,17 +157,18 @@
 
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Nota Credito"><i class="fas fa-money-check-alt"></i></button>';
 					}
 
 					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.' '.$btnView2.' </div>';
 				}
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 			}
 			die();
 		}
 
-		public function getPagos(){
+		public function getPagos(){ //Para factura
 
 			if ($_SESSION['permisosMod']['leer']) {
 

@@ -30,6 +30,7 @@
                           <th>Marca</th>
                           <th>Categoria</th>
                           <th>Stock</th>
+                          <th>Bodega</th>
                           <th>Unidad de Medida</th>
                         </tr>
                       </thead>

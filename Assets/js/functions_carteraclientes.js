@@ -97,19 +97,14 @@ function fntViewUsuario2(idpersona){
 
 function fntFiador(idpersona){
     console.log(idpersona);
+    document.querySelector("#id_fiador").value = idpersona;
     $('#modalFormFiador').modal('show');
-
-}
-
-function fntEmbargo(idpersona){
-    console.log(idpersona);
-    document.querySelector("#codigo2").value = idpersona;
-    $('#modalEmbargo').modal('show');
-    var formCargos = document.querySelector("#formFiador2");
+    
+    var formCargos = document.querySelector("#formFiador");
     formCargos.onsubmit = function(e) {
         e.preventDefault();
-
-        var strNombre = document.querySelector('#codigo2').value;
+  
+        var strNombre = document.querySelector('#nombre_fiador').value;
         
         if(strNombre == '')
         {
@@ -118,7 +113,7 @@ function fntEmbargo(idpersona){
         }
         divLoading.style.display = "flex";
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url+'/Carteraclientes/setEmbargo'; 
+        var ajaxUrl = base_url+'/Carteraclientes/setFiador'; 
         var formData = new FormData(formCargos);
         request.open("POST",ajaxUrl,true);
         request.send(formData);
@@ -129,12 +124,12 @@ function fntEmbargo(idpersona){
                 if(objData.estado)
                 {
                     
-                    $('#modalFormCargos').modal("hide");
+                    $('#modalEmbargo').modal("hide");
                     formCargos.reset();
                     
-                    swal("Cargos", objData.msg ,"success");
-                    tableCargo.api().ajax.reload();
-
+                    swal("Embargos", objData.msg ,"success");
+                    location.reload();
+  
                 }else{
                     swal("Error", objData.msg , "error");
                 }              
@@ -142,11 +137,13 @@ function fntEmbargo(idpersona){
             divLoading.style.display = "none";
             return false;
         }
-
+  
         
     }
 
 }
+
+
 
 
 function fntRazonFinanciera(idpersona){

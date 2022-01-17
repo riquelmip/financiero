@@ -58,6 +58,32 @@
 
 
 
+		public function selectPagos(int $iddetalle,int $estado) //Selecciona la categoria existente
+		{
+			$this->Intiddetalle = $iddetalle;
+			$this->estado = $estado;
+
+			$sql = "SELECT
+				pg.mes,
+				pg.fecha,
+				pg.fechapago,
+				pg.cuota,
+				pg.capital,
+				pg.intereses,
+				pg.mora,
+				pg.abonocapital,
+				pg.totalabono,
+				pg.saldofinal
+				FROM pagocuota pg
+				INNER JOIN detalleventa d on d.iddetalle = pg.iddetalle
+				WHERE d.iddetalle = $this->Intiddetalle and pg.estado=$this->estado";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+
+
+
 		public function selectVentaCJ(int $idventa) 
 		{
 
