@@ -1,7 +1,7 @@
 <?php 
     headerAdmin($data); 
     getModal('modalPagosCreditos',$data);
-    getModal('modalPagos',$data);
+    getModal('modalPagos',$data);    
 ?>
     <div id="contentAjax"></div> 
     <main class="app-content">

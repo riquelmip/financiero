@@ -110,7 +110,7 @@ function persona_juridica(){
         "bDestroy": true,
         "iDisplayLength": 10,
         "order":[[0,"desc"]]  
-    }); 
+    });    
 }
 
 function fntVerPagos(iddetalle){
@@ -135,110 +135,8 @@ function fntVerPagos(iddetalle){
 
     $('#modalVerPagos').modal('show');
 
+
 }
-
-function inicializar_tabla1(tabla) {
-  $("#" + tabla).dataTable({
-    responsive: true,
-    aServerSide: true,
-    autoWidth: false,
-    deferRender: true,
-    retrieve: true,
-    processing: true,
-    paging: true,
-    language: {
-      sProcessing: "Procesando...",
-      sLengthMenu: "Mostrar _MENU_ registros",
-      sZeroRecords: "No se encontraron resultados",
-      sEmptyTable: "Ningún dato disponible en esta tabla",
-      sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-      sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0",
-      sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-      sInfoPostFix: "",
-      sSearch: "Buscar:",
-      sUrl: "",
-      sInfoThousands: ",",
-      sLoadingRecords: "Cargando...",
-
-      oPaginate: {
-        sFirst: "Primero",
-        sLast: "Último",
-        sNext: "Siguiente",
-        sPrevious: "Anterior",
-      },
-    },
-    columns: [{
-        data: "mes",
-      },
-      {
-        data: "fecha",
-      },
-      {
-        data: "fechapago",
-      },
-      {
-        data: "cuota",
-      },
-      {
-        data: "capital",
-      },
-      {
-        data: "intereses",
-      },
-      {
-        data: "mora",
-      },
-      {
-        data: "abonocapital",
-      },
-      {
-        data: "totalabono",
-      },
-      {
-        data: "saldofinal",
-      },
-      {
-        data: "estado",
-      },
-    ],
-    dom: '<"row"<"col-sm-12 col-md-4"l><"col-sm-12 col-md-4"<"dt-buttons btn-group flex-wrap"B>><"col-sm-12 col-md-4"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    buttons: [{
-        extend: "copyHtml5",
-        text: "<i class='far fa-copy'></i>",
-        titleAttr: "Copiar",
-        className: "btn btn-primary",
-      },
-      {
-        extend: "excelHtml5",
-        text: "<i class='fas fa-file-excel'></i>",
-        titleAttr: "Exportar a Excel",
-        className: "btn btn-primary",
-      },
-      {
-        extend: "pdfHtml5",
-        text: "<i class='fas fa-file-pdf'></i>",
-        titleAttr: "Exportar a PDF",
-        className: "btn btn-primary",
-      },
-      {
-        extend: "csvHtml5",
-        text: "<i class='fas fa-file-csv'></i>",
-        titleAttr: "Exportar a CSV",
-        className: "btn btn-primary",
-      },
-    ],
-    lengthMenu: [5, 10, 20, 50],
-    bDestroy: true,
-    iDisplayLength: 5,
-    order: [
-      [0, "asc"]
-    ],
-  });
-}
-
-
-
-
 
 function inicializar_tabla1(tabla) {
   $("#" + tabla).dataTable({

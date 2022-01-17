@@ -3,6 +3,7 @@ var tableCreditosIncobrables;
 var divLoading = document.querySelector('#divLoading');
 document.addEventListener('DOMContentLoaded', function(){
     persona_natural();
+
 });
 
 $('#tableCreditosIncobrables').DataTable();
@@ -139,6 +140,95 @@ function fntVerPagosPendientes(iddetalle){
 
 }
 
+$(document).on('focusin', function(e) {
+    if ($(e.target).closest(".tox-dialog").length) {
+        e.stopImmediatePropagation();
+    }
+});
+
+function fntActivarCredito(iddetalle){
+
+  var datos = { "iddetalle": iddetalle};
+
+  $.ajax({
+    dataType: "json",
+    method: "POST",
+    url: base_url + "/Creditos/getTotalPagos",
+    data: datos,
+  })
+    .done(function (json) {
+        console.log(json); 
+      $('#tableActivarPagos').DataTable().destroy();
+      $("#datos_tabla_activar").empty().html(json.htmlDatosTabla);
+      inicializar_tabla2("tableActivarPagos");
+    })
+    .fail(function () {})
+    .always(function () {
+    });
+
+    $('#modalActivarPagos').modal('show');
+    $('#modalActivarPagos').on('shown.bs.modal', function() {
+        $(document).off('focusin.modal');
+    });
+
+}
+
+function fntActivarPagos(iddetalle){
+
+    var datos = { "iddetalle": iddetalle};
+    swal({
+        title: "Activar Pagos",
+        text: "¿Desea Activar crédito incobrable?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si!",
+        cancelButtonText: "No!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm) 
+        {
+           
+
+              $.ajax({
+                dataType: "json",
+                method: "POST",
+                url: base_url + "/Creditos/setUpdateCredito",
+                data: datos,
+              })
+                .done(function (json) {
+                    console.log(json); 
+                      $('#modalActivarPagos').modal("hide");
+                      swal("Activar Crédito!", json.msg, "success");
+                      tableCreditosIncobrables.api().ajax.reload();
+                })
+                .fail(function () {})
+                .always(function () {
+                }); 
+        }
+
+    });
+    
+}
+
+function fntRefinanciarCredito(iddetalle){
+  
+    document.querySelector('#iddetalle').value =iddetalle;
+    document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
+    document.querySelector('#btnText').innerHTML ="Guardar";
+    document.querySelector('#titleModal').innerHTML = "Nueva Marca";
+    document.querySelector("#formRefinanciamiento").reset();
+    $('#modalRefinanciamientoCredito').modal('show');
+                
+}
+
+function insertCredito(){
+    
+}
+
+
 function fntEmbargo(idpersona,detalle,valorembargo){
   console.log(idpersona);
   document.querySelector("#codigo2").value = idpersona;
@@ -249,6 +339,93 @@ function inicializar_tabla1(tabla) {
       },
       {
         data: "saldofinal",
+      },
+    ],
+    dom: '<"row"<"col-sm-12 col-md-4"l><"col-sm-12 col-md-4"<"dt-buttons btn-group flex-wrap"B>><"col-sm-12 col-md-4"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+    buttons: [{
+        extend: "copyHtml5",
+        text: "<i class='far fa-copy'></i>",
+        titleAttr: "Copiar",
+        className: "btn btn-primary",
+      },
+      {
+        extend: "excelHtml5",
+        text: "<i class='fas fa-file-excel'></i>",
+        titleAttr: "Exportar a Excel",
+        className: "btn btn-primary",
+      },
+      {
+        extend: "pdfHtml5",
+        text: "<i class='fas fa-file-pdf'></i>",
+        titleAttr: "Exportar a PDF",
+        className: "btn btn-primary",
+      },
+      {
+        extend: "csvHtml5",
+        text: "<i class='fas fa-file-csv'></i>",
+        titleAttr: "Exportar a CSV",
+        className: "btn btn-primary",
+      },
+    ],
+    lengthMenu: [5, 10, 20, 50],
+    bDestroy: true,
+    iDisplayLength: 5,
+    order: [
+      [0, "asc"]
+    ],
+  });
+}
+
+function inicializar_tabla2(tabla) {
+  $("#" + tabla).dataTable({
+    responsive: true,
+    aServerSide: true,
+    autoWidth: false,
+    deferRender: true,
+    retrieve: true,
+    processing: true,
+    paging: true,
+    language: {
+      sProcessing: "Procesando...",
+      sLengthMenu: "Mostrar _MENU_ registros",
+      sZeroRecords: "No se encontraron resultados",
+      sEmptyTable: "Ningún dato disponible en esta tabla",
+      sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+      sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0",
+      sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+      sInfoPostFix: "",
+      sSearch: "Buscar:",
+      sUrl: "",
+      sInfoThousands: ",",
+      sLoadingRecords: "Cargando...",
+
+      oPaginate: {
+        sFirst: "Primero",
+        sLast: "Último",
+        sNext: "Siguiente",
+        sPrevious: "Anterior",
+      },
+    },
+    columns: [{
+        data: "cuota",
+      },
+      {
+        data: "capital",
+      },
+      {
+        data: "intereses",
+      },
+      {
+        data: "mora",
+      },
+      {
+        data: "totalabono",
+      },
+      {
+        data: "saldofinal",
+      },
+      {
+        data: "opciones",
       },
     ],
     dom: '<"row"<"col-sm-12 col-md-4"l><"col-sm-12 col-md-4"<"dt-buttons btn-group flex-wrap"B>><"col-sm-12 col-md-4"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',

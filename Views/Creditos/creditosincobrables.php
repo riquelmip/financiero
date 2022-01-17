@@ -1,6 +1,7 @@
 <?php 
     headerAdmin($data); 
     getModal('modalPagos',$data);
+    getModal('modalActivarCredito',$data);
 ?>
     <div id="contentAjax"></div> 
     <main class="app-content">
@@ -24,7 +25,7 @@
                     <div class="form-row">
                     <div class="btn-group mb-2" role="group" aria-label="Basic example" id="botones1">
                       <button type="button" onclick="persona_natural()" class="btn btn-success">Persona Natural</button>
-                      <button type="button" onclick="persona_juridica()" class="btn btn-warning">Persona Jurídica</button>
+                      <button type="button" onclick="persona_juridica()" class="btn btn-warning">Persona Juridica</button>
                     </div>
                 </div>
                 <br>

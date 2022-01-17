@@ -127,7 +127,8 @@
 					c.nombre_empresa_persona_juridica as nombreCliente,
 					CONCAT(v.dia,'-',v.mes,'-',v.anio) as fecha_inicio,
 					d.total,
-					d.meses
+					d.meses,
+					d.estado_embargo
 					FROM detalleventa d 
 					INNER JOIN venta v on v.idventa = d.idventa
 					INNER JOIN producto p on p.idproducto = d.idproducto
@@ -158,7 +159,7 @@
 				INNER JOIN producto p on p.idproducto = d.idproducto
 				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
 				INNER JOIN pagocuota pg on pg.iddetalle = d.iddetalle
-				WHERE d.formapago = 2 and pg.iddetalle = $iddetalle and pg.mes!= 0 and pg.estado = 0 and d.estadopago = 0";
+				WHERE d.formapago = 2 and pg.iddetalle = $this->Intiddetalle and pg.estado = 0 and d.estadopago = 0";
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -188,6 +189,32 @@
 			return $request;
 		}
 
+		public function selectUltimaCuota(int $iddetalle) //Selecciona la categoria existente
+		{
+			$this->Intiddetalle = $iddetalle;
+
+			$sql = "SELECT d.iddetalle,
+				p.descripcion,
+				v.dia,
+				MONTH(pg.fecha) as mesinicio,
+				pg.mes as mesPago,
+				v.anio,
+				d.total as totalCredito,
+				d.cuota,
+				ct.tasainteres as tasa,
+				pg.saldofinal,
+				d.meses,
+				pg.mora
+				FROM venta v
+				INNER JOIN detalleventa d on d.idventa = v.idventa
+				INNER JOIN producto p on p.idproducto = d.idproducto
+				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
+				INNER JOIN pagocuota pg on pg.iddetalle = d.iddetalle
+				WHERE d.formapago = 2 and pg.iddetalle = $this->Intiddetalle ORDER BY pg.idpagocuota DESC LIMIT 1";
+			$request = $this->select($sql);
+			return $request;
+		}
+
 		public function selectPagos(int $iddetalle,int $estado) //Selecciona la categoria existente
 		{
 			$this->Intiddetalle = $iddetalle;
@@ -211,6 +238,25 @@
 			$request = $this->select_all($sql);
 			return $request;
 		}
+
+		public function selectTotalPagos(int $iddetalle) //Selecciona la categoria existente
+		{
+			$this->Intiddetalle = $iddetalle;
+
+			$sql = "SELECT d.iddetalle,
+				ROUND(SUM(pg.cuota),2) as cuota,
+				ROUND(SUM(pg.capital),2) as capital,
+				ROUND(SUM(pg.intereses),2) as intereses,
+				ROUND(SUM(pg.mora),2) as mora,
+				ROUND(SUM(pg.totalabono),2) as totalabono,
+				ROUND(SUM(pg.saldofinal),2) as saldofinal
+				FROM pagocuota pg
+				INNER JOIN detalleventa d on d.iddetalle = pg.iddetalle
+				WHERE d.iddetalle = $this->Intiddetalle and pg.estado = 0 ";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
 
 		public function insertPagoCuota($iddetalle,$mes,$fecha,$fechapago,$cuota,$capital,$intereses,$abonoCapital,$totalabono,$saldof,$estado,$mora){
 
@@ -247,6 +293,19 @@
 		    return $request;			
 		}
 
+		public function updateEstadoPagos(string $fechapago, int $iddetalle,int $mes){
+			$this->Intiddetalle = $iddetalle;
+			$this->mes = $mes;
+			$this->fechapago = $fechapago;
+			$this->estado = 1;
+			
+				$sql = "UPDATE pagocuota SET estado = ?, fechapago = ? WHERE iddetalle = $this->Intiddetalle and mes = $this->mes";
+				$arrData = array($this->estado,$this->fechapago);
+				$request = $this->update($sql,$arrData);
+			
+		    return $request;			
+		}
+
 		public function updateEstadoPago(string $fecha, string $fechapago, int $iddetalle,int $mes){
 			$this->Intiddetalle = $iddetalle;
 			$this->mes = $mes;
@@ -256,6 +315,41 @@
 			
 				$sql = "UPDATE pagocuota SET estado = ?, fecha = ?, fechapago = ? WHERE iddetalle = $this->Intiddetalle and mes = $this->mes";
 				$arrData = array($this->estado,$this->fecha,$this->fechapago);
+				$request = $this->update($sql,$arrData);
+			
+		    return $request;			
+		}
+
+		public function selectTasa(int $iddetalle){
+			$sql = "SELECT
+				ct.tasainteres as tasa,
+				d.meses
+				FROM producto p 
+				INNER JOIN categoria ct on ct.idcategoria = p.idcategoria
+				INNER JOIN detalleventa d on d.idproducto = p.idproducto
+				INNER JOIN venta v on v.idventa = d.idventa
+				WHERE d.iddetalle=$iddetalle LIMIT 1";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+		public function updateDetalleIncobrable(string $iddetalle){
+			$this->Intiddetalle = $iddetalle;
+			$this->estado = 0;
+			
+				$sql = "UPDATE detalleventa SET estadopago = ? WHERE iddetalle = $this->Intiddetalle";
+				$arrData = array($this->estado);
+				$request = $this->update($sql,$arrData);
+			
+		    return $request;			
+		}
+
+		public function updateCredito(int $iddetalle){
+			$this->Intiddetalle = $iddetalle;
+			$this->estado = 1;
+			
+				$sql = "UPDATE detalleventa SET estadopago = ? WHERE iddetalle = $this->Intiddetalle";
+				$arrData = array($this->estado);
 				$request = $this->update($sql,$arrData);
 			
 		    return $request;			

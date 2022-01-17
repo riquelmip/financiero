@@ -93,31 +93,25 @@
 
 				for ($i=0; $i < count($arrData); $i++) {
 
-					if($arrData[$i]['estadopago'] == 1){
+					if($arrData[$i]['estadopago'] == 0){
+
+						$estado='<span class="badge badge-info">Activo</span>';
+
+					}else if($arrData[$i]['estadopago'] == 1){
 						$estado='<span class="badge badge-success">Cancelado</span>';
 					}else{
 						if($arrData[$i]['estadopago'] == 2){
 						
 							$estado='<span class="badge badge-warning">Incobrable</span>';
-						
-						}else{
-							if($arrData[$i]['estadopago'] == 3){
-								$estado='<span class="badge badge-danger">Embargado</span>';
-							}else{
-								$estado='<span class="badge badge-info">Activo</span>';
-							}
-							
 						}
-						
 					}
-										
+
 					$btnView ="";
 					//si tiene permiso de editar se agrega el botn
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
 					}
 
-					//agregamos los botones
 					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
 					$arrData[$i]['estadopago'] = $estado;
 
@@ -137,22 +131,17 @@
 
 				for ($i=0; $i < count($arrData); $i++) {
 
-					if($arrData[$i]['estadopago'] == 1){
+					if($arrData[$i]['estadopago'] == 0){
+
+						$estado='<span class="badge badge-info">Activo</span>';
+
+					}else if($arrData[$i]['estadopago'] == 1){
 						$estado='<span class="badge badge-success">Cancelado</span>';
 					}else{
 						if($arrData[$i]['estadopago'] == 2){
 						
 							$estado='<span class="badge badge-warning">Incobrable</span>';
-						
-						}else{
-							if($arrData[$i]['estadopago'] == 3){
-								$estado='<span class="badge badge-danger">Embargado></i></span>';
-							}else{
-								$estado='<span class="badge badge-info">Activo></i></span>';
-							}
-							
 						}
-						
 					}
 										
 					$btnView ="";
@@ -180,7 +169,8 @@
 				$arrData = $this->model->selectCreditosIncobrables();
 
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnView = "";					
+					$btnView = "";	
+					$btnActivar ="";				
 					$dato = $arrData[$i]['dui'];
 					$valor = $arrData[$i]['iddetalle'];
 					//si tiene permiso de editar se agrega el botn
@@ -189,16 +179,20 @@
 						
 					}
 
+					if ($_SESSION['permisosMod']['escribir']) {
+						$btnActivar = '<button class="btn btn-warning btn-sm btnVerTablaPagos" onClick="fntActivarCredito('.$arrData[$i]['iddetalle'].')" title="Refinanciamiento"><i class="fas fa-donate"></i></button>';
+					}
+
 					$arrData2 = $this->model->datoembargodetalle($arrData[$i]['iddetalle']);
 					$valorembargo = $arrData2[$i]['estado_embargo'];
 					if ($arrData2[$i]['estado_embargo'] == 0) {
-						$btnEmbargo = '<button class="btn btn-danger btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Embargar"><i class="far fa-eye"></i></button>';
+						$btnEmbargo = '<button class="btn btn-danger btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Embargar"><i class="fas fa-dolly-flatbed"></i></button>';
 						$arrData[$i]['embargo'] = '<span class="badge badge-success">No Embargado</span>';
 					} else {
-						$btnEmbargo = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Entregar"><i class="far fa-eye"></i></button>';
+						$btnEmbargo = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Entregar"><i class="fas fa-dolly-flatbed"></i></button>';
 						$arrData[$i]['embargo'] = '<span class="badge badge-danger">Embargado</span>';
 					}
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.' '.$btnActivar.'</div>';
 				
 
 				
@@ -213,12 +207,18 @@
 			$comillas = "'";
 			if ($_SESSION['permisosMod']['leer']) {
 
-				$arrData = $this->model->selectCreditosDos();
+				$arrData = $this->model->selectCreditosDosIncobrables();
 				for ($i=0; $i < count($arrData); $i++) {
-					$btnView = "";	
+					$btnView = "";
+					$btnActivar = ""	;
 					$dato = $arrData[$i]['dui'];	
 					$valor = $arrData[$i]['iddetalle'];			
 					//si tiene permiso de editar se agrega el botn
+
+					if ($_SESSION['permisosMod']['escribir']) {
+						$btnActivar = '<button class="btn btn-warning btn-sm btnVerTablaPagos" onClick="fntActivarCredito('.$arrData[$i]['iddetalle'].')" title="Activar Pagos"><i class="fas fa-donate"></i></button>';
+					}
+
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagosPendientes('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
 						
@@ -227,14 +227,14 @@
 					$arrData2 = $this->model->datoembargodetalle($arrData[$i]['iddetalle']);
 					$valorembargo = $arrData2[$i]['estado_embargo'];
 					if ($arrData2[$i]['estado_embargo'] == 0) {
-						$btnEmbargo = '<button class="btn btn-danger btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Embargar"><i class="far fa-eye"></i></button>';
+						$btnEmbargo = '<button class="btn btn-danger btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Embargar"><i class="fas fa-dolly-flatbed"></i></button>';
 						$arrData[$i]['embargo'] = '<span class="badge badge-success">No Embargado</span>';
 					} else {
-						$btnEmbargo = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Entregar"><i class="far fa-eye"></i></button>';
+						$btnEmbargo = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntEmbargo('.$comillas.$dato.$comillas.','.$valor.','.$valorembargo.')" title="Entregar"><i class="fas fa-dolly-flatbed"></i></button>';
 						$arrData[$i]['embargo'] = '<span class="badge badge-danger">Embargado</span>';
 					}
 					
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.' '.$btnActivar.'</div>';
 					
 
 				}
@@ -284,6 +284,7 @@
 				}else{
 					for ($i = 0; $i < count($arrData); $i++) {
 
+
 							if($arrData[$i]['estado'] == 1){
 								$estado='<span class="badge badge-success"><i class="  fas fa-check-square "></i></span>';
 							}else{
@@ -291,6 +292,15 @@
 							}
 
 							$arrData[$i]['estado']=$estado;
+
+							$fecha = $arrData[$i]['fecha'];
+							$timestamp1 = strtotime($fecha); 
+							$arrData[$i]['fecha'] = date("d-m-Y", $timestamp1 );
+
+							$fechapago = $arrData[$i]['fechapago'];
+							$timestamp2 = strtotime($fechapago); 
+							$arrData[$i]['fechapago'] = date("d-m-Y", $timestamp2);
+
 
 							$htmlDatosTabla .= '<tr>
 												<td>' . $arrData[$i]['mes'] . '</td>
@@ -304,6 +314,50 @@
 												<td>$ ' . $arrData[$i]['totalabono'] . '</td>
 												<td>$ ' . $arrData[$i]['saldofinal'] . '</td>
 												<td>' . $arrData[$i]['estado'] . '</td>
+											 </tr>';
+					}
+
+					$arrayDatos = array('datosIndividuales' => $arrData, 'htmlDatosTabla' => $htmlDatosTabla);
+
+					echo json_encode($arrayDatos, JSON_UNESCAPED_UNICODE);
+
+				}
+			}
+			die();
+		}
+
+		public function getTotalPagos(){ 
+
+
+			if ($_SESSION['permisosMod']['leer']) {
+
+				$iddetalle = strClean($_POST['iddetalle']);
+
+				$arrData = $this->model->selectTotalPagos(intval($iddetalle));
+
+				$htmlDatosTabla = "";
+				if(empty($arrData)){
+				   $arrayDatos = array('estado' => false, 'msg' => 'Datos no encontrados.');
+				}else{
+					for ($i = 0; $i < count($arrData); $i++) {
+
+						$btnEdit ="";
+
+					if ($_SESSION['permisosMod']['escribir']) {
+						$btnEdit = '<button class="btn btn-warning btn-sm btnVerTablaPagos" onClick="fntActivarPagos('.$arrData[$i]['iddetalle'].')" title="Activar Pagos"><i class="fas fa-donate"></i></button>';
+
+					}
+
+						$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.'</div>';
+
+							$htmlDatosTabla .= '<tr>
+												<td>$ ' . $arrData[$i]['cuota'] . '</td>
+											    <td>$ ' . $arrData[$i]['capital'] . '</td>
+												<td>$ ' . $arrData[$i]['intereses'] . '</td>
+												<td>$ ' . $arrData[$i]['mora'] . '</td>
+												<td>$ ' . $arrData[$i]['totalabono'] . '</td>
+												<td>$ ' . $arrData[$i]['saldofinal'] . '</td>
+												<td>' . $arrData[$i]['opciones'] . '</td>
 											 </tr>';
 					}
 
@@ -430,6 +484,76 @@
 	}
 	die();
  }
+
+	public function setUpdateCredito(){
+		
+		$iddetalle = intval($_POST['iddetalle']);
+
+			$arrPagos = $this->model->updateDetalleIncobrable(intval($iddetalle));
+
+			$arrData = $this->model->selectCredito(intval($iddetalle));
+			$cuotaspendientes = count($arrData);
+			$fechapago = date("Y-m-d");
+			for($i=0;$i < $cuotaspendientes;$i++){ 
+
+				$request_estado_pago = $this->model->updateEstadoPagos(strClean($fechapago),intval(strClean($arrData[$i]['iddetalle'])),intval(strClean($arrData[$i]['mesPago'])));
+
+			}
+
+			$arrDatos = $this->model->selectUltimaCuota(intval($iddetalle));
+			var_dump($arrDatos);
+			if($arrDatos['saldofinal'] < $arrDatos['cuota']){
+				$arrDatos['cuota'] = $arrDatos['saldofinal'] + ($arrDatos['saldofinal'] * (($arrDatos['tasa']/100)/12));
+			}else{
+				$arrDatos['cuota'] = $arrDatos['cuota'];
+			}
+
+			$intereses = round(($arrDatos['saldofinal'] * (($arrDatos['tasa']/100)/12)),2);
+			$capital = round(($arrDatos['cuota'] - $intereses),2);
+			$totalabono = $intereses + $capital;
+			$saldof = round(($arrDatos['saldofinal']-$capital),2);
+
+			$mesProximo = $arrDatos['mesinicio'] + 1;
+			$diaProximo = $arrDatos['dia'];
+			$anioProximo = $arrDatos['anio'];
+			$fechaProxima = $anioProximo.'-'.$mesProximo.'-'.$diaProximo;
+
+
+			$request_estado_pago = $this->model->insertPagoCuota($iddetalle,($arrDatos['mesPago']+1),$fechaProxima,'0000-00-00',$cuota,$capital,$intereses,0,$totalabono,$saldof,0,0);
+
+			if($request_estado_pago > 0)
+			{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.');
+				
+			}else{
+				$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
+			}
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			
+			die();
+
+			
+
+	}
+
+	/*public function setRefinanciarCredito(){
+
+		$iddetalle = intval($_POST['iddetalle']);
+		$monto = intval($_POST['monto']);
+		$meses = intval($_POST['meses']);
+
+		$arrTasa = $this->model->selectTasa($arrData[0]['iddetalle']);
+			$tasa = round($arrTasa[0]['tasa']/100);
+			
+			$cuota = ($tasa * $monto)/(pow((1-(1-$tasa)),(-$meses)));
+
+			$arrData = $this->model->updateCredito(intval($iddetalle),$cuota,$total);
+
+			$intereses = round(($monto * (($arrTasa[0]['tasa']/100)/12)),2);
+			$capital = round(($cuota - $intereses),2);
+			$totalabono = $intereses + $capital;
+			$saldof = round(($monto-$capital),2);
+	}*/
 
 		public function setPagoCredito(){
 
