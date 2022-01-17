@@ -87,6 +87,7 @@
 								$request_rol1 = $this->model->insertDetalleCadena($idcompra, $idproducto,$cantidad,$preciocompra,$precioventa);
 								
 							}
+
 						}
 						$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.');
 					
