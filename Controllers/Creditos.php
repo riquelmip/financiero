@@ -58,7 +58,7 @@
 
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
-						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Nota Credito"><i class="fas fa-money-check-alt"></i></button>';
 					}
 
 					//agregamos los botones
@@ -157,10 +157,11 @@
 
 					if ($_SESSION['permisosMod']['leer']) {
 						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Nota Credito"><i class="fas fa-money-check-alt"></i></button>';
 					}
 
 					//agregamos los botones
-					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.'</div>';
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.' '.$btnView2.' </div>';
 				}
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 			}

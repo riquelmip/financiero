@@ -23,14 +23,14 @@ $pdf->Text(44, 15, utf8_decode(NOMBRE_EMPESA));
 $pdf->Text(44, 21, utf8_decode('6ª av. Jiquilisco,Usulután'));
 $pdf->Text(44,27, utf8_decode('Tel: 7245-8620'));
 $pdf->Text(44,33, utf8_decode(EMAIL_REMITENTE));
-$pdf->Image('Views/Consultas/img/cuadrito.png',152,8,50,26);
+$pdf->Image('Views/Consultas/img/cuadrito.png',246,8,50,26);
 
-$pdf->SetFont('Arial', 'B', 11);
-$pdf->Text(160, 18, utf8_decode('NOTA DE DÉBITO'));
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Text(252, 18, utf8_decode('NOTA DE CREDITO'));
 $pdf->SetFont('Arial','B',10);   
-$pdf->Text(160,25, utf8_decode('FACTURA N°:'));
+$pdf->Text(252,25, utf8_decode('FACTURA N°:'));
 $pdf->SetFont('Arial','',10);  
-$pdf->Text(184,25, utf8_decode($data['idventa']));
+$pdf->Text(278,25, utf8_decode($data['idventa']));
 
 
 
