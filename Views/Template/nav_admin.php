@@ -55,7 +55,7 @@
             </li>
         <?php } ?>
 
-        <?php if (!empty($_SESSION['permisos'][4]['leer']) || !empty($_SESSION['permisos'][14]['r'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][15]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon fas fa-landmark " aria-hidden="true"></i>
@@ -63,10 +63,10 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                <?php if (!empty($_SESSION['permisos'][4]['leer'])) { ?>
+                <?php if (!empty($_SESSION['permisos'][15]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/activofijo"><i class="icon fa fa-circle-o"></i> Activo Fijo</a></li>
                 <?php } ?>
-                <?php if (!empty($_SESSION['permisos'][14]['leer'])) { ?>
+                <?php if (!empty($_SESSION['permisos'][15]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/nuevoactivofijo"><i class="icon fa fa-circle-o"></i> Nuevo Activo Fijo</a></li>
                 <?php } ?>
                 </ul>
@@ -92,7 +92,7 @@
             </li>
         <?php } ?>
 
-        <?php if (!empty($_SESSION['permisos'][5]['leer']) || !empty($_SESSION['permisos'][10]['leer'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][6]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon fas fa-dolly" aria-hidden="true"></i>
@@ -100,8 +100,10 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                <?php if (!empty($_SESSION['permisos'][5]['leer'])) { ?>
+                <?php if (!empty($_SESSION['permisos'][6]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/inventario"><i class="icon fa fa-circle-o"></i>Inventario</a></li>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/inventario/entradasProductos"><i class="icon fa fa-circle-o"></i>Entradas de productos</a></li>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/inventario/salidasProductos"><i class="icon fa fa-circle-o"></i>Salidas de productos</a></li>
                   
                 <?php  } ?>
 
@@ -129,7 +131,7 @@
             </li>
         <?php } ?>
 
-        <?php if (!empty($_SESSION['permisos'][5]['leer']) || !empty($_SESSION['permisos'][10]['leer'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][16]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon fas fa-money-check-alt " aria-hidden="true"></i>
@@ -137,7 +139,7 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                <?php if (!empty($_SESSION['permisos'][5]['leer'])) { ?>
+                <?php if (!empty($_SESSION['permisos'][16]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Creditos/creditosCartera"><i class="icon fa fa-circle-o"></i>Cartera de créditos</a></li>
                   
                 <?php  } ?>
@@ -153,16 +155,16 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                <?php if (!empty($_SESSION['permisos'][9]['leer'])) { ?>
+                <?php if (!empty($_SESSION['permisos'][8]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Carteraclientes"><i class="icon fa fa-circle-o"></i> Cartera de Clientes</a></li>
                 <?php } ?>
-                <?php if (!empty($_SESSION['permisos'][11]['leer'])) { ?>
+                <?php if (!empty($_SESSION['permisos'][8]['leer'])) { ?>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/Registrocliente"><i class="icon fa fa-circle-o"></i> Registrar Cliente</a></li>
                 <?php } ?>
                 </ul>
             </li>
         <?php } ?>
-        <?php if (!empty($_SESSION['permisos'][9]['leer']) || !empty($_SESSION['permisos'][11]['r']) || !empty($_SESSION['permisos'][12]['r'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][9]['leer']) || !empty($_SESSION['permisos'][11]['leer']) || !empty($_SESSION['permisos'][12]['leer']) || !empty($_SESSION['permisos'][13]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon fas fa-box-open" aria-hidden="true"></i>

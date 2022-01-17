@@ -12,9 +12,6 @@ getModal('modalCarteraclientes',$data);
   <div class="app-title">
     <div>
       <h1><i class="fa fa-user-o"></i> <?= $data['page_title'] ?>
-        <?php if (!empty($_SESSION['permisosMod']['escribir'])) { ?>
-          <button class="btn btn-success" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Ingresar nuevo cliente</button>
-        <?php } ?>
       </h1>
     </div>
   </div>

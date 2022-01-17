@@ -10,7 +10,7 @@ class Registrocliente extends Controllers
 		if (empty($_SESSION['login'])) {
 			header('location: ' . base_url() . '/login');
 		}
-		getPermisos(13);
+		getPermisos(8);
 	}
 
 	public function Registrocliente()

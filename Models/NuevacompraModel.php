@@ -103,8 +103,8 @@
 	        	$return = $request_insert;
 
 
-			$query = "UPDATE producto SET stock = (Select stock from producto where idproducto= '$idproducto') + ? where idproducto = '$idproducto'";
-			$arrData2 = array($cantidad);
+			$query = "UPDATE producto SET stock = (Select stock from producto where idproducto= '$idproducto') + ?, precio = ? where idproducto = '$idproducto'";
+			$arrData2 = array($cantidad, $precioventa);
 			$request1 = $this->update($query,$arrData2);
 
 
