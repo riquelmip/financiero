@@ -30,7 +30,39 @@
             $this->views->getView($this,"ActivoFijo",$data);
         }
 
-        
+        public function getIdEspecifi(){
+            $code=$_POST["idEditar"];
+            $arrData = $this->model->selectEdit($code);
+            if(empty($arrData))
+                    {
+                        $arrResponse = array('estado' => false, 'msg' => 'Datos no encontrados.');
+                    }else{
+                        $arrResponse = array('estado' => true, 'data' => $arrData);
+                    } 
+             
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            
+            die();
+        }
+
+        public function actualizar(){
+        $code=$_POST["modificando"];
+        $costo=$_POST["txtCosto"];
+        $vida=$_POST["txtVida"];  
+        $fecha=$_POST["txtFecha"];
+
+        $array=$this->model->updateActivos($code,$costo,$vida,$fecha);
+
+        if($array > 0 )
+            {
+                $arrResponse = array('estado' => true, 'msg' => 'Datos Actualizados correctamente.');
+            }else{
+                $arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
+            }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            
+            die();
+        }
 
         public function getDetalles(){
             if ($_SESSION['permisosMod']['leer']) {
@@ -154,7 +186,7 @@
                     //si tiene permiso de editar se agrega el botn
                     if ($_SESSION['permisosMod']['actualizar']) {
                     
-                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" onClick="fntEditActivoFijo('.$arrData[$i]['codigo'].')" title="Editar"><i class="fas fa-plus"></i></button>';
+                        $btnEdit = '<button class="btn btn-primary btn-sm btnEditActivoFijo" data-edit="'.$var.'" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
                     }
 
                     //agregamos los botones

@@ -131,3 +131,48 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modalEditarA" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header headerRegister">
+        <h5 class="modal-title" id="titleModal">Nuevo Empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form id="formEditar" name="formEditar" class="form-horizontal">
+              <input type="hidden" id="modificando" name="modificando" value="">
+              <p class="text-primary">Todos los campos son obligatorios.</p>
+              
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                <label for="txtCosto">Costo</label>
+                  <input type="number"  class="form-control phone"  id="txtCosto" name="txtCosto"  required autocomplete="off" >
+                </div>
+
+
+                <div class="form-group col-md-6">
+                  <label for="txtVida">Vida Útil</label>
+                  <input type="number" class="form-control" id="txtVida" name="txtVida"  required autocomplete="off">
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="txtFecha">Fecha Adquisición</label>
+                  <!-- solo aceptamos a gente que tenga maximo 30 años y 18 años jajaja -->
+                  <input type="date" class="form-control"  id="txtFecha" name="txtFecha"  required autocomplete="off">
+                </div>
+
+
+
+             </div>
+              <div class="tile-footer">
+                <button id="btnActionForm" class="btn btn-success guardarEditar" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>

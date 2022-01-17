@@ -61,6 +61,56 @@ $(document).on("click",".abr",function(e){
   
 });
 
+$(document).on("click",".btnEditActivoFijo", function (e) {
+    e.preventDefault();
+    
+    var datos={"idEditar":$(this).attr('data-edit')};
+    document.querySelector("#modificando").value=$(this).attr('data-edit');
+
+
+         $.ajax({
+                dataType: "json",
+                method: "POST",
+                url: base_url+"/ActivoFijo/getIdEspecifi",
+                data : datos,
+            }).done(function(json) {
+       
+                document.querySelector("#txtCosto").value=json.data.costo;
+                document.querySelector("#txtVida").value=json.data.vida_util;
+                document.querySelector("#txtFecha").value=json.data.fecha_adquisicion;
+                $('#modalEditarA').modal('show');
+            }).fail(function(json){
+                swal("Atención!", json.msg , "error");
+               
+            }).always(function(){
+            
+            });
+    
+});
+
+$(document).on("click",".guardarEditar",function(e){
+e.preventDefault();
+ 
+ var datos = $("#formEditar").serialize();
+      $.ajax({
+                dataType: "json",
+                method: "POST",
+                url: base_url+"/ActivoFijo/actualizar",
+                data : datos,
+            }).done(function(json) {
+       
+                swal("Datos Actualizados", json.msg , "success");
+
+                $('#modalEditarA').modal('hide');
+            }).fail(function(json){
+                swal("Atención!", json.msg , "error");
+                $('#modalEditarA').modal('hide');
+            }).always(function(){
+            
+            });
+});
+
+
 //CAMBIAR ESTADO DEL ACTIVO FIJO
 $(document).on("click",".estado", function (e) {
     e.preventDefault();
