@@ -17,10 +17,10 @@
           <div class="row">
             <div class="col-md-4">
               <div class="text-white text-center bg-warning mb-3">
-                <div class="card-header">Título</div>
+                <div class="card-header">Cantidad de Clientes en el Sistema</div>
                 <div class="card-body">
-                  <h5 class="card-title"><span id="totalCreditos">$9999</span></h5>
-                  <p class="card-text">AAAAAAAAAAAA</p>
+                  <h5 class="card-title"><span id="totalCreditos">8</span></h5>
+                  <p class="card-text">Registrados y con compras realizadas</p>
                 </div>
               </div>
             </div>
@@ -29,19 +29,19 @@
                 <?php
                 $btnVerVentas = '<button class="btn btn-primary btn-sm btnPermisosRol" onClick="" title="Permisos"><i class="fas fa-eye"></i></button>';
                 ?>
-                <div class="card-header">Título</div>
+                <div class="card-header">Mora Global</div>
                 <div class="card-body">
-                  <h5 class="card-title"><span id="totalVentas">$9999</span></h5>
-                  <p class="card-text"> AAAAAAAAAAAA</p>
+                  <h5 class="card-title"><span id="totalVentas">$80.00</span></h5>
+                  <p class="card-text"> Mora de todos los clientes junta</p>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="text-white bg-primary text-center mb-3">
-                <div class="card-header">Título</div>
+                <div class="card-header">Clientes Incobrables</div>
                 <div class="card-body">
-                  <h5 class="card-title"><span id="totalCompras">$9999</span></h5>
-                  <p class="card-text">AAAAAAAAAAAA</p>
+                  <h5 class="card-title"><span id="totalCompras">0</span></h5>
+                  <p class="card-text">Cartera Incobrable</p>
                 </div>
               </div>
             </div>
@@ -53,22 +53,14 @@
 
   <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
           <div id="graficoPastel" style=" width: 400px; height: 200px; margin: auto; display: flex; align-items: letf; justify-content: left; position: relative;"></div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="tile">
-        <div class="tile-body">
-          <div id="graficoBarras" style=" width: 100%;">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <div class="row">
     <div class="col-md-12">

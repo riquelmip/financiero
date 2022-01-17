@@ -84,9 +84,9 @@
 							$arrData['ventas_netas'] = $signo . (round($Razon_circulante * 100) /100);
 							$arrData['activos_corrientes'] = $signo .  (round($Prueba_acida * 100) /100);
 							$arrData['inventarios'] = $signo . (round($Razoncuentaxcobrar * 100) /100);
-							$arrData['costos_de_ventas'] = $signo .  (round($Razoncuentaxcobrardias * 100) /100);
+							$arrData['costos_de_ventas'] = (round($Razoncuentaxcobrardias * 100) /100);
 							$arrData['pasivos_corrientes'] = $signo .  (round($Rotacion_inventarios * 100) /100);
-							$arrData['cuentas_cobrar'] = $signo .  (round($Rotacion_inventariosdias * 100) /100);
+							$arrData['cuentas_cobrar'] = (round($Rotacion_inventariosdias * 100) /100);
 
 						$arrResponse = array('estado' => true, 'data' => $arrData);
 				
