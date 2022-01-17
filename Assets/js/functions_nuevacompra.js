@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function(){
    let formProducto = document.querySelector("#formProducto");
             formProducto.onsubmit = function(e) {
                 e.preventDefault();
-
+                $("#listaProducto").val(JSON.stringify(arrayIdProductos)); 
+                $("#listsub").val(JSON.stringify(arreglo)); 
+              let intProve = document.querySelector("#listProve").value;
                 if(arrayIdProductos.length==0)
                 {
                     swal("Atención", "Todos los campos son obligatorios." , "error");
@@ -408,3 +410,6 @@ $("#formProducto").on("click", "button.quitarCoro", function(){
 
 
 
+function mostrarAyuda(){
+    $('#modalAyuda').modal('show');
+}

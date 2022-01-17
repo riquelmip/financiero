@@ -54,7 +54,12 @@
 							$_SESSION['login'] = true;
 
 							$arrData = $this->model->sessionLogin($_SESSION['idUser']);
-							sessionUser($_SESSION['idUser']); //crea la variable sesion
+							sessionUser($_SESSION['idUser']); //crea la variable sesion							
+							$arrDatos = $this->model->getDatosPagosCuota();
+
+							if(!empty($arrDatos)){
+								$this->calculoPagos();
+							}
 
 							$arrResponse = array('estado' => true, 'msg' => 'Inicio de Sesión correctamente');
 						}else{
@@ -215,6 +220,84 @@
 				}
 			}
 			die();
+		}
+
+		public function pagosIncobrables(){
+			
+		}
+
+		public function calculoPagos(){
+
+			$fechaActual = date('Y-m-d');
+			$diaActual = date("d", strtotime($fechaActual));
+			$mesActual = date("m", strtotime($fechaActual));
+			$anioActual = date("Y", strtotime($fechaActual));
+				//FOR CALCULO DE MORA y cuotas con atraso
+			$arrDatos = $this->model->getDatosPagosCuota();
+
+							for($i=0;$i<count($arrDatos);$i++){
+								$arrDatosDetalle = $this->model->getDatosPagosCuotaDetalle(intval($arrDatos[$i]['iddetalle']));
+
+								$iddetalle = $arrDatosDetalle[0]['iddetalle'];
+								$diaPago = date("d", strtotime($arrDatosDetalle[0]['fecha']));
+								$mesPago = date("m", strtotime($arrDatosDetalle[0]['fecha']));
+								$anioPago = date("Y", strtotime($arrDatosDetalle[0]['fecha']));
+
+								
+								$mesProximo = $arrDatosDetalle[0]['mes'] + 1;
+								$saldoMora =$arrDatosDetalle[0]['total'];
+
+								$diferenciaAnio = $anioActual - $anioPago;
+								$diferenciaDias = $diaActual - $diaPago;//3  6 
+								$diferenciaMes = $mesActual - $mesPago;//4  1
+
+								$cuotaspendientes = $this->model->getCuotasPendientes(intval($iddetalle));
+								if($cuotaspendientes[0]['total'] > 3){
+												
+									$arrPagos = $this->model->updateDetalleIncobrable(intval($iddetalle));
+
+								}else if($mesPago < $mesActual){
+
+											if($diferenciaAnio > 0){
+												$anioPago = $anioPago+1;
+												$diferenciaAnio = $diferenciaAnio-1;
+											}else{
+												$anioPago = $anioPago;
+											}
+											$fecha = $anioPago.'-'.($mesPago+1).'-'.$diaPago;
+
+											$arrTasa = $this->model->obtenerDatosPagos(intval($iddetalle));
+
+
+												if($diferenciaDias > 5){
+													$mora = round(($saldoMora*(5/100)));
+													$arrMora = $this->model->updateMora(intval($iddetalle),intval($mesPago),$mora);
+												}else{
+													$mora = 0;
+												}
+												$intereses = round(($arrDatosDetalle[0]['saldofinal'] * (($arrTasa[0]['tasa']/100)/12)),2);
+												$capital = round(($arrDatosDetalle[0]['cuota'] - $intereses),2);
+												$totalabono = $intereses + $capital+$mora;
+												$saldof = round(($arrDatosDetalle[0]['saldofinal']-$capital),2);
+
+											$cuota = $arrDatosDetalle[0]['cuota'];
+
+											$arrPagos = $this->model->insertPagoCuotaPendiente(intval($iddetalle),intval($mesProximo),$fecha,$cuota,$capital,$intereses,$totalabono,$saldof,$mora);	
+
+								}else{
+									if($diferenciaDias > 5){
+
+										$arrTasa = $this->model->obtenerDatosPagos(intval($iddetalle));
+
+											$mora = round(($saldoMora*(5/100)));
+											$intereses = round(($arrDatosDetalle[0]['saldofinal'] * (($arrTasa[0]['tasa']/100)/12)),2);
+												$capital = round(($arrDatosDetalle[0]['cuota'] - $intereses),2);
+												$totalabono = $intereses + $capital + $mora;
+
+											$arrMora = $this->model->updateMora(intval($iddetalle),intval($arrDatosDetalle[0]['mes']),$mora,$totalabono);
+										}
+								}
+							}//FIN
 		}
 
 		public function setPassword(){

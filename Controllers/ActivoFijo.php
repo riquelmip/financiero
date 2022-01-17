@@ -11,7 +11,7 @@
             if (empty($_SESSION['login'])) {
                 header('location: '.base_url().'/login');
             }
-            getPermisos(4); 
+            getPermisos(15); 
         }
 
         //Utilizamos en la vista

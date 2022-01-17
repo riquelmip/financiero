@@ -21,6 +21,7 @@
 					v.mes,
 					v.anio,
 					v.monto,
+					v.idusuario,
 					v.estado,
 					v.subtotal,
 					v.iva,
@@ -30,7 +31,6 @@
 					dv.formapago,
 					dv.total,
 					dv.meses,
-					dv.credito,
 					dv.cuota,
 					p.idproducto,
 					p.descripcion as producto,
@@ -47,6 +47,43 @@
 		}
 
 
+		public function selectempleadoCN(int $idusuario) 
+		{
+
+			$sql = "SELECT * from empleado e inner join usuario u on u.idempleado=e.idempleado where u.idusuario= $idusuario";
+			$request = $this->select_all($sql);
+
+			return $request;
+		}
+
+
+
+		public function selectPagos(int $iddetalle,int $estado) //Selecciona la categoria existente
+		{
+			$this->Intiddetalle = $iddetalle;
+			$this->estado = $estado;
+
+			$sql = "SELECT
+				pg.mes,
+				pg.fecha,
+				pg.fechapago,
+				pg.cuota,
+				pg.capital,
+				pg.intereses,
+				pg.mora,
+				pg.abonocapital,
+				pg.totalabono,
+				pg.saldofinal
+				FROM pagocuota pg
+				INNER JOIN detalleventa d on d.iddetalle = pg.iddetalle
+				WHERE d.iddetalle = $this->Intiddetalle and pg.estado=$this->estado";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+
+
+
 		public function selectVentaCJ(int $idventa) 
 		{
 
@@ -55,6 +92,7 @@
 					v.dia,
 					v.mes,
 					v.anio,
+					v.idusuario,
 					v.monto,
 					v.estado,
 					v.subtotal,
@@ -65,7 +103,6 @@
 					dv.formapago,
 					dv.total,
 					dv.meses,
-					dv.credito,
 					dv.cuota,
 					p.idproducto,
 					p.descripcion as producto,

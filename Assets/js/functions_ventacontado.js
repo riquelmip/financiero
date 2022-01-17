@@ -10,13 +10,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 $('#tableVentas').DataTable();
 
-
-
-
-
-
-
-
 function mostrarAyuda(){
     $('#modalAyuda').modal('show');
 }

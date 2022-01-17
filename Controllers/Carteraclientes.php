@@ -106,18 +106,12 @@
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				  
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
-					
-					if ($arrData[$i]['incobrable_persona_natural']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
+					$btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';
+
 					
 
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
 					$htmlDatosTabla.='<tr>
 			                            <td>'.$arrData[$i]['codigo_persona_natural'].'</td>
 										<td>'.$arrData[$i]['dui_persona_natural'].'</td>
@@ -147,19 +141,13 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_natural'];
 					 
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
 					   $btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   
-					   if ($arrData[$i]['incobrable_persona_natural']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
+					   $btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';   
+
 					
 
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
 				
 
 					$htmlDatosTabla.='<tr>
@@ -191,18 +179,13 @@
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				  
-				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
 					$btnRazon = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					if ($arrData[$i]['incobrable_persona_natural']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
+					$btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';	
+
 					
 
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEmbargo.'</div>';
 					
 				
 
@@ -235,18 +218,12 @@
 					$btnView = "";
 				 $dato = $arrData[$i]['codigo_persona_natural'];
 				  
-				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
-					
-				 if ($arrData[$i]['incobrable_persona_natural']==0) {
-					$valor = 0;
-					$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-				} else {
-					$valor = 1;
-					$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-				}
+				 $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
+				 $btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';	
+
 				
 
-				$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnInc.'</div>';
+				$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'  '.$btnEmbargo.'</div>';
 					
 				
 
@@ -284,19 +261,13 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					 
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
-					$btnFiador = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
+					$btnFiador = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';
 					
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
 					  
-					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.' '.$btnFiador.'</div>';
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnFiador.'</div>';
 
 					
 				
@@ -329,16 +300,11 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					 
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
+					   $btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';   
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnEmbargo.'</div>';
 					
 				
 
@@ -360,6 +326,81 @@
 			die();
 		}
 
+
+		public function setFiador(){ //Hace la insercion y edita
+			
+			$codigo =  $_POST['id_fiador'];
+			$nombrefiador =  $_POST['nombre_fiador'];
+			$direccionfiador =  $_POST['direccion_fiador'];
+			$duifiador =  $_POST['dui_fiador'];
+			$telefonofiador =  $_POST['telefono_fiador'];
+			if(isset($_FILES['boletapagofiador']) && $_FILES['boletapagofiador']['type']=='application/pdf'){
+				$userfile_extn = explode(".", strtolower($_FILES['boletapagofiador']['name']));
+				move_uploaded_file ($_FILES['boletapagofiador']['tmp_name'] , $_SERVER['DOCUMENT_ROOT'] .'/financiero/Assets/images/pdf/'. strClean($duifiador) . '.' . $userfile_extn[1]);
+			}
+			$variable = strClean($duifiador) . '.' . $userfile_extn[1];
+				$option = 1;
+			
+
+				$request_cat = $this->model->insertarfiador($nombrefiador,$direccionfiador,$duifiador,$telefonofiador,$variable,$codigo);
+
+			if($request_cat > 0 )
+			{
+				if($option == 1)
+				{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.');
+				}else{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos Actualizados correctamente.');
+				}
+			}else if($request_cat == 'exist'){
+				
+				$arrResponse = array('estado' => false, 'msg' => '¡Atención! El cargo ya existe.');
+			}else{
+				$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
+			}
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			
+			die();
+		}
+
+
+
+
+		public function setEmbargo(){ //Hace la insercion y edita
+			
+			$intId = 1;
+			$strCat =  $_POST['codigo2'];
+			$strCat2 =  $_POST['codigo22'];
+			$strCat3 =  $_POST['codigo23'];
+			if(isset($_FILES['documento12']) && $_FILES['documento12']['type']=='application/pdf'){
+				$userfile_extn = explode(".", strtolower($_FILES['documento12']['name']));
+				move_uploaded_file ($_FILES['documento12']['tmp_name'] , $_SERVER['DOCUMENT_ROOT'] .'/financiero/Assets/images/pdf/'. strClean($strCat) . '.' . $userfile_extn[1]);
+			}
+			$variable = strClean($strCat) . '.' . $userfile_extn[1];
+				$option = 1;
+			
+
+				$request_cat = $this->model->insertCargo($strCat,$variable,$strCat2,$strCat3);
+
+			if($request_cat > 0 )
+			{
+				if($option == 1)
+				{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.');
+				}else{
+					$arrResponse = array('estado' => true, 'msg' => 'Datos Actualizados correctamente.');
+				}
+			}else if($request_cat == 'exist'){
+				
+				$arrResponse = array('estado' => false, 'msg' => '¡Atención! El cargo ya existe.');
+			}else{
+				$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');
+			}
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			
+			die();
+		}
+
 		public function PersonaJuridicaC()
 		{
 			$comillas = "'";
@@ -370,17 +411,11 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					 
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
-					
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
+					$btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnEmbargo.'</div>';
 				
 
 					$htmlDatosTabla.='<tr>
@@ -411,17 +446,11 @@
 					$btnView = "";
 					$dato = $arrData[$i]['codigo_persona_juridica'];
 					 
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos Cliente"><i class="far fa-eye"></i></button>';
-					
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario2('.$comillas.$dato.$comillas.')" title="Ver Datos del Cliente"><i class="far fa-eye"></i></button>';
+					$btnEmbargo = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntFiador('.$comillas.$dato.$comillas.')" title="Agregar Fiador"><i class="fas fa-edit"></i></button>';
 					   $btnRazon = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntRazonFinanciera('.$comillas.$dato.$comillas.')" title="Ver Razones"><i class="fas fa-highlighter"></i></button>';
-					   if ($arrData[$i]['incobrable_persona_juridica']==0) {
-						$valor = 0;
-						$btnInc = '<button class="btn btn-danger btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Incobrable"><i class="fas fa-user-times"></i></button>';
-					} else {
-						$valor = 1;
-						$btnInc = '<button class="btn btn-success btn-sm btnViewUsuario" onClick="fntIncobrable('.$comillas.$dato.$comillas.','.$valor.')" title="Marcar Cobrable"><i class="fas fa-user-check"></i></button>';
-					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnInc.'</div>';
+
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnRazon.' '.$btnEmbargo.'</div>';
 					
 				
 
@@ -474,7 +503,3 @@
 
 
 	}
-
-    
-
- ?>

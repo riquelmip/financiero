@@ -9,7 +9,7 @@
 			if (empty($_SESSION['login'])) {
 				header('location: '.base_url().'/login');
 			}
-			getPermisos(8); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
+			getPermisos(6); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
 		}
 
 		public function Inventario()
@@ -36,13 +36,20 @@
 				for ($i=0; $i < count($arrData); $i++) {
 					
 					$stock="";
-
+					$stock = $arrData[$i]['stock'];
+					$bodega = $stock/2;
 					if($arrData[$i]['stock'] > 10){
 						$stock='<span class="badge badge-success">'.$arrData[$i]['stock'].'</span>';
 					}else{
 						$stock='<span class="badge badge-danger">'.$arrData[$i]['stock'].'</span>';
 					}
-
+					$arrData[$i]['bodega'] = intval($bodega);
+					if($arrData[$i]['bodega'] > 10){
+						$stock2='<span class="badge badge-success">'.$arrData[$i]['bodega'].'</span>';
+					}else{
+						$stock2='<span class="badge badge-danger">'.$arrData[$i]['bodega'].'</span>';
+					}
+					$arrData[$i]['bodega'] = $stock2;
 					$arrData[$i]['stock'] = $stock;
 				
 				}

@@ -9,7 +9,7 @@
 			if (empty($_SESSION['login'])) {
 				header('location: '.base_url().'/login');
 			}
-			getPermisos(13); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
+			getPermisos(7); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
 		}
 
 		public function Nuevaventa()
@@ -167,6 +167,7 @@
 							$formadepago = intval($value["tipoventa"]);
 							$cuota = floatval($value["cuota"]);
 							$meses = intval($value["meses"]);
+							$estadopago = intval($value["estadopago"]);
 
 							if ($formadepago == 1) {
 								if ($_SESSION['permisosMod']['escribir']) {
@@ -174,11 +175,21 @@
 									
 								}
 							}else if ($formadepago == 2){
-								$credito = 0.00;
+								
 								if ($_SESSION['permisosMod']['escribir']) {
-									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $credito, $meses);
+									$request_detalle = $this->model->insertDetalleCredito($idventa, $idproducto,$cantidad, $total, $formadepago, $cuota, $meses, $estadopago);
 
-									$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle, $total);
+								$request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle,0,0,0,0,0,0,$total,1,0);
+								
+								$arrPagos = $this->model->obtenerDatosPagos($idproducto);
+									$intereses = round(($total * (($arrPagos[0]['tasa']/100)/12)),2);
+								    $capital = round(($cuota - $intereses),2);
+								    $totalabono = $intereses + $capital;
+								    $saldof = round(($total-$capital),2);
+
+								 $request_detalle2 = $this->model->insertDetalleCreditoPagoCuota($request_detalle,1,$arrPagos[0]['fecha'] ,$cuota,$capital,$intereses,$totalabono,$saldof,0, 0);
+
+
 									
 								}
 							}
@@ -193,7 +204,7 @@
 								
 							}
 						}
-						$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.', 'idventa' => $request);
+						$arrResponse = array('estado' => true, 'msg' => 'Datos guardados correctamente.', 'idventa' => $request, 'tipoventa' => $formadepago);
 					
 					}else{
 						$arrResponse = array("estado" => false, "msg" => 'No es posible almacenar los datos.');

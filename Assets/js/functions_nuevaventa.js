@@ -193,11 +193,20 @@ document.addEventListener('DOMContentLoaded', function(){
                                 confirmButtonText: 'Ok!'
                               }, 
                               function(){
-                                
-                                   window.location.href = base_url+"/Ventas";
+                                    if (objData.tipoventa == 1) {
+                                        window.location.href = base_url+"/Ventas";
+                                    }else{
+                                        window.location.href = base_url+"/Creditos";
+                                    }
+                                   
 
                               });
-                            window.open(base_url+"/Consultas/imprimirticket/"+objData.idventa);
+                                if (objData.tipoventa == 1) {
+                                        window.open(base_url+"/Consultas/imprimirticket/"+objData.idventa);
+                                    }else{
+                                        //window.location.href = base_url+"/Creditos";
+                                    }
+                            
                            
                         }else{
                             swal("Error", objData.msg , "error");
@@ -269,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 let codigo = document.querySelector('#codigobarra').value;
                 let cantidad = document.querySelector('#cantidad').value;
                 let precio = document.querySelector('#precio').innerHTML;
-                let preciot = document.querySelector('#preciot').innerHTML;
+                let preciot = parseFloat(document.querySelector('#preciot').innerHTML);
                 let descripcion = document.querySelector('#descripcion').innerHTML;
                 let stock = document.querySelector('#stock').innerHTML;
 
@@ -295,12 +304,16 @@ document.addEventListener('DOMContentLoaded', function(){
                         let cuota;
                         let forma = parseInt(document.querySelector('#listFormaPago').value);
                         let tipoventa;
+                        let estadopago;
                         if (forma == 1) {
                             cuota = parseFloat(0.00);
+                            estadopago = null;
                             tipoventa = "Contado";
                         }else{
                             cuota = parseFloat(document.querySelector('#txtcuota').value);
                             tipoventa = "Crédito";
+                            estadopago = "";
+                            preciot = cuota * parseInt(document.querySelector('#txtmeses').value); 
                         }
 
                         contadordet++;
@@ -311,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function(){
                                     '<td class="col-md-1 text-center" id="stock-'+idproducto+'">'+stock+'</td>'+
                                     '<td class="col-md-1 text-center" id="cantidad-'+idproducto+'">'+cantidad+'</td>'+
                                     '<td class="col-md-1 text-center" id="precio-'+idproducto+'">'+precio+'</td>'+
-                                    '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot+'</td>'+
+                                    '<td class="col-md-1 text-center" id="preciot-'+idproducto+'">'+preciot.toFixed(2)+'</td>'+
                                     '<td class="col-md-1 text-center" id="tipoventa-'+idproducto+'">'+tipoventa+'</td>'+
                                     '<td class="col-md-1 text-center" id="cuota-'+idproducto+'">'+cuota.toFixed(2)+'</td>'+
                                     '<td class="col-md-1 text-center"><button onClick="fntDel(\'' +idproducto+'-'+contadordet+ '\')" class="btn btn-danger btnEliminarDet" type="button"><i class="fas fa-trash-alt"></i></button></td>'+
@@ -338,7 +351,8 @@ document.addEventListener('DOMContentLoaded', function(){
                                         "preciototal":parseFloat(preciot).toFixed(2),
                                         "cuota": parseFloat(cuota).toFixed(2),
                                         "tipoventa": parseInt(forma),
-                                        "meses": parseInt(document.querySelector('#txtmeses').value)
+                                        "meses": parseInt(document.querySelector('#txtmeses').value),
+                                        "estadopago": estadopago
                                         });
                    } //fin else
                     

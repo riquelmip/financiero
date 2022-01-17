@@ -97,7 +97,49 @@ function fntViewUsuario2(idpersona){
 
 function fntFiador(idpersona){
     console.log(idpersona);
+    document.querySelector("#id_fiador").value = idpersona;
     $('#modalFormFiador').modal('show');
+    
+    var formCargos = document.querySelector("#formFiador");
+    formCargos.onsubmit = function(e) {
+        e.preventDefault();
+  
+        var strNombre = document.querySelector('#nombre_fiador').value;
+        
+        if(strNombre == '')
+        {
+            swal("Atención", "Todos los campos son obligatorios." , "error");
+            return false;
+        }
+        divLoading.style.display = "flex";
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/Carteraclientes/setFiador'; 
+        var formData = new FormData(formCargos);
+        request.open("POST",ajaxUrl,true);
+        request.send(formData);
+        request.onreadystatechange = function(){
+           if(request.readyState == 4 && request.status == 200){
+                
+                var objData = JSON.parse(request.responseText);
+                if(objData.estado)
+                {
+                    
+                    $('#modalEmbargo').modal("hide");
+                    formCargos.reset();
+                    
+                    swal("Embargos", objData.msg ,"success");
+                    location.reload();
+  
+                }else{
+                    swal("Error", objData.msg , "error");
+                }              
+            } 
+            divLoading.style.display = "none";
+            return false;
+        }
+  
+        
+    }
 
 }
 
