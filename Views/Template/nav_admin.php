@@ -55,6 +55,24 @@
             </li>
         <?php } ?>
 
+        <?php if (!empty($_SESSION['permisos'][4]['leer']) || !empty($_SESSION['permisos'][14]['r'])) { ?>
+            <li class="treeview">
+                <a class="app-menu__item" href="#" data-toggle="treeview">
+                    <i class="app-menu__icon fa fa-wrench" aria-hidden="true"></i>
+                    <span class="app-menu__label">Activo Fijo</span>
+                    <i class="treeview-indicator fa fa-angle-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                <?php if (!empty($_SESSION['permisos'][4]['leer'])) { ?>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/activofijo"><i class="icon fa fa-circle-o"></i> Activo Fijo</a></li>
+                <?php } ?>
+                <?php if (!empty($_SESSION['permisos'][14]['leer'])) { ?>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/nuevoactivofijo"><i class="icon fa fa-circle-o"></i> Nuevo Activo Fijo</a></li>
+                <?php } ?>
+                </ul>
+            </li>
+        <?php } ?>
+
         <?php if (!empty($_SESSION['permisos'][5]['leer']) || !empty($_SESSION['permisos'][10]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
