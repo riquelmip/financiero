@@ -225,13 +225,14 @@
 		    return $request;			
 		}
 
-		public function updateMora(int $iddetalle,int $mes,$mora){
+		public function updateMora(int $iddetalle,int $mes,$mora,$totalabono){
 			$this->Intiddetalle = $iddetalle;
 			$this->mes = $mes;
 			$this->Mora = $mora;
+			$this->totalabono = $totalabono;
 			
-				$sql = "UPDATE pagocuota SET mora = ? WHERE iddetalle = $this->Intiddetalle and mes = $this->mes";
-				$arrData = array($this->Mora);
+				$sql = "UPDATE pagocuota SET mora = ?, totalabono = ? WHERE iddetalle = $this->Intiddetalle and mes = $this->mes";
+				$arrData = array($this->Mora, $this->totalabono);
 				$request = $this->update($sql,$arrData);
 			
 		    return $request;			

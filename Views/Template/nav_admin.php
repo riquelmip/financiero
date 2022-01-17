@@ -40,7 +40,7 @@
         <?php if (!empty($_SESSION['permisos'][4]['leer']) || !empty($_SESSION['permisos'][14]['r'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-wrench" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-user-tie" aria-hidden="true"></i>
                     <span class="app-menu__label">Empleados</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -58,7 +58,7 @@
         <?php if (!empty($_SESSION['permisos'][4]['leer']) || !empty($_SESSION['permisos'][14]['r'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-wrench" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-landmark " aria-hidden="true"></i>
                     <span class="app-menu__label">Activo Fijo</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -76,7 +76,7 @@
         <?php if (!empty($_SESSION['permisos'][5]['leer']) || !empty($_SESSION['permisos'][10]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-cart-arrow-down" aria-hidden="true"></i>
                     <span class="app-menu__label">Compras</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -95,7 +95,7 @@
         <?php if (!empty($_SESSION['permisos'][5]['leer']) || !empty($_SESSION['permisos'][10]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-dolly" aria-hidden="true"></i>
                     <span class="app-menu__label">Inventario</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -112,7 +112,7 @@
         <?php if (!empty($_SESSION['permisos'][7]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-truck-moving" aria-hidden="true"></i>
                     <span class="app-menu__label">Ventas</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -128,10 +128,27 @@
                 </ul>
             </li>
         <?php } ?>
+
+        <?php if (!empty($_SESSION['permisos'][5]['leer']) || !empty($_SESSION['permisos'][10]['leer'])) { ?>
+            <li class="treeview">
+                <a class="app-menu__item" href="#" data-toggle="treeview">
+                    <i class="app-menu__icon fas fa-money-check-alt " aria-hidden="true"></i>
+                    <span class="app-menu__label">Créditos</span>
+                    <i class="treeview-indicator fa fa-angle-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                <?php if (!empty($_SESSION['permisos'][5]['leer'])) { ?>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/Creditos/creditosCartera"><i class="icon fa fa-circle-o"></i>Cartera de créditos</a></li>
+                  
+                <?php  } ?>
+
+                </ul>
+            </li>
+        <?php } ?>
         <?php if (!empty($_SESSION['permisos'][8]['leer'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-wrench" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-id-card-alt" aria-hidden="true"></i>
                     <span class="app-menu__label">Clientes</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -148,7 +165,7 @@
         <?php if (!empty($_SESSION['permisos'][9]['leer']) || !empty($_SESSION['permisos'][11]['r']) || !empty($_SESSION['permisos'][12]['r'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-wrench" aria-hidden="true"></i>
+                    <i class="app-menu__icon fas fa-box-open" aria-hidden="true"></i>
                     <span class="app-menu__label">Productos</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>

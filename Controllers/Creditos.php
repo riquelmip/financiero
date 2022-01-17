@@ -12,8 +12,8 @@
 			getPermisos(8); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
 		}
 
-		public function Creditos()
-		{
+		public function Creditos(){
+
 			//si no tiene permiso de usuarios, lo rediccionara
 			if (empty($_SESSION['permisosMod']['leer'])) {
 				header('location: '.base_url().'/dashboard');
@@ -26,8 +26,7 @@
 			$this->views->getView($this,"creditos",$data);
 		}
 
-		public function creditosIncobrables()
-		{
+		public function creditosIncobrables(){
 			//si no tiene permiso de usuarios, lo rediccionara
 			if (empty($_SESSION['permisosMod']['leer'])) {
 				header('location: '.base_url().'/dashboard');
@@ -35,9 +34,22 @@
 			$data['page_id'] = 11;
 			$data['page_tag'] = "Créditos Incobrables";
 			$data['page_name'] = "creditosincobrables";
-			$data['page_title'] = "Créditos Incobrables";
+			$data['page_title'] = "Cartera de Incobrables";
 			$data['page_functions_js'] = "functions_creditosincobrables.js";
 			$this->views->getView($this,"creditosincobrables",$data);
+		}
+
+		public function creditosCartera(){
+			//si no tiene permiso de usuarios, lo rediccionara
+			if (empty($_SESSION['permisosMod']['leer'])) {
+				header('location: '.base_url().'/dashboard');
+			}
+			$data['page_id'] = 11;
+			$data['page_tag'] = "Cartera de Créditos";
+			$data['page_name'] = "creditoscartera";
+			$data['page_title'] = "Cartera Créditos";
+			$data['page_functions_js'] = "functions_carteracreditos.js";
+			$this->views->getView($this,"carteracreditos",$data);
 		}
 
 		//Obtener total de CLientes...
@@ -57,12 +69,101 @@
 					}
 
 					if ($_SESSION['permisosMod']['leer']) {
-						$btnView = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
-						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Nota Credito"><i class="fas fa-money-check-alt"></i></button>';
+						$btnView = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+
+						$btnView2 = '<button class="btn btn-info btn-sm btnVerTablaPagos" onClick="verNotaCredito('.$arrData[$i]['iddetalle'].')" title="Nota Credito"><i class="fas fa-file-invoice-dollar"></i></button>';
 					}
 
 					//agregamos los botones
 					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnEdit.' '.$btnView.' '.$btnView2.'</div>';
+
+				
+				}
+
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+		public function getTotalCreditos(){
+
+			if ($_SESSION['permisosMod']['leer']) {
+
+				$arrData = $this->model->selectTotalCreditos();
+
+				for ($i=0; $i < count($arrData); $i++) {
+
+					if($arrData[$i]['estadopago'] == 1){
+						$estado='<span class="badge badge-success">Cancelado</span>';
+					}else{
+						if($arrData[$i]['estadopago'] == 2){
+						
+							$estado='<span class="badge badge-warning">Incobrable</span>';
+						
+						}else{
+							if($arrData[$i]['estadopago'] == 3){
+								$estado='<span class="badge badge-danger">Embargado</span>';
+							}else{
+								$estado='<span class="badge badge-info">Activo</span>';
+							}
+							
+						}
+						
+					}
+										
+					$btnView ="";
+					//si tiene permiso de editar se agrega el botn
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+					}
+
+					//agregamos los botones
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
+					$arrData[$i]['estadopago'] = $estado;
+
+				
+				}
+
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+		public function getTotalCreditosDos(){
+
+			if ($_SESSION['permisosMod']['leer']) {
+
+				$arrData = $this->model->selectTotalCreditosDos();
+
+				for ($i=0; $i < count($arrData); $i++) {
+
+					if($arrData[$i]['estadopago'] == 1){
+						$estado='<span class="badge badge-success">Cancelado</span>';
+					}else{
+						if($arrData[$i]['estadopago'] == 2){
+						
+							$estado='<span class="badge badge-warning">Incobrable</span>';
+						
+						}else{
+							if($arrData[$i]['estadopago'] == 3){
+								$estado='<span class="badge badge-danger">Embargado></i></span>';
+							}else{
+								$estado='<span class="badge badge-info">Activo></i></span>';
+							}
+							
+						}
+						
+					}
+										
+					$btnView ="";
+					//si tiene permiso de editar se agrega el botn
+					if ($_SESSION['permisosMod']['leer']) {
+						$btnView = '<button class="btn btn-success btn-sm btnVerTablaPagos" onClick="fntVerPagos('.$arrData[$i]['iddetalle'].')" title="Ver"><i class="fas fa-money-check-alt"></i></button>';
+					}
+
+					//agregamos los botones
+					$arrData[$i]['opciones'] = '<div class="text-center">'.$btnView.'</div>';
+					$arrData[$i]['estadopago'] = $estado;
 
 				
 				}
@@ -182,6 +283,15 @@
 				   $arrayDatos = array('estado' => false, 'msg' => 'Datos no encontrados.');
 				}else{
 					for ($i = 0; $i < count($arrData); $i++) {
+
+							if($arrData[$i]['estado'] == 1){
+								$estado='<span class="badge badge-success"><i class="  fas fa-check-square "></i></span>';
+							}else{
+								$estado='<span class="badge badge-danger"><i class="  fas fa-window-close "></i></span>';
+							}
+
+							$arrData[$i]['estado']=$estado;
+
 							$htmlDatosTabla .= '<tr>
 												<td>' . $arrData[$i]['mes'] . '</td>
 												<td>' . $arrData[$i]['fecha'] . '</td>
@@ -193,6 +303,7 @@
 												<td>$ ' . $arrData[$i]['abonocapital'] . '</td>
 												<td>$ ' . $arrData[$i]['totalabono'] . '</td>
 												<td>$ ' . $arrData[$i]['saldofinal'] . '</td>
+												<td>' . $arrData[$i]['estado'] . '</td>
 											 </tr>';
 					}
 
@@ -245,16 +356,16 @@
 		}else{
 
 			$totalRegistros = count($arrData);
-			$mes = $arrData[0]['mesPago'];
+			$mes = $arrData[0]['mesPago'];//3
 			$anio = $arrData[0]['anio'];
 			$diaPago=$arrData[0]['dia'];
 			$id=$arrData[0]['iddetalle'];
-			$cantcuotas = $arrData[0]['meses'] - ($mes);
+			$cantcuotas = $arrData[0]['meses'] - ($mes);//6
 
 			if($mes==1){
 				$mesInicio = $arrData[0]['mesinicio'];
 			}else{
-				$mesInicio = $arrData[0]['mesinicio'] + ($mes);
+				$mesInicio = $arrData[0]['mesinicio'] + ($mes-1);//2
 			}
 
 
@@ -266,7 +377,7 @@
 
 			$arrData[0]['totalCuotas'] = $totalRegistros;
 
-			for ($i = 0; $i < $cantcuotas; $i++) {
+			for ($i = 0; $i <= $cantcuotas; $i++) {
 				$btnPago = "";
 				//si tiene permiso de editar se agrega el botn
 				
@@ -333,6 +444,7 @@
            	$meses = intval($_POST['meses']);
            	$abonoCapital = $_POST['abonoCapital'];
            	$fechapago = date("Y-m-d");
+           	$mora =  $_POST['mora'];
 
 	        $arrData = $this->model->selectCredito(intval(strClean($iddetalle)));
 			$cuotaspendientes = count($arrData);

@@ -39,6 +39,24 @@
 			return $request;
 		}
 
+		public function selectTotalCreditos(){
+
+			$sql = "SELECT d.iddetalle,
+					p.descripcion,
+					c.codigo_persona_natural as dui,
+					CONCAT(c.nombre_persona_natural,' ',c.apellido_persona_natural) as nombreCliente,
+					CONCAT(v.dia,'-',v.mes,'-',v.anio) as fecha_inicio,
+					d.total,
+					d.estadopago
+					FROM detalleventa d 
+					INNER JOIN venta v on v.idventa = d.idventa
+					INNER JOIN producto p on p.idproducto = d.idproducto
+					INNER JOIN tbl_persona_natural c on c.codigo_persona_natural = v.idclientenat
+					WHERE d.formapago = 2 and v.tipocliente=1";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
 		public function selectCreditosIncobrables(){
 
 			$sql = "SELECT d.iddetalle,
@@ -83,6 +101,24 @@
 			return $request;
 		}
 
+		public function selectTotalCreditosDos(){
+
+			$sql = "SELECT d.iddetalle,
+					p.descripcion,
+					c.codigo_persona_juridica as dui,
+					c.nombre_empresa_persona_juridica as nombreCliente,
+					CONCAT(v.dia,'-',v.mes,'-',v.anio) as fecha_inicio,
+					d.total,
+					d.estadopago
+					FROM detalleventa d 
+					INNER JOIN venta v on v.idventa = d.idventa
+					INNER JOIN producto p on p.idproducto = d.idproducto
+					INNER JOIN tbl_persona_juridica c on c.codigo_persona_juridica = v.idclientejuridico
+					WHERE d.formapago = 2 and v.tipocliente=2";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
 		public function selectCreditosDosIncobrables(){
 
 			$sql = "SELECT d.iddetalle,
@@ -115,7 +151,8 @@
 				d.cuota,
 				ct.tasainteres as tasa,
 				pg.saldofinal,
-				d.meses
+				d.meses,
+				pg.mora
 				FROM venta v
 				INNER JOIN detalleventa d on d.idventa = v.idventa
 				INNER JOIN producto p on p.idproducto = d.idproducto
@@ -139,7 +176,8 @@
 				d.cuota,
 				ct.tasainteres as tasa,
 				pg.saldofinal,
-				d.meses
+				d.meses,
+				pg.mora
 				FROM venta v
 				INNER JOIN detalleventa d on d.idventa = v.idventa
 				INNER JOIN producto p on p.idproducto = d.idproducto
@@ -165,10 +203,11 @@
 				pg.mora,
 				pg.abonocapital,
 				pg.totalabono,
-				pg.saldofinal
+				pg.saldofinal,
+				pg.estado
 				FROM pagocuota pg
 				INNER JOIN detalleventa d on d.iddetalle = pg.iddetalle
-				WHERE d.iddetalle = $this->Intiddetalle and pg.estado=$this->estado";
+				WHERE d.iddetalle = $this->Intiddetalle";
 			$request = $this->select_all($sql);
 			return $request;
 		}

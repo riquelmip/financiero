@@ -286,8 +286,15 @@
 
 								}else{
 									if($diferenciaDias > 5){
+
+										$arrTasa = $this->model->obtenerDatosPagos(intval($iddetalle));
+
 											$mora = round(($saldoMora*(5/100)));
-											$arrMora = $this->model->updateMora(intval($iddetalle),intval($arrDatosDetalle[0]['mes']),$mora);
+											$intereses = round(($arrDatosDetalle[0]['saldofinal'] * (($arrTasa[0]['tasa']/100)/12)),2);
+												$capital = round(($arrDatosDetalle[0]['cuota'] - $intereses),2);
+												$totalabono = $intereses + $capital + $mora;
+
+											$arrMora = $this->model->updateMora(intval($iddetalle),intval($arrDatosDetalle[0]['mes']),$mora,$totalabono);
 										}
 								}
 							}//FIN

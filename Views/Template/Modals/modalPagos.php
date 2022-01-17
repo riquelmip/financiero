@@ -24,6 +24,7 @@
                             <th style="text-align: center; color: black;">Abono Capital($)</th>
                             <th style="text-align: center; color: black;">Total Abono($)</th>
                             <th style="text-align: center; color: black;">Saldo($)</th>
+                            <th style="text-align: center; color: black;">Estado</th>
                           </tr>
                         </thead>
                         <tbody id="datos_tabla_pago" style="text-align: center">
