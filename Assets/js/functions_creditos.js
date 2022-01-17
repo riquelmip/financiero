@@ -168,7 +168,10 @@ function fntVerPagos(iddetalle){
 
 
 
+function verNotaCredito(idventa){
 
+  window.open(base_url+"/Consultas/imprimirnotaCREDITO/"+idventa);
+}
 
 function fntPagosCredito(iddetalle){
 

@@ -100,6 +100,7 @@ function verNota(idventa){
 }
 
 
+
 function mostrarAyuda(){
     $('#modalAyuda').modal('show');
 }
