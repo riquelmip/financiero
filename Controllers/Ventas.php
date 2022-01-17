@@ -9,7 +9,7 @@
 			if (empty($_SESSION['login'])) {
 				header('location: '.base_url().'/login');
 			}
-			getPermisos(13); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
+			getPermisos(7); //tiene parametro 2 porque es el de usuario, osea que lo estamos poniendo junto, ya que si tiene acceso a usuario tiene a roles
 		}
 
 		public function Ventas()
